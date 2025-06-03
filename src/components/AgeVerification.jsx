@@ -35,13 +35,13 @@ const AgeVerification = ({ onVerified }) => {
   const primaryColor = 'rgb(34, 32, 87)';
   const primaryLight = 'rgb(54, 52, 107)';
   const primaryDark = 'rgb(24, 22, 77)';
-  const accentColor = 'rgb(150, 150, 255)';
+  const accentColor = 'rgb(100, 200, 255)';
   const textPrimary = 'rgb(250, 250, 255)';
   const textSecondary = 'rgba(250, 250, 255, 0.7)';
   const textTertiary = 'rgba(250, 250, 255, 0.5)';
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center p-4 z-50">
+    <div className="fixed inset-0 flex items-center justify-center p-4 z-[999]">
       {/* Background with image and glow effects */}
       <div className="absolute inset-0">
         <div 
@@ -50,28 +50,31 @@ const AgeVerification = ({ onVerified }) => {
         ></div>
         
         {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/60 backdrop-blur-md"></div>
+        <div className="absolute inset-0  backdrop-blur-lg"></div>
         
         {/* Decorative glow elements */}
         <div 
           className="absolute top-20 left-0 w-64 h-64 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"
-          style={{ backgroundColor: `rgba(${primaryLight}, 0.15)` }}
+          style={{ backgroundColor: `rgba(100, 200, 255, 0.15)` }}
         ></div>
         <div 
           className="absolute bottom-20 right-0 w-80 h-80 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"
-          style={{ backgroundColor: `rgba(${primaryLight}, 0.15)` }}
+          style={{ backgroundColor: `rgba(100, 200, 255, 0.15)` }}
         ></div>
       </div>
       
       {/* Verification card */}
       <div 
-        className="relative w-full max-w-md rounded-xl overflow-hidden"
-        style={{ border: `1px solid rgba(${primaryLight}, 0.3)` }}
+        className="relative w-full max-w-md rounded-2xl overflow-hidden border border-indigo-600/30 shadow-2xl"
+        style={{ 
+          
+          boxShadow: '0 20px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(100, 200, 255, 0.15)'
+        }}
       >
         {/* Frosted glass effect */}
         <div 
           className="absolute inset-0 backdrop-blur-lg z-0"
-          style={{ backgroundColor: `rgba(${primaryColor}, 0.65)` }}
+          
         ></div>
         
         {/* Content */}
@@ -81,30 +84,34 @@ const AgeVerification = ({ onVerified }) => {
             <img 
               src="/assets/logo.png" 
               alt="GOAT Vodka" 
-              className="w-24 h-24 object-contain"
+              className="w-28 h-28 object-contain drop-shadow-lg"
             />
           </div>
           
           <h1 
-            className="text-3xl font-serif font-bold mb-2 tracking-wider"
-            style={{ color: textPrimary }}
+            className="text-3xl font-serif font-bold mb-2 tracking-wider text-center"
+            style={{ 
+              color: accentColor,
+              textShadow: '0 2px 10px rgba(100, 200, 255, 0.3)'
+            }}
           >
             AGE VERIFICATION
           </h1>
+          <div className="flex justify-center my-4">
+            <div className="w-24 h-1 rounded-full" style={{ 
+              background: `linear-gradient(to right, transparent, ${accentColor}, transparent)` 
+            }}></div>
+          </div>
           <p 
-            className="text-sm tracking-widest mb-8 uppercase"
+            className="text-sm tracking-widest mb-8 uppercase text-center"
             style={{ color: textSecondary }}
           >
             To access GOAT Vodka, please verify your age
           </p>
           
           <div className="mb-8">
-            <div 
-              className="w-20 h-px mx-auto mb-6"
-              style={{ backgroundColor: `rgba(${primaryLight}, 0.5)` }}
-            ></div>
             <p 
-              className="text-sm mb-6"
+              className="text-sm mb-6 text-center"
               style={{ color: textSecondary }}
             >
               You must be at least 21 years old to enter this website
@@ -113,8 +120,8 @@ const AgeVerification = ({ onVerified }) => {
           
           <div className="mb-8">
             <label 
-              className="block text-left mb-2 text-sm"
-              style={{ color: textSecondary }}
+              className="block text-left mb-2 text-sm uppercase tracking-wider"
+              style={{ color: accentColor }}
             >
               DATE OF BIRTH
             </label>
@@ -122,14 +129,17 @@ const AgeVerification = ({ onVerified }) => {
               type="date"
               value={birthDate}
               onChange={(e) => setBirthDate(e.target.value)}
-              className="w-full p-3 rounded-lg focus:outline-none focus:ring-2"
+              className="w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2"
               style={{ 
-                backgroundColor: `rgba(${primaryDark}, 0.8)`,
+                backgroundColor: `rgba(24, 22, 77, 0.7)`,
                 color: textPrimary,
-                border: `1px solid rgba(${primaryLight}, 0.3)`,
-                boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.2)',
+                border: `1px solid rgba(100, 200, 255, 0.2)`,
+                boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.3), 0 2px 6px rgba(0,0,0,0.1)',
+                borderRadius: '12px',
+                fontSize: '1rem',
                 focusBorderColor: accentColor,
-                focusRing: `2px solid rgba(${accentColor}, 0.3)`
+                focusRing: `2px solid rgba(100, 200, 255, 0.4)`,
+                focusRingOffset: `2px`
               }}
             />
           </div>
@@ -139,37 +149,51 @@ const AgeVerification = ({ onVerified }) => {
             disabled={isVerifying}
             onMouseEnter={() => setButtonHover(true)}
             onMouseLeave={() => setButtonHover(false)}
-            className="w-full py-3 px-6 rounded-lg font-medium transition-all duration-300 focus:outline-none"
+            className="w-full py-4 px-6 rounded-xl font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 relative overflow-hidden"
             style={{
               background: isVerifying 
-                ? `linear-gradient(to right, ${primaryDark}, ${primaryColor})`
-                : buttonHover
-                  ? `linear-gradient(to right, ${primaryLight}, ${primaryColor})`
-                  : `linear-gradient(to right, ${primaryColor}, ${primaryDark})`,
+                ? primaryDark
+                : `linear-gradient(135deg, rgba(100, 200, 255, 0.2), rgba(100, 200, 255, 0.05))`,
               color: textPrimary,
-              boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-              transform: buttonHover && !isVerifying ? 'translateY(-2px)' : 'none'
+              border: `1px solid rgba(100, 200, 255, 0.3)`,
+              boxShadow: buttonHover && !isVerifying 
+                ? '0 6px 15px rgba(100, 200, 255, 0.3), inset 0 0 15px rgba(100, 200, 255, 0.1)' 
+                : '0 4px 10px rgba(0,0,0,0.2), inset 0 0 10px rgba(100, 200, 255, 0.05)',
+              transform: buttonHover && !isVerifying ? 'translateY(-3px)' : 'none',
+              focusRing: `2px solid rgba(100, 200, 255, 0.4)`,
+              focusRingOffset: `2px`
             }}
           >
-            {isVerifying ? (
-              <span className="flex items-center justify-center">
-                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                VERIFYING...
-              </span>
-            ) : (
-              "ENTER SITE"
+            <span className="relative z-10 flex items-center justify-center">
+              {isVerifying ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  VERIFYING...
+                </>
+              ) : (
+                "ENTER SITE"
+              )}
+            </span>
+            {/* Animated background */}
+            {!isVerifying && (
+              <div 
+                className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-500"
+                style={{
+                  background: `linear-gradient(90deg, transparent, rgba(100, 200, 255, 0.15), transparent)`
+                }}
+              ></div>
             )}
           </button>
           
           <div 
             className="mt-8 pt-6"
-            style={{ borderTop: `1px solid rgba(${primaryLight}, 0.2)` }}
+            style={{ borderTop: `1px solid rgba(100, 200, 255, 0.2)` }}
           >
             <p 
-              className="text-xs"
+              className="text-xs text-center"
               style={{ color: textTertiary }}
             >
               By entering this site, you acknowledge that you are of legal drinking age and agree to our 
@@ -181,13 +205,31 @@ const AgeVerification = ({ onVerified }) => {
               </span>
             </p>
             <p 
-              className="mt-3 text-xs italic"
+              className="mt-3 text-xs italic text-center"
               style={{ color: textTertiary }}
             >
               Please enjoy responsibly
             </p>
           </div>
         </div>
+        
+        {/* Decorative corner elements */}
+        <div 
+          className="absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2"
+          style={{ borderColor: accentColor }}
+        ></div>
+        <div 
+          className="absolute top-0 right-0 w-12 h-12 border-t-2 border-r-2"
+          style={{ borderColor: accentColor }}
+        ></div>
+        <div 
+          className="absolute bottom-0 left-0 w-12 h-12 border-b-2 border-l-2"
+          style={{ borderColor: accentColor }}
+        ></div>
+        <div 
+          className="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2"
+          style={{ borderColor: accentColor }}
+        ></div>
       </div>
     </div>
   );
