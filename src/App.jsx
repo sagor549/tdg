@@ -36,19 +36,32 @@ const App = () => {
     <div className="min-h-screen relative overflow-hidden">
       {/* Fixed background layers */}
       <div className="fixed inset-0 -z-10">
-        {/* Background image */}
+        {/* Background image - now visible */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ 
-            backgroundImage: `url('/assets/bg5.png')`,
+            backgroundImage: `url('/assets/bgb.png')`,
+            zIndex: 0 // Ensure it's the bottom layer
           }}
         ></div>
         
-        {/* Blur overlay */}
-        <div className="absolute inset-0 bg-black/30 backdrop-blur-lg z-0"></div>
+        {/* Lighter overlay with reduced opacity */}
+        <div 
+          className="absolute inset-0 z-0"
+          style={{
+            // Reduced opacity
+            backdropFilter: 'blur(8px)'
+          }}
+        ></div>
       
-      {/* Decorative glow elements */}
-      <div className="absolute top-20 left-0 w-64 h-64 bg-amber-400/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+        {/* Decorative glow element */}
+        <div 
+          className="absolute top-20 left-0 w-64 h-64 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"
+          style={{ 
+            backgroundColor: 'rgba(100, 200, 255, 0.15)',
+            zIndex: 1
+          }}
+        ></div>
       </div>
       
       {/* Content container */}

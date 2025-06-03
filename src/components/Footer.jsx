@@ -1,9 +1,22 @@
 import React from 'react';
 import { Instagram, Mail, Phone } from 'lucide-react';
 
+// Theme colors
+const primaryColor = 'rgb(34, 32, 87)';
+const primaryLight = 'rgb(54, 52, 107)';
+const accentColor = 'rgb(100, 200, 255)';
+const textPrimary = 'rgb(250, 250, 255)';
+const textSecondary = 'rgba(250, 250, 255, 0.7)';
+
 const Footer = () => {
   return (
-    <footer className="bg-black pt-16 pb-8 border-t border-amber-800/30">
+    <footer 
+      className="pt-16 pb-8 bg-black"
+      style={{ 
+        
+        borderTop: '1px solid rgba(100, 200, 255, 0.2)'
+      }}
+    >
       <div className="max-w-7xl mx-auto px-4">
         {/* Main footer content */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
@@ -15,7 +28,10 @@ const Footer = () => {
                 alt="GOAT Vodka" 
                 className="w-28 h-28 mb-6 filter brightness-125"
               />
-              <p className="text-amber-200 text-lg max-w-md text-center md:text-left">
+              <p 
+                className="text-lg max-w-md text-center md:text-left"
+                style={{ color: textSecondary }}
+              >
                 The undisputed champion of premium vodkas. Distilled for those who refuse to settle for silver.
               </p>
             </div>
@@ -23,25 +39,33 @@ const Footer = () => {
           
           {/* Contact column */}
           <div className="text-center md:text-left">
-            <h3 className="text-xl font-bold text-amber-400 mb-6 pb-2 border-b border-amber-800/40 inline-block">
+            <h3 
+              className="text-xl font-bold mb-6 pb-2 inline-block"
+              style={{ 
+                color: accentColor,
+                borderBottom: '1px solid rgba(100, 200, 255, 0.2)'
+              }}
+            >
               Contact Us
             </h3>
             <ul className="space-y-4">
               <li>
                 <a 
                   href="mailto:Akravtz@gmail.com" 
-                  className="text-amber-200 hover:text-amber-400 transition-colors flex items-center justify-center md:justify-start"
+                  className="hover:text-indigo-400 transition-colors flex items-center justify-center md:justify-start"
+                  style={{ color: textSecondary }}
                 >
-                  <Mail size={20} className="mr-3 text-amber-500" />
+                  <Mail size={20} className="mr-3" style={{ color: accentColor }} />
                   Akravtz@gmail.com
                 </a>
               </li>
               <li>
                 <a 
                   href="tel:+19059553119" 
-                  className="text-amber-200 hover:text-amber-400 transition-colors flex items-center justify-center md:justify-start"
+                  className="hover:text-indigo-400 transition-colors flex items-center justify-center md:justify-start"
+                  style={{ color: textSecondary }}
                 >
-                  <Phone size={20} className="mr-3 text-amber-500" />
+                  <Phone size={20} className="mr-3" style={{ color: accentColor }} />
                   +1 905 955 3119
                 </a>
               </li>
@@ -50,7 +74,13 @@ const Footer = () => {
           
           {/* Social column */}
           <div className="text-center md:text-left">
-            <h3 className="text-xl font-bold text-amber-400 mb-6 pb-2 border-b border-amber-800/40 inline-block">
+            <h3 
+              className="text-xl font-bold mb-6 pb-2 inline-block"
+              style={{ 
+                color: accentColor,
+                borderBottom: '1px solid rgba(100, 200, 255, 0.2)'
+              }}
+            >
               Follow The GOAT
             </h3>
             <div className="flex flex-col space-y-4">
@@ -60,16 +90,29 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="group flex items-center justify-center md:justify-start"
               >
-                <div className="w-10 h-10 rounded-full bg-amber-900/50 flex items-center justify-center group-hover:bg-amber-800 transition-all mr-3">
-                  <Instagram size={20} className="text-amber-400 group-hover:text-amber-300" />
+                <div 
+                  className="w-10 h-10 rounded-full flex items-center justify-center mr-3 transition-all"
+                  style={{ 
+                    backgroundColor: 'rgba(100, 200, 255, 0.1)',
+                    border: '1px solid rgba(100, 200, 255, 0.2)'
+                  }}
+                >
+                  <Instagram 
+                    size={20} 
+                    className="group-hover:text-indigo-300 transition-colors"
+                    style={{ color: accentColor }}
+                  />
                 </div>
-                <span className="text-amber-200 group-hover:text-amber-400 transition-colors">
+                <span 
+                  className="group-hover:text-indigo-400 transition-colors"
+                  style={{ color: textSecondary }}
+                >
                   @goatvodka
                 </span>
               </a>
               
               <div className="mt-4">
-                <p className="text-amber-500 text-sm">
+                <p className="text-sm" style={{ color: accentColor }}>
                   Distilled and bottled by Premium Distillery Group
                 </p>
               </div>
@@ -78,18 +121,21 @@ const Footer = () => {
         </div>
         
         {/* Divider */}
-        <div className="w-full h-px bg-gradient-to-r from-transparent via-amber-800/50 to-transparent my-8"></div>
+        <div 
+          className="w-full h-px my-8"
+          style={{ background: 'linear-gradient(to right, transparent, rgba(100, 200, 255, 0.3), transparent)' }}
+        ></div>
         
         {/* Copyright section */}
         <div className="flex flex-col-reverse md:flex-row justify-between items-center">
           <div className="text-center md:text-left mt-6 md:mt-0">
-            <p className="text-gray-500 text-sm">
+            <p className="text-sm" style={{ color: 'rgba(250, 250, 255, 0.5)' }}>
               Copyright © 2024. GOAT Vodka™ • All Rights Reserved
             </p>
           </div>
           
           <div className="text-center">
-            <p className="text-amber-600 text-sm italic">
+            <p className="text-sm italic" style={{ color: accentColor }}>
               Please drink responsibly. Must be 21+ to consume alcohol.
             </p>
           </div>
@@ -97,8 +143,14 @@ const Footer = () => {
         
         {/* Decorative elements */}
         <div className="absolute bottom-0 left-0 w-full overflow-hidden h-16 pointer-events-none">
-          <div className="absolute bottom-10 left-1/4 w-48 h-48 bg-amber-400/5 rounded-full blur-xl"></div>
-          <div className="absolute bottom-5 right-1/3 w-32 h-32 bg-amber-600/5 rounded-full blur-xl"></div>
+          <div 
+            className="absolute bottom-10 left-1/4 w-48 h-48 rounded-full blur-xl"
+            style={{ backgroundColor: 'rgba(100, 200, 255, 0.05)' }}
+          ></div>
+          <div 
+            className="absolute bottom-5 right-1/3 w-32 h-32 rounded-full blur-xl"
+            style={{ backgroundColor: 'rgba(100, 200, 255, 0.05)' }}
+          ></div>
         </div>
       </div>
     </footer>

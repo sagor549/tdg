@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
+// Theme colors
+const primaryColor = 'rgb(34, 32, 87)';
+const primaryLight = 'rgb(54, 52, 107)';
+const accentColor = 'rgb(100, 200, 255)';
+const textPrimary = 'rgb(250, 250, 255)';
+const textSecondary = 'rgba(250, 250, 255, 0.7)';
+
 const CocktailSection = () => {
   const [currentCocktail, setCurrentCocktail] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
@@ -116,17 +123,27 @@ const CocktailSection = () => {
   };
 
   return (
-    <section id="cocktails" className="py-16 md:py-24 relative overflow-hidden ">
-      {/* Decorative elements */}
+    <section 
+      id="cocktails" 
+      className="py-16 md:py-24 relative overflow-hidden"
       
-      
+    >
       <div className="max-w-7xl mx-auto px-4 relative z-10">
         <div className="text-center mb-12 md:mb-20">
-          <h2 className="text-4xl md:text-5xl font-bold text-amber-400 mb-4 font-serif tracking-tight">
+          <h2 
+            className="text-4xl md:text-5xl font-bold mb-4 font-serif tracking-tight"
+            style={{ color: accentColor }}
+          >
             Signature Cocktails
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-transparent via-amber-500 to-transparent mx-auto mb-6"></div>
-          <p className="text-amber-200 text-lg md:text-xl max-w-2xl mx-auto">
+          <div 
+            className="w-24 h-1 mx-auto mb-6"
+            style={{ background: `linear-gradient(to right, transparent, ${accentColor}, transparent)` }}
+          ></div>
+          <p 
+            className="text-lg md:text-xl max-w-2xl mx-auto"
+            style={{ color: textSecondary }}
+          >
             Championship-worthy cocktails crafted for those who dominate the night
           </p>
         </div>
@@ -137,25 +154,33 @@ const CocktailSection = () => {
             <div className="flex justify-between items-center mb-6 px-2">
               <button
                 onClick={prevCocktail}
-                className="bg-amber-900/80 text-amber-300 p-3 rounded-full hover:bg-amber-800 transition-all z-20 border border-amber-700/50 shadow-lg"
+                className="p-3 rounded-full hover:bg-indigo-800 transition-all z-20 shadow-lg"
+                style={{ 
+                  backgroundColor: primaryLight,
+                  border: `1px solid rgba(100, 200, 255, 0.3)`
+                }}
               >
-                <ChevronLeft size={24} strokeWidth={1.5} />
+                <ChevronLeft size={24} strokeWidth={1.5} style={{ color: accentColor }} />
               </button>
               
               <div className="text-center">
-                <h3 className="text-2xl font-bold text-amber-100">
+                <h3 className="text-2xl font-bold" style={{ color: textPrimary }}>
                   {cocktails[currentCocktail].name}
                 </h3>
-                <p className="text-amber-400 text-sm mt-1">
+                <p className="text-sm mt-1" style={{ color: accentColor }}>
                   {cocktails[currentCocktail].tagline}
                 </p>
               </div>
               
               <button
                 onClick={nextCocktail}
-                className="bg-amber-900/80 backdrop-blur-sm text-amber-300 p-3 rounded-full hover:bg-amber-800 transition-all z-20 border border-amber-700/50 shadow-lg"
+                className="p-3 rounded-full hover:bg-indigo-800 transition-all z-20 shadow-lg"
+                style={{ 
+                  backgroundColor: primaryLight,
+                  border: `1px solid rgba(100, 200, 255, 0.3)`
+                }}
               >
-                <ChevronRight size={24} strokeWidth={1.5} />
+                <ChevronRight size={24} strokeWidth={1.5} style={{ color: accentColor }} />
               </button>
             </div>
           )}
@@ -165,26 +190,43 @@ const CocktailSection = () => {
             <>
               <button
                 onClick={prevCocktail}
-                className="absolute -left-16 top-1/2 transform -translate-y-1/2 bg-amber-900/80 backdrop-blur-sm text-amber-300 p-4 rounded-full hover:bg-amber-800 transition-all z-20 border border-amber-700/50 shadow-lg"
+                className="absolute -left-16 top-1/2 transform -translate-y-1/2 p-4 rounded-full transition-all z-20 shadow-lg"
+                style={{ 
+                  backgroundColor: primaryLight,
+                  border: `1px solid rgba(100, 200, 255, 0.3)`
+                }}
               >
-                <ChevronLeft size={32} strokeWidth={1.5} />
+                <ChevronLeft size={32} strokeWidth={1.5} style={{ color: accentColor }} />
               </button>
               
               <button
                 onClick={nextCocktail}
-                className="absolute -right-16 top-1/2 transform -translate-y-1/2 bg-amber-900/80 backdrop-blur-sm text-amber-300 p-4 rounded-full hover:bg-amber-800 transition-all z-20 border border-amber-700/50 shadow-lg"
+                className="absolute -right-16 top-1/2 transform -translate-y-1/2 p-4 rounded-full transition-all z-20 shadow-lg"
+                style={{ 
+                  backgroundColor: primaryLight,
+                  border: `1px solid rgba(100, 200, 255, 0.3)`
+                }}
               >
-                <ChevronRight size={32} strokeWidth={1.5} />
+                <ChevronRight size={32} strokeWidth={1.5} style={{ color: accentColor }} />
               </button>
             </>
           )}
           
           {/* Cocktail Card */}
-          <div className="bg-black/30 backdrop-blur-xl rounded-2xl overflow-hidden border border-amber-800/30 shadow-2xl">
+          <div 
+            className="backdrop-blur-xl rounded-2xl overflow-hidden shadow-2xl"
+            style={{ 
+              backgroundColor: 'rgba(54, 52, 107, 0.5)',
+              border: `1px solid rgba(100, 200, 255, 0.2)`
+            }}
+          >
             <div className="grid lg:grid-cols-2 gap-6 md:gap-10 p-6 md:p-10">
               {/* Cocktail Image */}
               <div className="relative">
-                <div className="relative aspect-square rounded-xl overflow-hidden border-2 border-amber-700/20 shadow-lg">
+                <div 
+                  className="relative aspect-square rounded-xl overflow-hidden shadow-lg"
+                  style={{ border: `2px solid rgba(100, 200, 255, 0.1)` }}
+                >
                   <img
                     src={cocktails[currentCocktail].image}
                     alt={cocktails[currentCocktail].name}
@@ -193,8 +235,14 @@ const CocktailSection = () => {
                 </div>
                 
                 {!isMobile && (
-                  <div className="absolute -bottom-4 -right-4 bg-amber-900/90 backdrop-blur-sm px-6 py-2 rounded-full border border-amber-700/50">
-                    <h3 className="text-2xl font-bold text-amber-100 whitespace-nowrap">
+                  <div 
+                    className="absolute -bottom-4 -right-4 backdrop-blur-sm px-6 py-2 rounded-full"
+                    style={{ 
+                      backgroundColor: 'rgba(54, 52, 107, 0.7)',
+                      border: `1px solid rgba(100, 200, 255, 0.3)`
+                    }}
+                  >
+                    <h3 className="text-2xl font-bold whitespace-nowrap" style={{ color: textPrimary }}>
                       {cocktails[currentCocktail].name}
                     </h3>
                   </div>
@@ -204,46 +252,61 @@ const CocktailSection = () => {
               {/* Cocktail Details */}
               <div className="py-2 md:py-4">
                 {!isMobile && (
-                  <p className="text-amber-400 italic mb-4 md:mb-6 text-lg">
+                  <p className="italic mb-4 md:mb-6 text-lg" style={{ color: accentColor }}>
                     {cocktails[currentCocktail].tagline}
                   </p>
                 )}
                 
                 <div className="grid md:grid-cols-2 gap-6 md:gap-8">
                   <div>
-                    <h4 className="text-xl font-bold text-amber-300 mb-3 pb-2 border-b border-amber-700/40">
+                    <h4 
+                      className="text-xl font-bold mb-3 pb-2"
+                      style={{ 
+                        color: accentColor,
+                        borderBottom: `1px solid rgba(100, 200, 255, 0.2)`
+                      }}
+                    >
                       Ingredients
                     </h4>
                     <ul className="space-y-2 md:space-y-3">
                       {cocktails[currentCocktail].ingredients.map((ingredient, index) => (
                         <li key={index} className="flex items-start">
-                          <span className="text-amber-500 mr-2 mt-1">•</span>
-                          <span className="text-amber-100">{ingredient}</span>
+                          <span className="mr-2 mt-1" style={{ color: accentColor }}>•</span>
+                          <span style={{ color: textPrimary }}>{ingredient}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
                   
                   <div>
-                    <h4 className="text-xl font-bold text-amber-300 mb-3 pb-2 border-b border-amber-700/40">
+                    <h4 
+                      className="text-xl font-bold mb-3 pb-2"
+                      style={{ 
+                        color: accentColor,
+                        borderBottom: `1px solid rgba(100, 200, 255, 0.2)`
+                      }}
+                    >
                       Quick Build
                     </h4>
                     <ol className="space-y-2 md:space-y-3">
                       {cocktails[currentCocktail].instructions.map((step, index) => (
                         <li key={index} className="flex">
-                          <span className="text-amber-500 font-bold mr-3 flex-shrink-0">
+                          <span className="font-bold mr-3 flex-shrink-0" style={{ color: accentColor }}>
                             {index + 1}.
                           </span>
-                          <span className="text-amber-100">{step}</span>
+                          <span style={{ color: textPrimary }}>{step}</span>
                         </li>
                       ))}
                     </ol>
                   </div>
                 </div>
                 
-                <div className="mt-6 md:mt-8 pt-4 md:pt-6 border-t border-amber-800/30">
-                  <p className="text-amber-500 text-sm italic">
-                    <span className="font-bold">Pro Tip:</span> Always use fresh ingredients and premium GOAT Vodka for championship-level cocktails
+                <div 
+                  className="mt-6 md:mt-8 pt-4 md:pt-6"
+                  style={{ borderTop: `1px solid rgba(100, 200, 255, 0.2)` }}
+                >
+                  <p className="text-sm italic" style={{ color: accentColor }}>
+                    <span className="font-bold" style={{ color: textPrimary }}>Pro Tip:</span> Always use fresh ingredients and premium GOAT Vodka for championship-level cocktails
                   </p>
                 </div>
               </div>
@@ -257,10 +320,13 @@ const CocktailSection = () => {
                 key={index}
                 onClick={() => setCurrentCocktail(index)}
                 className={`w-3 h-3 rounded-full transition-all ${
-                  index === currentCocktail 
-                    ? 'bg-amber-400 scale-125' 
-                    : 'bg-amber-800 hover:bg-amber-600'
+                  index === currentCocktail ? 'scale-125' : 'hover:opacity-75'
                 }`}
+                style={{ 
+                  backgroundColor: index === currentCocktail 
+                    ? accentColor 
+                    : 'rgba(100, 200, 255, 0.3)'
+                }}
                 aria-label={`Go to cocktail ${index + 1}`}
               />
             ))}

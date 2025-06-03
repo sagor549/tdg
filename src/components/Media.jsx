@@ -61,15 +61,15 @@ const Media = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 py-16 relative top-10">
       <div className="text-center mb-12">
-        <h2 className="text-4xl font-bold text-amber-500 mb-4 font-serif">Gallery Showcase</h2>
-        <div className="w-32 h-1 bg-gradient-to-r from-amber-600 via-amber-400 to-amber-600 mx-auto mb-6"></div>
-        <p className="text-amber-200 max-w-2xl mx-auto text-lg">
-          Premium moments captured in golden frames
+        <h2 className="text-4xl font-bold text-indigo-400 mb-4 font-serif">Gallery Showcase</h2>
+        <div className="w-32 h-1 bg-gradient-to-r from-indigo-600 via-indigo-400 to-indigo-600 mx-auto mb-6"></div>
+        <p className="text-indigo-200 max-w-2xl mx-auto text-lg">
+          Premium moments captured in elegant frames
         </p>
       </div>
       
       {/* Stylish Container */}
-      <div className="bg-gradient-to-br from-amber-900/30 to-black/50 border border-amber-800/30 rounded-2xl shadow-2xl p-6">
+      <div className="bg-gradient-to-br from-indigo-900/30 to-black/50 border border-indigo-800/30 rounded-2xl shadow-2xl p-6">
         {/* Image Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
           {imagePaths.map((img, index) => (
@@ -91,15 +91,15 @@ const Media = () => {
               {/* Hover overlay with shine effect */}
               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <div className="absolute bottom-0 left-0 right-0 p-3 text-center">
-                  <span className="text-amber-200 font-medium">View</span>
+                  <span className="text-indigo-200 font-medium">View</span>
                 </div>
               </div>
               
               {/* Corner accents */}
-              <div className="absolute top-2 left-2 w-6 h-6 border-t-2 border-l-2 border-amber-500 opacity-70"></div>
-              <div className="absolute top-2 right-2 w-6 h-6 border-t-2 border-r-2 border-amber-500 opacity-70"></div>
-              <div className="absolute bottom-2 left-2 w-6 h-6 border-b-2 border-l-2 border-amber-500 opacity-70"></div>
-              <div className="absolute bottom-2 right-2 w-6 h-6 border-b-2 border-r-2 border-amber-500 opacity-70"></div>
+              <div className="absolute top-2 left-2 w-6 h-6 border-t-2 border-l-2 border-indigo-500 opacity-70"></div>
+              <div className="absolute top-2 right-2 w-6 h-6 border-t-2 border-r-2 border-indigo-500 opacity-70"></div>
+              <div className="absolute bottom-2 left-2 w-6 h-6 border-b-2 border-l-2 border-indigo-500 opacity-70"></div>
+              <div className="absolute bottom-2 right-2 w-6 h-6 border-b-2 border-r-2 border-indigo-500 opacity-70"></div>
             </div>
           ))}
         </div>
@@ -110,7 +110,7 @@ const Media = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           {/* Backdrop with gradient */}
           <div 
-            className="absolute inset-0 bg-gradient-to-br from-black/95 to-amber-900/30"
+            className="absolute inset-0 bg-gradient-to-br from-black/95 to-indigo-900/30"
             onClick={closeLightbox}
           />
           
@@ -118,7 +118,7 @@ const Media = () => {
           <div className="relative z-10 w-full max-w-5xl">
             {/* Navigation Arrows */}
             <button 
-              className="absolute left-0 -translate-x-full top-1/2 -translate-y-1/2 p-4 rounded-full bg-black/40 text-white hover:text-amber-300 hover:bg-black/60 transition-all"
+              className="absolute left-0 -translate-x-full top-1/2 -translate-y-1/2 p-4 rounded-full bg-black/40 text-white hover:text-indigo-300 hover:bg-black/60 transition-all"
               onClick={(e) => {
                 e.stopPropagation();
                 navigate('prev');
@@ -142,7 +142,7 @@ const Media = () => {
             </div>
             
             <button 
-              className="absolute right-0 translate-x-full top-1/2 -translate-y-1/2 p-4 rounded-full bg-black/40 text-white hover:text-amber-300 hover:bg-black/60 transition-all"
+              className="absolute right-0 translate-x-full top-1/2 -translate-y-1/2 p-4 rounded-full bg-black/40 text-white hover:text-indigo-300 hover:bg-black/60 transition-all"
               onClick={(e) => {
                 e.stopPropagation();
                 navigate('next');
@@ -157,7 +157,7 @@ const Media = () => {
 
           {/* Close Button - More subtle */}
           <button 
-            className="absolute top-6 right-6 p-2 text-white hover:text-amber-300 transition-all z-20"
+            className="absolute top-6 right-6 p-2 text-white hover:text-indigo-300 transition-all z-20"
             onClick={closeLightbox}
             aria-label="Close lightbox"
           >
