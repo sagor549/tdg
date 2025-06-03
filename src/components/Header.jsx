@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
-import logo from "/assets/logo.png";
+import logo from "/assets/logo1.png";
 
 const Header = ({ currentPage, setCurrentPage, onHeightChange }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -98,7 +98,7 @@ const Header = ({ currentPage, setCurrentPage, onHeightChange }) => {
                 }`}
                 style={{ 
                   fontFamily: "'Playfair Display', serif",
-                  color: "#818cf8",
+                  color: "#272162",
                   WebkitBackgroundClip: 'text',
                   
                 }}
@@ -111,7 +111,7 @@ const Header = ({ currentPage, setCurrentPage, onHeightChange }) => {
                 }`}
                 style={{
                   fontFamily: "'Montserrat', sans-serif",
-                  color: '#818cf8',
+                  color: '#272162',
                   letterSpacing: '0.3em'
                 }}
               >

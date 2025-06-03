@@ -1,170 +1,305 @@
 import React, { useRef, useEffect, useState } from 'react';
 
 const HeroSection = () => {
-  const videoRef = useRef(null);
   const containerRef = useRef(null);
+  const goatRef = useRef(null);
+  const vodkaRef = useRef(null);
+  const bottleRef = useRef(null);
+  const taglineRef = useRef(null);
+  const greatestRef = useRef(null);
+  const descriptionRef = useRef(null);
+  const videoRef = useRef(null);
   const [isLoaded, setIsLoaded] = useState(false);
   
   // Theme colors
   const primaryColor = 'rgb(34, 32, 87)';
-  const primaryLight = 'rgb(54, 52, 107)';
   const accentColor = 'rgb(100, 200, 255)';
   const textPrimary = 'rgb(250, 250, 255)';
   const textSecondary = 'rgba(250, 250, 255, 0.7)';
-  
-  // Set up video autoplay and zoom effect
+
   useEffect(() => {
-    // Start zoom effect immediately
-    const timer = setTimeout(() => {
+    // Simple animations without GSAP (since it's not available)
+    const animateElements = () => {
       setIsLoaded(true);
-    }, 300);
-    
-    // Start video autoplay after content appears
-    if (videoRef.current) {
-      videoRef.current.play().catch(error => {
-        console.log('Autoplay prevented:', error);
-      });
-    }
-    
+      
+      // Animate tagline
+      if (taglineRef.current) {
+        taglineRef.current.style.transform = 'translateY(0)';
+        taglineRef.current.style.opacity = '1';
+      }
+      
+      // Animate GOAT text
+      if (goatRef.current) {
+        setTimeout(() => {
+          goatRef.current.style.transform = 'translateY(0) scale(1)';
+          goatRef.current.style.opacity = '1';
+        }, 300);
+      }
+      
+      // Animate Vodka text
+      if (vodkaRef.current) {
+        setTimeout(() => {
+          vodkaRef.current.style.transform = 'translateY(0) scale(1)';
+          vodkaRef.current.style.opacity = '1';
+        }, 500);
+      }
+      
+      // Animate bottle
+      if (bottleRef.current) {
+        setTimeout(() => {
+          bottleRef.current.style.transform = 'translateY(0) scale(1)';
+          bottleRef.current.style.opacity = '1';
+        }, 700);
+      }
+      
+      // Animate greatest text
+      if (greatestRef.current) {
+        setTimeout(() => {
+          greatestRef.current.style.transform = 'translateY(0) scale(1)';
+          greatestRef.current.style.opacity = '1';
+        }, 900);
+      }
+      
+      // Animate description
+      if (descriptionRef.current) {
+        setTimeout(() => {
+          descriptionRef.current.style.transform = 'translateY(0)';
+          descriptionRef.current.style.opacity = '1';
+        }, 1200);
+      }
+      
+      // Animate video
+      if (videoRef.current) {
+        setTimeout(() => {
+          videoRef.current.style.transform = 'translateY(0) scale(1)';
+          videoRef.current.style.opacity = '1';
+        }, 1500);
+      }
+    };
+
+    const timer = setTimeout(animateElements, 100);
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <section 
       ref={containerRef}
-      className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden pt-7 pb-16 px-4"
+      className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden pt-20 pb-16 px-4"
     >
-      {/* Animated texture background */}
+      {/* Premium tagline */}
       <div 
-        className={`absolute inset-0 z-0 transition-all duration-[3000ms] ${
-          isLoaded ? 'scale-110' : 'scale-100'
-        }`}
+        ref={taglineRef}
+        className="relative z-10 mb-8 transition-all duration-1000 ease-out"
+        style={{ 
+          transform: 'translateY(30px)', 
+          opacity: 0,
+          color: accentColor 
+        }}
       >
-        <div 
-          className="w-full h-full opacity-20"
-          style={{
-            backgroundImage: `url('/assets/texture.jpg')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
-          }}
-        ></div>
-      </div>
-      
-      {/* Background gradient overlay */}
-      <div className="absolute inset-0 z-0 "></div>
-      
-      {/* Content container */}
-      <div className={`relative z-10 max-w-5xl w-full text-center transition-all duration-1000 ${
-        isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-      }`}>
-        {/* Tagline */}
-        <p 
-          className="tracking-[0.3em] uppercase text-sm mb-6 font-light"
-          style={{ color: accentColor }}
-        >
+        <p className="tracking-[0.4em] uppercase text-sm font-light">
           PREMIUM SPIRITS COLLECTION
         </p>
-        
-        {/* Main title with elegant typography */}
-        <div className="relative mb-8">
-          <h1 
-            className="text-6xl md:text-7xl lg:text-8xl font-serif font-bold mb-2 tracking-tight"
-            style={{ color: textPrimary }}
-          >
-            <span className="block">GOAT</span>
-            <span className="block mt-2">VODKA</span>
-          </h1>
-          
-          {/* Decorative elements */}
-          <div 
-            className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-24 h-1"
-            style={{ background: `linear-gradient(90deg, transparent, ${accentColor}, transparent)` }}
-          ></div>
-          <div 
-            className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-16 h-1"
-            style={{ backgroundColor: accentColor }}
-          ></div>
-        </div>
-        
-        {/* Subtitle */}
-        <p 
-          className="text-xl md:text-2xl tracking-wider font-light mb-12"
-          style={{ color: textSecondary }}
-        >
-          GREATEST OF ALL TIME
-        </p>
-        
-        {/* Divider */}
         <div 
-          className="w-32 h-px mx-auto my-12"
-          style={{ background: `linear-gradient(90deg, transparent, ${accentColor}, transparent)` }}
+          className="w-24 h-px mx-auto mt-3"
+          style={{ backgroundColor: accentColor }}
         ></div>
+      </div>
+
+      {/* Main GOAT layout - Centered text with bottle close beside */}
+      <div className="relative z-10 flex items-center justify-center mb-12 w-full max-w-5xl">
         
-        {/* Description */}
-        <div className="max-w-2xl mx-auto mb-16">
-          <p 
-            className="text-lg md:text-xl font-light tracking-wide leading-relaxed"
-            style={{ color: textSecondary }}
+        {/* GOAT VODKA Text Block - Centered */}
+        <div className="flex flex-col items-center mr-6">
+          {/* GOAT text */}
+          <div 
+            ref={goatRef}
+            className="relative transition-all duration-1000 ease-out mb-2"
+            style={{ 
+              transform: 'translateY(-50px) scale(0.8)', 
+              opacity: 0 
+            }}
           >
-            Crafted with precision, distilled to perfection. The ultimate vodka experience for connoisseurs who appreciate excellence in every sip.
-          </p>
+            <h1 
+              className="text-7xl md:text-8xl lg:text-9xl font-serif font-bold tracking-tight leading-none text-center"
+              style={{ 
+                color: textPrimary,
+                textShadow: '0 0 30px rgba(100, 200, 255, 0.3)'
+              }}
+            >
+              GOAT
+            </h1>
+          </div>
+
+          {/* Vodka text */}
+          <div 
+            ref={vodkaRef}
+            className="relative transition-all duration-1000 ease-out"
+            style={{ 
+              transform: 'translateY(30px) scale(0.8)', 
+              opacity: 0 
+            }}
+          >
+            <h2 
+              className="text-4xl md:text-5xl lg:text-6xl font-serif font-light tracking-wide text-center"
+              style={{ 
+                color: textPrimary,
+                textShadow: '0 0 20px rgba(100, 200, 255, 0.5)'
+              }}
+            >
+              Vodka
+            </h2>
+          </div>
+        </div>
+
+        {/* Bottle image with Greatest text */}
+        <div className="relative">
+          {/* Bottle */}
+          <div 
+            ref={bottleRef}
+            className="relative transition-all duration-1000 ease-out"
+            style={{ 
+              transform: 'translateY(50px) scale(0.8)', 
+              opacity: 0 
+            }}
+          >
+            <div className="relative">
+              <img 
+                src="/assets/bottle.png" 
+                alt="GOAT Vodka Bottle" 
+                className="w-32 md:w-40 lg:w-48 h-auto filter drop-shadow-2xl"
+              />
+              
+              {/* Bottle glow effect */}
+              <div 
+                className="absolute inset-0 rounded-full blur-3xl opacity-20 pointer-events-none"
+                style={{
+                  background: 'radial-gradient(circle, rgb(100, 200, 255) 0%, transparent 70%)'
+                }}
+              ></div>
+            </div>
+          </div>
+
+          {/* Greatest of All Time text - positioned at bottom right of bottle */}
+          <div 
+            ref={greatestRef}
+            className="absolute bottom-0 left-full ml-2 transition-all duration-1000 ease-out"
+            style={{ 
+              transform: 'translateY(20px) scale(0.8)', 
+              opacity: 0 
+            }}
+          >
+            <div className="text-right">
+            <p
+  className="hidden lg:block text-xs md:text-sm font-light tracking-wider leading-tight"
+  style={{
+    color: textSecondary,
+    writingMode: 'vertical-rl',
+    textOrientation: 'mixed',
+  }}
+>
+  GREATEST<br/>OF ALL<br/>TIME
+</p>
+
+            </div>
+          </div>
         </div>
       </div>
-      
-      {/* Video section positioned below the title */}
-      <div className={`relative z-10 w-full max-w-4xl mb-8 transition-all duration-1000 delay-300 ${
-        isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-      }`}>
+
+      {/* Description */}
+      <div 
+        ref={descriptionRef}
+        className="relative z-10 max-w-2xl mx-auto mb-16 text-center transition-all duration-1000 ease-out"
+        style={{ 
+          transform: 'translateY(30px)', 
+          opacity: 0 
+        }}
+      >
+        <p 
+          className="text-lg md:text-xl font-light tracking-wide leading-relaxed"
+          style={{ color: textSecondary }}
+        >
+          Crafted with precision, distilled to perfection. The ultimate vodka experience for connoisseurs who appreciate excellence in every sip.
+        </p>
+      </div>
+
+      {/* Video section */}
+      <div 
+        ref={videoRef}
+        className="relative z-10 w-full max-w-4xl transition-all duration-1000 ease-out"
+        style={{ 
+          transform: 'translateY(50px) scale(0.95)', 
+          opacity: 0 
+        }}
+      >
         <div 
-          className="relative rounded-xl overflow-hidden shadow-2xl transform transition-all duration-700 hover:shadow-blue-900/50"
-          style={{ boxShadow: `0 25px 50px -12px rgba(0, 0, 0, 0.5)` }}
+          className="relative rounded-2xl overflow-hidden shadow-2xl"
+          style={{ 
+            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 40px rgba(100, 200, 255, 0.2)',
+            border: '1px solid rgba(100, 200, 255, 0.2)'
+          }}
         >
           <video
-            ref={videoRef}
             className="w-full aspect-video object-cover"
             muted
             loop
+            autoPlay
             playsInline
-            disablePictureInPicture
-            disableRemotePlayback
           >
             <source src="/assets/video.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
           
-          {/* Border effect */}
-          <div 
-            className="absolute inset-0 pointer-events-none rounded-xl"
-            style={{ border: `1px solid rgba(255, 255, 255, 0.1)` }}
-          ></div>
-          
-          {/* Play icon overlay */}
-          <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
-            <div 
-              className="w-20 h-20 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center"
-              style={{ border: `2px solid ${accentColor}` }}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" viewBox="0 0 20 20" fill="currentColor" style={{ color: accentColor }}>
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
-              </svg>
+          {/* Video overlay for interactivity */}
+          <div className="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity duration-300">
+            <div className="absolute bottom-4 left-4">
+              <div 
+                className="px-4 py-2 rounded-full backdrop-blur-sm"
+                style={{ 
+                  backgroundColor: 'rgba(34, 32, 87, 0.8)',
+                  border: '1px solid rgb(100, 200, 255)'
+                }}
+              >
+                <span className="text-white text-sm tracking-wide">WATCH EXPERIENCE</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      
-      {/* Decorative elements */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center">
+
+      {/* Decorative scroll indicator */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce">
         <div 
-          className="text-sm mb-2 tracking-widest"
+          className="text-xs mb-2 tracking-widest opacity-60"
           style={{ color: accentColor }}
         >
-          SCROLL
+          DISCOVER MORE
         </div>
         <div 
-          className="w-px h-16"
-          style={{ background: `linear-gradient(to bottom, ${accentColor}, transparent)` }}
+          className="w-px h-12 opacity-60"
+          style={{ background: 'linear-gradient(to bottom, ' + accentColor + ', transparent)' }}
         ></div>
       </div>
+
+      {/* Floating particles effect */}
+      {[...Array(6)].map((_, i) => (
+        <div
+          key={i}
+          className="absolute w-1 h-1 rounded-full opacity-20"
+          style={{
+            backgroundColor: accentColor,
+            left: (20 + i * 15) + '%',
+            top: (30 + (i % 3) * 20) + '%',
+            animation: 'float ' + (3 + i * 0.5) + 's ease-in-out infinite alternate'
+          }}
+        ></div>
+      ))}
+
+      <style jsx>{`
+        @keyframes float {
+          0% { transform: translateY(0px) scale(1); }
+          100% { transform: translateY(-20px) scale(1.1); }
+        }
+      `}</style>
     </section>
   );
 };

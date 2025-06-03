@@ -47,9 +47,7 @@ const AboutSection = () => {
             className="max-w-4xl mx-auto text-lg leading-relaxed font-montserrat"
             style={{ color: textSecondary }}
           >
-            GOAT Vodka™ is the first ultra-premium vodka crafted for champions. Distilled seven times through 
-            charcoal filtration, GOAT delivers the smoothest, pureest taste with a full-bodied character that 
-            never fails to impress.
+            GOAT Vodka™ is the ultimate expression of ultra-premium vodka — crafted for those who lead. Distilled seven times and charcoal-filtered for unmatched purity, it offers a crisp, clean finish with a bold, refined character. GOAT Vodka isn’t just smooth — it’s legendary.
           </p>
         </div>
 
@@ -73,18 +71,13 @@ const AboutSection = () => {
               className="mb-6 leading-relaxed font-montserrat"
               style={{ color: textSecondary }}
             >
-              Deep in the heart of premium distilleries, where the spirit of vodka craftsmanship thrives, 
-              a new legend is born. GOAT Vodka Master Select is created from the desire to forge a new path. 
-              Distilled seven times through premium charcoal filters, it embodies the ambitions of its creators.
+             In the heart of elite distilleries, where tradition meets innovation, a new legend rises — GOAT Vodka Master Select. Born from a bold vision to redefine excellence, it is distilled seven times through the finest charcoal filters, capturing the spirit and ambition of its creators in every drop.
             </p>
             <p 
               className="mb-8 leading-relaxed font-montserrat"
               style={{ color: textSecondary }}
             >
-              Crafted with meticulous care by master distillers, this is not just vodka, but a legacy. 
-              Pouring their passion and expertise into every bottle, they ensure that with every sip, 
-              the smooth, refined flavor leaves an impression as enduring as the GOAT itself—a mighty 
-              symbol of strength and excellence.
+              Crafted with precision by master distillers, GOAT Vodka is more than just a spirit — it’s a legacy in a bottle. Every drop reflects their unwavering passion and expertise, delivering a smooth, refined flavor that lingers long after the sip. Like the GOAT itself, it stands as a symbol of strength, mastery, and unmatched excellence.
             </p>
             
             <div className="flex items-center space-x-4">
