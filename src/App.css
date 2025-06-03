@@ -1,0 +1,60 @@
+import React, { useState } from 'react';
+import AgeVerification from './components/AgeVerification';
+import Header from './components/Header';
+import Home from './components/Home';
+import Media from './components/Media';
+import Blog from './components/Blog';
+import Contact from './components/Contact';
+
+const App = () => {
+  const [showAgeVerification, setShowAgeVerification] = useState(true);
+  const [currentPage, setCurrentPage] = useState('home');
+  const [headerHeight, setHeaderHeight] = useState(112); // Initial header height (7rem = 112px)
+
+  if (showAgeVerification) {
+    return (
+      <AgeVerification 
+        onVerified={() => setShowAgeVerification(false)} 
+      />
+    );
+  }
+
+  const renderPage = () => {
+    switch(currentPage) {
+      case 'media':
+        return <Media headerHeight={headerHeight} />;
+      case 'blog':
+        return <Blog headerHeight={headerHeight} />;
+      case 'contact':
+        return <Contact headerHeight={headerHeight} />;
+      default:
+        return <Home headerHeight={headerHeight} />;
+    }
+  };
+
+  return (
+    <div 
+      className="min-h-screen relative bg-cover bg-center bg-no-repeat"
+      style={{ 
+        backgroundImage: currentPage !== 'media' ? url('/assets/bg.png') : 'none',
+        backgroundAttachment: 'fixed'
+      }}
+    >
+      {/* Content container */}
+      <div className="relative z-10">
+        <Header 
+          currentPage={currentPage} 
+          setCurrentPage={setCurrentPage}
+          onHeightChange={setHeaderHeight}
+        />
+        
+        {/* Conditional padding based on page */}
+        <div className={currentPage === 'media' ? '' : 'pt-32'}>
+          {renderPage()}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default App;
