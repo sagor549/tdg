@@ -991,17 +991,26 @@ const AgeVerification = ({ onVerified }) => {
           box-shadow: 0 5px 15px rgba(100, 200, 255, 0.2);
         }
         
+        /* Mobile Responsiveness */
         @media (max-width: 768px) {
-          .terms-modal-content {
-            width: 95%;
+          .verification-card {
+            max-width: 90%;
+          }
+          
+          .card-content {
+            padding: 30px;
+          }
+          
+          .title {
+            font-size: 24px;
+          }
+          
+          .subtitle {
+            font-size: 15px;
           }
           
           .terms-modal-inner {
             padding: 20px;
-          }
-          
-          .terms-modal-title {
-            font-size: 20px;
           }
           
           .tabs-container {
@@ -1014,21 +1023,58 @@ const AgeVerification = ({ onVerified }) => {
         }
         
         @media (max-width: 480px) {
-          .card-content {
-            padding: 30px 25px;
+          .verification-card {
+            max-width: 95%;
+            margin: 0 10px;
           }
           
-          .title {
-            font-size: 24px;
-            letter-spacing: 2px;
+          .card-content {
+            padding: 25px 20px;
           }
           
           .logo {
             height: 60px;
           }
           
+          .title {
+            font-size: 20px;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+          }
+          
+          .divider {
+            margin-bottom: 15px;
+          }
+          
+          .subtitle {
+            font-size: 14px;
+            margin-bottom: 15px;
+          }
+          
+          .info-text {
+            font-size: 13px;
+          }
+          
+          .input-label {
+            font-size: 11px;
+          }
+          
+          .date-input {
+            padding: 10px 14px;
+            font-size: 14px;
+          }
+          
+          .verify-button {
+            padding: 14px 18px;
+            font-size: 14px;
+          }
+          
+          .terms-container {
+            margin-top: 15px;
+          }
+          
           .terms-modal-body {
-            max-height: 50vh;
+            max-height: 55vh;
           }
           
           .terms-section-title {
@@ -1037,6 +1083,17 @@ const AgeVerification = ({ onVerified }) => {
           
           .terms-section-text {
             font-size: 13px;
+          }
+        }
+        
+        @media (max-height: 700px) and (max-width: 480px) {
+          .verification-card {
+            max-height: 95vh;
+            overflow-y: auto;
+          }
+          
+          .card-content {
+            padding: 20px 15px;
           }
         }
       `}</style>
