@@ -131,7 +131,7 @@ const CocktailSection = () => {
       <div className="max-w-7xl mx-auto px-4 relative z-10">
         <div className="text-center mb-12 md:mb-20">
           <h2 
-            className="text-4xl md:text-5xl font-bold mb-4 font-serif tracking-tight"
+            className="text-4xl md:text-5xl font-bold mb-4 font-playfair tracking-tight"
             style={{ color: accentColor }}
           >
             Signature Cocktails
