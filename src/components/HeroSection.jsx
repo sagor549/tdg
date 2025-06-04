@@ -1,13 +1,18 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+import gsap from 'gsap';
 
 const HeroSection = () => {
+  // Define all refs
+  const taglineRef = useRef(null);
   const goatRef = useRef(null);
   const vodkaRef = useRef(null);
   const bottleRef = useRef(null);
-  const taglineRef = useRef(null);
   const greatestRef = useRef(null);
   const descriptionRef = useRef(null);
-  const videoRef = useRef(null);
+  const modalRef = useRef(null);
+  const modalContentRef = useRef(null);
+  
+  const [isBottleOpen, setIsBottleOpen] = useState(false);
 
   // Theme colors
   const primaryColor = 'rgb(34, 32, 87)';
@@ -15,60 +20,119 @@ const HeroSection = () => {
   const textPrimary = 'rgb(250, 250, 255)';
   const textSecondary = 'rgba(250, 250, 255, 0.7)';
 
+  // Open bottle modal
+  const openBottleModal = () => {
+    setIsBottleOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  // Close bottle modal
+  const closeBottleModal = () => {
+    gsap.to(modalContentRef.current, {
+      scale: 0.8,
+      opacity: 0,
+      duration: 0.3,
+      ease: 'power2.in',
+      onComplete: () => {
+        gsap.to(modalRef.current, {
+          opacity: 0,
+          duration: 0.2,
+          onComplete: () => {
+            setIsBottleOpen(false);
+            document.body.style.overflow = 'auto';
+          }
+        });
+      }
+    });
+  };
+
+  // Animate modal when opened
+  useEffect(() => {
+    if (isBottleOpen) {
+      gsap.fromTo(
+        modalRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.3 }
+      );
+      
+      gsap.fromTo(
+        modalContentRef.current,
+        { scale: 0.8, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(1.7)' }
+      );
+    }
+  }, [isBottleOpen]);
+
+  // Initial animations
   useEffect(() => {
     const animateElements = () => {
       // Animate tagline
       if (taglineRef.current) {
-        taglineRef.current.style.transform = 'translateY(0)';
-        taglineRef.current.style.opacity = '1';
+        gsap.to(taglineRef.current, {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: 'power3.out'
+        });
       }
       
       // Animate GOAT text
       if (goatRef.current) {
-        setTimeout(() => {
-          goatRef.current.style.transform = 'translateY(0) scale(1)';
-          goatRef.current.style.opacity = '1';
-        }, 300);
+        gsap.to(goatRef.current, {
+          y: 0,
+          scale: 1,
+          opacity: 1,
+          duration: 1,
+          delay: 0.3,
+          ease: 'elastic.out(1, 0.5)'
+        });
       }
       
       // Animate Vodka text
       if (vodkaRef.current) {
-        setTimeout(() => {
-          vodkaRef.current.style.transform = 'translateY(0) scale(1)';
-          vodkaRef.current.style.opacity = '1';
-        }, 500);
+        gsap.to(vodkaRef.current, {
+          y: 0,
+          scale: 1,
+          opacity: 1,
+          duration: 1,
+          delay: 0.5,
+          ease: 'elastic.out(1, 0.5)'
+        });
       }
       
       // Animate bottle
       if (bottleRef.current) {
-        setTimeout(() => {
-          bottleRef.current.style.transform = 'translateY(0) scale(1)';
-          bottleRef.current.style.opacity = '1';
-        }, 700);
+        gsap.to(bottleRef.current, {
+          y: 0,
+          scale: 1,
+          opacity: 1,
+          duration: 1,
+          delay: 0.7,
+          ease: 'back.out(1.7)'
+        });
       }
       
       // Animate greatest text
       if (greatestRef.current) {
-        setTimeout(() => {
-          greatestRef.current.style.transform = 'translateY(0) scale(1)';
-          greatestRef.current.style.opacity = '1';
-        }, 900);
+        gsap.to(greatestRef.current, {
+          y: 0,
+          scale: 1,
+          opacity: 1,
+          duration: 0.8,
+          delay: 0.9,
+          ease: 'power3.out'
+        });
       }
       
       // Animate description
       if (descriptionRef.current) {
-        setTimeout(() => {
-          descriptionRef.current.style.transform = 'translateY(0)';
-          descriptionRef.current.style.opacity = '1';
-        }, 1200);
-      }
-      
-      // Animate video
-      if (videoRef.current) {
-        setTimeout(() => {
-          videoRef.current.style.transform = 'translateY(0) scale(1)';
-          videoRef.current.style.opacity = '1';
-        }, 1500);
+        gsap.to(descriptionRef.current, {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          delay: 1.2,
+          ease: 'power3.out'
+        });
       }
     };
 
@@ -79,12 +143,11 @@ const HeroSection = () => {
   return (
     <section 
       className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden pt-16 pb-16 px-4"
-      
     >
       {/* Premium tagline */}
       <div
         ref={taglineRef}
-        className="relative z-10 mb-6 md:mb-12 transition-all duration-1000 ease-out"
+        className="relative z-10 mb-6 md:mb-12"
         style={{
           transform: 'translateY(30px)',
           opacity: 0,
@@ -107,7 +170,6 @@ const HeroSection = () => {
           {/* GOAT text */}
           <div 
             ref={goatRef}
-            className="relative transition-all duration-1000 ease-out"
             style={{ 
               transform: 'translateY(-50px) scale(0.8)', 
               opacity: 0 
@@ -127,7 +189,7 @@ const HeroSection = () => {
           {/* Vodka text */}
           <div 
             ref={vodkaRef}
-            className="relative transition-all duration-1000 ease-out -mt-2 md:-mt-4"
+            className="relative -mt-2 md:-mt-4"
             style={{ 
               transform: 'translateY(30px) scale(0.8)', 
               opacity: 0 
@@ -149,11 +211,12 @@ const HeroSection = () => {
         <div className="relative mt-6 md:mt-0">
           <div 
             ref={bottleRef}
-            className="relative transition-all duration-1000 ease-out"
+            className="relative cursor-pointer"
             style={{ 
               transform: 'translateY(50px) scale(0.8)', 
               opacity: 0 
             }}
+            onClick={openBottleModal}
           >
             <div className="relative md:bottom-20">
               <div className="relative">
@@ -161,7 +224,7 @@ const HeroSection = () => {
                 <img 
                   src="/assets/bottleg.png" 
                   alt="GOAT Vodka Bottle" 
-                  className="w-48 sm:w-56 md:w-64 lg:w-82 xl:w-90 h-auto filter drop-shadow-2xl"
+                  className="w-48 sm:w-56 md:w-64 lg:w-82 xl:w-90 h-auto filter drop-shadow-2xl transition-transform duration-300 hover:scale-105"
                 />
                 
                 {/* Bottle glow effect */}
@@ -178,7 +241,7 @@ const HeroSection = () => {
           {/* Greatest of All Time text */}
           <div 
             ref={greatestRef}
-            className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 md:left-auto md:transform-none md:-right-8 md:top-1/2 md:-translate-y-1/2 transition-all duration-1000 ease-out"
+            className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 md:left-auto md:transform-none md:-right-8 md:top-1/2 md:-translate-y-1/2"
             style={{ 
               transform: 'translateY(-50%) translateX(20px) scale(0.8)', 
               opacity: 0 
@@ -193,8 +256,8 @@ const HeroSection = () => {
                   textOrientation: 'mixed',
                 }}
               >
-                <span className="md:hidden ">GREATEST OF ALL TIME</span>
-                <span className="hidden md:block relative top-48 right-7 text-xl" style={{ writingMode: 'vertical-rl' }}>
+                <span className="md:hidden relative right-4">GREATEST OF ALL TIME</span>
+                <span className="hidden md:block relative top-8 right-7 text-xl" style={{ writingMode: 'vertical-rl' }}>
                   GREATEST<br/>OF ALL<br/>TIME
                 </span>
               </p>
@@ -206,7 +269,7 @@ const HeroSection = () => {
       {/* Description */}
       <div 
         ref={descriptionRef}
-        className="relative z-10 max-w-2xl mx-auto mt-10 md:mt-16 mb-12 md:mb-20 text-center transition-all duration-1000 ease-out"
+        className="relative z-10 max-w-2xl mx-auto mt-10 md:mt-16 mb-12 md:mb-20 text-center"
         style={{ 
           transform: 'translateY(30px)', 
           opacity: 0 
@@ -220,48 +283,43 @@ const HeroSection = () => {
         </p>
       </div>
 
-      {/* Video section */}
-      <div 
-        ref={videoRef}
-        className="relative z-10 w-full max-w-4xl transition-all duration-1000 ease-out"
-        style={{ 
-          transform: 'translateY(50px) scale(0.95)', 
-          opacity: 0 
-        }}
-      >
+      {/* Bottle Modal */}
+      {isBottleOpen && (
         <div 
-          className="relative rounded-2xl overflow-hidden shadow-2xl"
-          style={{ 
-            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 40px rgba(100, 200, 255, 0.2)',
-            border: '1px solid rgba(100, 200, 255, 0.2)'
-          }}
+          ref={modalRef}
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex items-center justify-center"
+          style={{ opacity: 0 }}
+          onClick={closeBottleModal}
         >
-          <video
-            className="w-full aspect-video object-cover"
-            muted
-            loop
-            autoPlay
-            playsInline
+          <button 
+            className="absolute top-6 right-6 text-3xl text-white z-50 hover:text-cyan-300 transition-colors"
+            onClick={closeBottleModal}
           >
-            <source src="/assets/video.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-           {/* Video overlay for interactivity */}
-           <div className="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity duration-300">
-            <div className="absolute bottom-4 left-4">
-              <div 
-                className="px-4 py-2 rounded-full backdrop-blur-sm"
-                style={{ 
-                  backgroundColor: 'rgba(34, 32, 87, 0.8)',
-                  border: '1px solid rgb(100, 200, 255)'
-                }}
-              >
-                <span className="text-white text-sm tracking-wide">WATCH EXPERIENCE</span>
-              </div>
-            </div>
+            &times;
+          </button>
+          
+          <div 
+            ref={modalContentRef}
+            className="relative max-w-4xl w-full p-4"
+            onClick={(e) => e.stopPropagation()}
+            style={{ transform: 'scale(0.8)', opacity: 0 }}
+          >
+            <img 
+              src="/assets/bottleg.png" 
+              alt="GOAT Vodka Bottle" 
+              className="w-full max-h-[80vh] object-contain"
+            />
+            
+            <div 
+              className="absolute inset-0 rounded-full blur-3xl opacity-30 pointer-events-none -z-10"
+              style={{
+                background: 'radial-gradient(circle, rgb(100, 200, 255) 0%, transparent 70%)'
+              }}
+            ></div>
           </div>
         </div>
-      </div>
+      )}
+
       {/* Decorative scroll indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce">
         <div 

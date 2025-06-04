@@ -45,7 +45,7 @@ const CocktailSection = () => {
     {
       name: "Final-Buzzer Espresso Martini",
       tagline: "For the clutch closer who still wants to hit the after-party.",
-      image: "/assets/cock2.png",
+      image: "/assets/choc.jpg",
       ingredients: [
         "2 oz G.O.A.T. Vodka",
         "1 oz fresh espresso (chilled)",
@@ -62,7 +62,7 @@ const CocktailSection = () => {
     {
       name: "Record-Breaker Berry Smash",
       tagline: "Bright, aggressive, crowd-pleasing",
-      image: "/assets/cock3.png",
+      image: "/assets/straw.jpg",
       ingredients: [
         "2 oz G.O.A.T. Vodka",
         "4–6 fresh mixed berries",
@@ -82,7 +82,7 @@ const CocktailSection = () => {
     {
       name: "Clutch-Shot Lemon Drop",
       tagline: "Clean, sharp, and instantly memorable",
-      image: "/assets/cock4.png",
+      image: "/assets/lemon.jpg",
       ingredients: [
         "2 oz G.O.A.T. Vodka",
         "¾ oz Cointreau",
