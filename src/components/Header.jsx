@@ -100,7 +100,7 @@ const Header = ({ currentPage, setCurrentPage, onHeightChange }) => {
                 onMouseLeave={() => setActiveHover(null)}
                 className={`relative py-2 text-sm transition-all duration-300 ${
                   currentPage === nav.page
-                    ? 'text-blue-900 font-bold'  // Deep blue and bold
+                    ? 'text-white font-bold'  // Deep blue and bold
                     : 'text-white hover:text-blue-800'  // Deep blue on hover
                 }`}
                 style={{
@@ -115,7 +115,7 @@ const Header = ({ currentPage, setCurrentPage, onHeightChange }) => {
                     activeHover === nav.name || currentPage === nav.page 
                       ? 'w-full' 
                       : 'w-0'
-                  } bg-gradient-to-r from-blue-900 to-blue-900`} // Deep blue gradient
+                  } `} // Deep blue gradient
                 ></span>
               </button>
             ))}
@@ -163,7 +163,7 @@ const Header = ({ currentPage, setCurrentPage, onHeightChange }) => {
                   onClick={() => handleNavClick(nav)}
                   className={`text-left py-4 px-6 transition-all duration-300 relative overflow-hidden ${
                     currentPage === nav.page
-                      ? 'text-blue-900 font-bold'  // Deep blue and bold
+                      ? 'text-white font-bold'  // Deep blue and bold
                       : 'text-white hover:text-blue-800'  // Deep blue on hover
                   }`}
                   style={{
@@ -173,7 +173,7 @@ const Header = ({ currentPage, setCurrentPage, onHeightChange }) => {
                 >
                   {nav.name}
                   {currentPage === nav.page && (
-                    <span className="absolute top-1/2 right-6 transform -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-blue-900"></span>
+                    <span className="absolute top-1/2 right-6 transform -translate-y-1/2"></span>
                   )}
                   <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-900 to-transparent"></div>
                 </button>

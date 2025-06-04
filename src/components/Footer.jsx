@@ -112,9 +112,16 @@ const Footer = () => {
               </a>
               
               <div className="mt-4">
-                <p className="text-sm" style={{ color: accentColor }}>
-                  Distilled and bottled by Premium Distillery Group
-                </p>
+              <a
+  href="https://torontodistillery.group/"
+  className="text-sm"
+  style={{ color: accentColor }}
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  Distilled and bottled by Toronto Distillery Group
+</a>
+
               </div>
             </div>
           </div>
