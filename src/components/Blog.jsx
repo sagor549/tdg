@@ -2,6 +2,7 @@
 import React from 'react';
 
 const Blog = () => {
+  const accentColor = 'rgb(100, 200, 255)'
   return (
     <section id="blog" className="relative py-28 md:py-36 overflow-hidden bottom-32">
       {/* Decorative background elements */}
@@ -12,7 +13,8 @@ const Blog = () => {
       
       <div className="max-w-4xl mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-6xl font-bold text-blue-500 mb-6 font-serif tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 font-playfair tracking-tight"
+            style={{ color: accentColor }}>
             GOAT Blog
           </h2>
           <div className="w-32 h-1.5 bg-gradient-to-r from-transparent via-blue-500 to-transparent mx-auto mb-8"></div>

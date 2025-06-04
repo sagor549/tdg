@@ -13,6 +13,7 @@ const imagePaths = [
 const Media = () => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const accentColor = 'rgb(100, 200, 255)'
 
   const openLightbox = (index) => {
     setCurrentIndex(index);
@@ -61,8 +62,9 @@ const Media = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 py-16 relative top-10">
       <div className="text-center mb-12">
-        <h2 className="text-4xl font-bold text-indigo-400 mb-4 font-serif">Gallery Showcase</h2>
-        <div className="w-32 h-1 bg-gradient-to-r from-indigo-600 via-indigo-400 to-indigo-600 mx-auto mb-6"></div>
+        <h2 className="text-4xl md:text-5xl font-bold mb-4 font-playfair tracking-tight"
+            style={{ color: accentColor }} >Gallery Showcase</h2>
+        <div className="w-32 h-1 " ></div>
         <p className="text-indigo-200 max-w-2xl mx-auto text-lg">
           Premium moments captured in elegant frames
         </p>

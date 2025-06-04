@@ -106,7 +106,9 @@ const Header = ({ currentPage, setCurrentPage, onHeightChange }) => {
                 style={{
                   fontFamily: "'Montserrat', sans-serif",
                   fontWeight: 500,
-                  letterSpacing: '0.05em'
+                  letterSpacing: '0.05em',
+                  cursor:"pointer"
+
                 }}
               >
                 {nav.name}

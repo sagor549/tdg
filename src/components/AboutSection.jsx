@@ -56,12 +56,12 @@ const AboutSection = () => {
           {/* Text Content */}
           <div className="md:w-1/2">
             <div className="relative inline-block mb-8">
-              <h3 
-                className="text-3xl font-bold relative z-10 font-playfair"
-                style={{ color: accentColor }}
+              <h2 
+                 className="text-4xl md:text-5xl font-bold mb-4 font-playfair tracking-tight"
+                 style={{ color: accentColor }}
               >
                 ABOUT GOAT VODKA
-              </h3>
+              </h2>
               
             </div>
             <p 
@@ -83,9 +83,10 @@ const AboutSection = () => {
                 style={{ color: accentColor }} 
               />
               <a 
-                href="#" 
+                href="https://www.instagram.com/g.o.a.t.vodka?igsh=MTFhZ3AzemJobGZmNA%3D%3D" 
                 className="hover:underline transition-colors font-montserrat"
                 style={{ color: accentColor }}
+                target="_blank"
               >
                 Follow us on Instagram
               </a>
