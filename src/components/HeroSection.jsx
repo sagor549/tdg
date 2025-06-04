@@ -96,8 +96,8 @@ const HeroSection = () => {
           color: accentColor 
         }}
       >
-        <p className="tracking-[0.4em] uppercase text-sm font-light">
-          PREMIUM SPIRITS COLLECTION
+        <p className="tracking-[0.2em] uppercase text-sm font-light">
+       Toronto Distillery Group Presents
         </p>
         <div 
           className="w-24 h-px mx-auto mt-3"
@@ -164,7 +164,7 @@ const HeroSection = () => {
           >
             <div className="relative">
               <img 
-                src="/assets/bottle.png" 
+                src="/assets/bottleg.png" 
                 alt="GOAT Vodka Bottle" 
                 className="w-32 md:w-40 lg:w-48 h-auto filter drop-shadow-2xl"
               />
@@ -215,7 +215,7 @@ const HeroSection = () => {
         }}
       >
         <p 
-          className="text-lg md:text-xl font-light tracking-wide leading-relaxed"
+          className="text-[18px] md:text-[18px] font-light tracking-wide leading-relaxed"
           style={{ color: textSecondary }}
         >
           Crafted with precision, distilled to perfection. The ultimate vodka experience for connoisseurs who appreciate excellence in every sip.

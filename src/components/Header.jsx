@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
-import logo from "/assets/logo1.png";
+import logo from "/assets/goatlogo.png";
 
 const Header = ({ currentPage, setCurrentPage, onHeightChange }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -67,7 +67,7 @@ const Header = ({ currentPage, setCurrentPage, onHeightChange }) => {
       ref={headerRef}
       className={`fixed top-0 w-full z-50 transition-all duration-500 ${
         scrolled 
-          ? 'bg-black/95 backdrop-blur-md py-2 border-b border-indigo-800/30 h-20' 
+          ? 'bg-black/95 backdrop-blur-md py-2 border-b border-blue-900/30 h-20' 
           : 'bg-gradient-to-b from-black via-black/90 to-transparent py-4 h-28'
       }`}
     >
@@ -75,52 +75,22 @@ const Header = ({ currentPage, setCurrentPage, onHeightChange }) => {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <div 
-            className="flex items-center cursor-pointer group"
+            className="flex items-center cursor-pointer"
             onClick={() => {
               setCurrentPage('home');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
           >
-            <div className="relative">
-              <img 
-                src={logo} 
-                alt="GOAT Vodka" 
-                className={`transition-all duration-500 ${
-                  scrolled ? 'w-16 h-16' : 'w-20 h-20'
-                }`}
-              />
-              <div className="absolute inset-0 rounded-full border-2 border-indigo-500 opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:animate-pulse"></div>
-            </div>
-            <div className="ml-3">
-              <h1 
-                className={`font-serif font-bold transition-all duration-500 ${
-                  scrolled ? 'text-xl' : 'text-2xl'
-                }`}
-                style={{ 
-                  fontFamily: "'Playfair Display', serif",
-                  color: "#272162",
-                  WebkitBackgroundClip: 'text',
-                  
-                }}
-              >
-                GOAT
-              </h1>
-              <p 
-                className={`uppercase tracking-widest transition-all duration-500 ${
-                  scrolled ? 'text-[10px]' : 'text-xs'
-                }`}
-                style={{
-                  fontFamily: "'Montserrat', sans-serif",
-                  color: '#272162',
-                  letterSpacing: '0.3em'
-                }}
-              >
-                VODKA
-              </p>
-            </div>
+            <img 
+              src={logo} 
+              alt="GOAT Vodka" 
+              className={`transition-all duration-500 ${
+                scrolled ? 'w-40 h-12 md:w-52 md:h-16' : 'w-40 h-12 md:w-52 md:h-16'
+              }`}
+            />
           </div>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - Deep blue everywhere */}
           <nav className="hidden md:flex space-x-8">
             {navigation.map((nav) => (
               <button
@@ -130,8 +100,8 @@ const Header = ({ currentPage, setCurrentPage, onHeightChange }) => {
                 onMouseLeave={() => setActiveHover(null)}
                 className={`relative py-2 text-sm transition-all duration-300 ${
                   currentPage === nav.page
-                    ? 'text-indigo-400'
-                    : 'text-white'
+                    ? 'text-blue-900 font-bold'  // Deep blue and bold
+                    : 'text-white hover:text-blue-800'  // Deep blue on hover
                 }`}
                 style={{
                   fontFamily: "'Montserrat', sans-serif",
@@ -141,45 +111,48 @@ const Header = ({ currentPage, setCurrentPage, onHeightChange }) => {
               >
                 {nav.name}
                 <span 
-                  className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-indigo-300 to-indigo-500 transition-all duration-500 ${
+                  className={`absolute bottom-0 left-0 h-0.5 transition-all duration-500 ${
                     activeHover === nav.name || currentPage === nav.page 
                       ? 'w-full' 
                       : 'w-0'
-                  }`}
+                  } bg-gradient-to-r from-blue-900 to-blue-900`} // Deep blue gradient
                 ></span>
               </button>
             ))}
           </nav>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button - Using your image with increased weight */}
           <button
             className="md:hidden p-2 rounded-full transition-colors relative"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            
           >
             {mobileMenuOpen ? (
-              <X size={28} className="text-white" />
+              <X size={32} className="text-white" />
             ) : (
-              <img 
-                src="/assets/menu.png" 
-                alt="Menu" 
-                className="w-22 h-12"
-              />
+              <div className="relative">
+                <img 
+                  src="/assets/menu.png" 
+                  alt="Menu" 
+                  className="w-19 h-13"  // Increased size
+                />
+                {/* Adding a duplicate image to create bolder effect */}
+                
+              </div>
             )}
           </button>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation - Deep blue everywhere */}
         <div 
           className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out ${
             mobileMenuOpen ? 'max-h-96 opacity-100 mt-4' : 'max-h-0 opacity-0'
           }`}
           style={{
-            background: 'rgba(20, 20, 20, 0.95)',
+            background: 'rgba(10, 10, 30, 0.95)', // Darker background
             backdropFilter: 'blur(10px)',
             borderRadius: '0.75rem',
-            border: '1px solid rgba(79, 70, 229, 0.2)',
-            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)'
+            border: '1px solid rgba(30, 30, 150, 0.3)', // Deep blue border
+            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.7)'
           }}
         >
           <nav className="pb-6">
@@ -190,8 +163,8 @@ const Header = ({ currentPage, setCurrentPage, onHeightChange }) => {
                   onClick={() => handleNavClick(nav)}
                   className={`text-left py-4 px-6 transition-all duration-300 relative overflow-hidden ${
                     currentPage === nav.page
-                      ? 'text-indigo-400'
-                      : 'text-white'
+                      ? 'text-blue-900 font-bold'  // Deep blue and bold
+                      : 'text-white hover:text-blue-800'  // Deep blue on hover
                   }`}
                   style={{
                     fontFamily: "'Montserrat', sans-serif",
@@ -200,9 +173,9 @@ const Header = ({ currentPage, setCurrentPage, onHeightChange }) => {
                 >
                   {nav.name}
                   {currentPage === nav.page && (
-                    <span className="absolute top-1/2 right-6 transform -translate-y-1/2 w-2 h-2 rounded-full bg-indigo-400"></span>
+                    <span className="absolute top-1/2 right-6 transform -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-blue-900"></span>
                   )}
-                  <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-indigo-700 to-transparent"></div>
+                  <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-900 to-transparent"></div>
                 </button>
               ))}
             </div>

@@ -41,10 +41,10 @@ const AboutSection = () => {
             className="text-4xl md:text-5xl font-bold mb-8 tracking-tight font-playfair"
             style={{ color: textPrimary }}
           >
-            UNMATCHED EXCELLENCE
+            STAY BIG AND WHITE
           </h2>
           <p 
-            className="max-w-4xl mx-auto text-lg leading-relaxed font-montserrat"
+            className="max-w-4xl mx-auto text-[18px] leading-relaxed font-montserrat"
             style={{ color: textSecondary }}
           >
             GOAT Vodka™ is the ultimate expression of ultra-premium vodka — crafted for those who lead. Distilled seven times and charcoal-filtered for unmatched purity, it offers a crisp, clean finish with a bold, refined character. GOAT Vodka isn’t just smooth — it’s legendary.
@@ -62,10 +62,7 @@ const AboutSection = () => {
               >
                 ABOUT GOAT VODKA
               </h3>
-              <div 
-                className="absolute bottom-0 left-0 w-full h-1 z-0"
-                style={{ background: `linear-gradient(to right, ${accentColor}, ${primaryLight})` }}
-              ></div>
+              
             </div>
             <p 
               className="mb-6 leading-relaxed font-montserrat"
