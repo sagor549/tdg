@@ -42,8 +42,8 @@ export default function AboutSection() {
       </TextParallaxContent>
       
       <div className="mx-auto max-w-5xl px-4 py-20 text-center">
-        <p className="text-4xl font-bold">This is Toronto Distillery Group.</p>
-        <p className="mt-4 text-2xl">Rooted in craft. Driven by purpose. Proudly Canadian.</p>
+        <p className="text-4xl font-bold text-black">This is Toronto Distillery Group.</p>
+        <p className="mt-4 text-2xl text-gray-900">Rooted in craft. Driven by purpose. Proudly Canadian.</p>
       </div>
     </div>
   );
