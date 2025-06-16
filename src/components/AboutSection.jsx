@@ -1,209 +1,137 @@
-import React from 'react';
-import { Instagram } from 'lucide-react';
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { FiArrowUpRight } from "react-icons/fi";
 
-// Theme colors
-const primaryColor = 'rgb(34, 32, 87)';
-const primaryLight = 'rgb(54, 52, 107)';
-const accentColor = 'rgb(100, 200, 255)';
-const textPrimary = 'rgb(250, 250, 255)';
-const textSecondary = 'rgba(250, 250, 255, 0.7)';
-
-const AboutSection = () => {
-  const galleryImages = [
-    { src: "/assets/media1.png", title: "Master Distillery", description: "Our state-of-the-art distilling facility" },
-    { src: "/assets/media2.png", title: "Pure Ingredients", description: "Locally-sourced grains and pure spring water" },
-    { src: "/assets/media3.png", title: "Handcrafted Bottling", description: "Each bottle carefully inspected and filled" },
-    { src: "/assets/media4.png", title: "Expert Tasting", description: "Our master tasters ensure perfect quality" }
-  ];
-
+export default function AboutSection() {
   return (
-    <section 
-      id="about" 
-      className="py-20 relative overflow-hidden"
-     
-    >
-      {/* Background with soft blur using accentColor */}
-      <div 
-        className="absolute bottom-10 right-0 w-80 h-80 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"
-       
-      ></div>
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Premium Quality Section */}
-        <div className="text-center mb-16">
-          <div className="flex justify-center mb-6">
-            <div 
-              className="w-16 h-1 rounded-full"
-              style={{ background: `linear-gradient(to right, ${accentColor}, ${primaryLight})` }}
-            ></div>
-          </div>
-          <h2 
-            className="text-4xl md:text-5xl font-bold mb-8 tracking-tight font-playfair"
-            style={{ color: textPrimary }}
-          >
-            STAY BIG AND WHITE
-          </h2>
-          <p 
-            className="max-w-4xl mx-auto text-[18px] leading-relaxed font-montserrat"
-            style={{ color: textSecondary }}
-          >
-            GOAT Vodka™ is the ultimate expression of ultra-premium vodka — crafted for those who lead. Distilled seven times and charcoal-filtered for unmatched purity, it offers a crisp, clean finish with a bold, refined character. GOAT Vodka isn’t just smooth — it’s legendary.
-          </p>
-        </div>
-
-        {/* Product Showcase with Side Image */}
-        <div className="flex flex-col md:flex-row gap-12 items-center mb-20">
-          {/* Text Content */}
-          <div className="md:w-1/2">
-            <div className="relative inline-block mb-8">
-              <h2 
-                 className="text-4xl md:text-5xl font-bold mb-4 font-playfair tracking-tight"
-                 style={{ color: accentColor }}
-              >
-                ABOUT GOAT VODKA
-              </h2>
-              
-            </div>
-            <p 
-              className="mb-6 leading-relaxed font-montserrat"
-              style={{ color: textSecondary }}
-            >
-             In the heart of elite distilleries, where tradition meets innovation, a new legend rises — GOAT Vodka Master Select. Born from a bold vision to redefine excellence, it is distilled seven times through the finest charcoal filters, capturing the spirit and ambition of its creators in every drop.
-            </p>
-            <p 
-              className="mb-8 leading-relaxed font-montserrat"
-              style={{ color: textSecondary }}
-            >
-              Crafted with precision by master distillers, GOAT Vodka is more than just a spirit — it’s a legacy in a bottle. Every drop reflects their unwavering passion and expertise, delivering a smooth, refined flavor that lingers long after the sip. Like the GOAT itself, it stands as a symbol of strength, mastery, and unmatched excellence.
-            </p>
-            
-            <div className="flex items-center space-x-4">
-              <Instagram 
-                size={24} 
-                style={{ color: accentColor }} 
-              />
-              <a 
-                href="https://www.instagram.com/g.o.a.t.vodka?igsh=MTFhZ3AzemJobGZmNA%3D%3D" 
-                className="hover:underline transition-colors font-montserrat"
-                style={{ color: accentColor }}
-                target="_blank"
-              >
-                Follow us on Instagram
-              </a>
-            </div>
-          </div>
-          
-          {/* Side Image */}
-          <div className="md:w-1/2 relative">
-            <div className="relative aspect-[3/4]">
-              <div 
-                className="absolute inset-0 to-transparent rounded-xl z-10"
-                style={{ background: `linear-gradient(to top, ${primaryColor}, transparent)` }}
-              ></div>
-              <div className="absolute -inset-4">
-                <div 
-                  className="absolute inset-0 border-2 rounded-xl transform rotate-3"
-                  style={{ borderColor: `rgba(100, 200, 255, 0.3)` }}
-                ></div>
-                <div 
-                  className="absolute inset-0 border-2 rounded-xl transform -rotate-3"
-                  style={{ borderColor: `rgba(100, 200, 255, 0.2)` }}
-                ></div>
-              </div>
-              <img 
-                src="/assets/pic10.png" 
-                alt="GOAT Vodka Bottle" 
-                className="w-full h-full object-cover rounded-xl shadow-2xl relative z-0"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Master Select Product */}
-        <div className="text-center mb-20">
-          <div className="flex justify-center mb-6">
-            <div 
-              className="w-16 h-1 rounded-full"
-              style={{ background: `linear-gradient(to right, ${accentColor}, ${primaryLight})` }}
-            ></div>
-          </div>
-          <h3 
-            className="text-3xl font-bold mb-8 font-playfair"
-            style={{ color: textPrimary }}
-          >
-            GOAT VODKA™ MASTER SELECT
-          </h3>
-          <div className="relative max-w-2xl mx-auto">
-            <div className="relative">
-              <img 
-                src="/assets/bg3.png" 
-                alt="GOAT Master Select" 
-                className="w-full rounded-xl shadow-2xl"
-              />
-              <div 
-                className="absolute inset-0 via-transparent to-transparent rounded-xl"
-                style={{ background: `linear-gradient(to top, ${primaryColor}, transparent)` }}
-              ></div>
-            </div>
-          </div>
-        </div>
-
-        {/* Gallery Section - Column Layout */}
-        <div className="text-center mb-12">
-          <div className="flex justify-center mb-6">
-            <div 
-              className="w-16 h-1 rounded-full"
-              style={{ background: `linear-gradient(to right, ${accentColor}, ${primaryLight})` }}
-            ></div>
-          </div>
-          <h3 
-            className="text-3xl font-bold mb-8 font-playfair"
-            style={{ color: textPrimary }}
-          >
-            THE CRAFTSMANSHIP
-          </h3>
-          <p 
-            className="max-w-3xl mx-auto mb-12 text-lg leading-relaxed font-montserrat"
-            style={{ color: textSecondary }}
-          >
-            Explore the meticulous process behind our award-winning vodka, from grain to bottle.
-          </p>
-        </div>
+    <div className="bg-white ">
+      <TextParallaxContent
+        imgUrl="/assets/intro.png"
+        subheading="Our Story"
+        heading="Founded in 2019"
         
-        <div className="space-y-16 max-w-4xl mx-auto">
-          {galleryImages.map((image, index) => (
-            <div 
-              key={index} 
-              className="relative overflow-hidden rounded-2xl group"
-            >
-              <div className="absolute inset-0 via-transparent to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-                   style={{ background: `linear-gradient(to top, ${primaryColor}, transparent)` }}
-              ></div>
-              <div className="absolute bottom-0 left-0 p-8 z-20 translate-y-6 group-hover:translate-y-0 transition-transform duration-700">
-                <h4 
-                  className="font-bold text-2xl mb-2 font-playfair"
-                  style={{ color: textPrimary }}
-                >
-                  {image.title}
-                </h4>
-                <p 
-                  className="font-montserrat"
-                  style={{ color: accentColor }}
-                >
-                  {image.description}
-                </p>
-              </div>
-              <img 
-                src={image.src} 
-                alt={image.title} 
-                className="w-full h-[500px] object-cover transform transition-transform duration-700 group-hover:scale-105"
-              />
-            </div>
-          ))}
-        </div>
+      >
+        <AboutContent 
+          title="Mastering the craft" 
+          description="Toronto Distillery Group has been quietly mastering the art of premium spirits — one small batch at a time. Our journey began with bold ambition and a single goal: to raise the standard of Canadian-made alcohol."
+        />
+      </TextParallaxContent>
+
+      <TextParallaxContent
+        imgUrl="https://images.unsplash.com/photo-1536935338788-846bb9981813?q=80&w=2486&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        subheading="Our Portfolio"
+        heading="Crafted Excellence"
+      >
+        <AboutContent 
+          title="Elite spirits collection" 
+          description="Today, our flagship Brass Knuckles Canadian Whiskey – Master Select leads a portfolio of elite, handcrafted spirits: GOAT Vodka, Born Naked Raw Gin, and Ladrillo Tequila. Each reflects our commitment to quality, character, and our Toronto roots."
+          buttonText="Explore spirits"
+        />
+      </TextParallaxContent>
+
+      <TextParallaxContent
+        imgUrl="https://images.unsplash.com/photo-1558981806-ec527fa84c39?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        subheading="Our Mission"
+        heading="Beyond Distilling"
+      >
+        <AboutContent 
+          title="Community commitment" 
+          description="We've supported good causes since day one. As we grow, so does our impact. Giving back isn't a side project—it's core to our mission. From local sponsorships to national initiatives, we'll do whatever it takes for communities that stand with us."
+          buttonText="Our initiatives"
+        />
+      </TextParallaxContent>
+      
+      <div className="mx-auto max-w-5xl px-4 py-20 text-center">
+        <p className="text-4xl font-bold">This is Toronto Distillery Group.</p>
+        <p className="mt-4 text-2xl">Rooted in craft. Driven by purpose. Proudly Canadian.</p>
       </div>
-    </section>
+    </div>
+  );
+}
+
+const IMG_PADDING = 12;
+
+const TextParallaxContent = ({ imgUrl, subheading, heading, children }) => {
+  return (
+    <div style={{ paddingLeft: IMG_PADDING, paddingRight: IMG_PADDING }}>
+      <div className="relative h-[150vh]">
+        <StickyImage imgUrl={imgUrl} />
+        <OverlayCopy heading={heading} subheading={subheading} />
+      </div>
+      {children}
+    </div>
   );
 };
 
-export default AboutSection;
+const StickyImage = ({ imgUrl }) => {
+  const targetRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ["end end", "end start"],
+  });
+
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.85]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
+
+  return (
+    <motion.div
+      style={{
+        backgroundImage: `url(${imgUrl})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        height: `calc(100vh - ${IMG_PADDING * 2}px)`,
+        top: IMG_PADDING,
+        scale,
+      }}
+      ref={targetRef}
+      className="sticky z-0 overflow-hidden rounded-3xl"
+    >
+      <motion.div
+        className="absolute inset-0 bg-neutral-950/70"
+        style={{ opacity }}
+      />
+    </motion.div>
+  );
+};
+
+const OverlayCopy = ({ subheading, heading }) => {
+  const targetRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ["start end", "end start"],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [250, -250]);
+  const opacity = useTransform(scrollYProgress, [0.25, 0.5, 0.75], [0, 1, 0]);
+
+  return (
+    <motion.div
+      style={{ y, opacity }}
+      ref={targetRef}
+      className="absolute left-0 top-0 flex h-screen w-full flex-col items-center justify-center text-white"
+    >
+      <p className="mb-2 text-center text-xl md:mb-4 md:text-3xl">
+        {subheading}
+      </p>
+      <p className="text-center text-4xl font-bold md:text-7xl">{heading}</p>
+    </motion.div>
+  );
+};
+
+const AboutContent = ({ title, description, buttonText }) => (
+  <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 px-4 pb-24 pt-12 md:grid-cols-12">
+    <h2 className="col-span-1 text-3xl font-bold md:col-span-4 text-black">
+      {title}
+    </h2>
+    <div className="col-span-1 md:col-span-8">
+      <p className="mb-8 text-xl text-neutral-600 md:text-2xl">
+        {description}
+      </p>
+      {buttonText && (
+        <button className="rounded bg-neutral-900 px-9 py-4 text-xl text-white transition-colors hover:bg-neutral-700">
+          {buttonText} <FiArrowUpRight className="inline" />
+        </button>
+      )}
+    </div>
+  </div>
+);
