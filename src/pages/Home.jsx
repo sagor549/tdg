@@ -39,7 +39,9 @@ const Home = () => {
       <ToronHero />
       <AboutSection />
       <SpiritsSection />
+      <section className='relative '>
       <BrandCreationPreview />
+      </section>
       <CoPackingPreview />
       <GivesBackSection />
     </div>

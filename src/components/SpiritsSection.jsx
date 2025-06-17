@@ -1,92 +1,644 @@
-// src/components/SpiritsSection.jsx
-import React, { useRef, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-const spirits = [
-  {
-    name: 'Brass Knuckles Whiskey',
-    description: 'A bold Canadian whiskey with notes of vanilla, oak, and spice. Aged to perfection in charred barrels.',
-    color: '#8B4513'
-  },
-  {
-    name: 'GOAT Vodka',
-    description: 'Ultra-smooth vodka distilled five times for unparalleled purity and crisp finish.',
-    color: '#F0F0F0'
-  },
-  {
-    name: 'Born Naked Raw Gin',
-    description: 'Unfiltered gin with vibrant botanicals. A pure expression of juniper and citrus.',
-    color: '#D4F1F9'
-  },
-  {
-    name: 'Ladrillo Tequila',
-    description: 'Artisanal tequila crafted from blue agave, with complex notes of pepper and caramel.',
-    color: '#E6BC6A'
-  }
-];
+import img1 from '/assets/bki.png';
+import img2 from '/assets/bottleg.png';
+import img3 from '/assets/green.webp';
+import img4 from '/assets/orange.webp';
+import img5 from '/assets/teq.png';
 
 const SpiritsSection = () => {
-  const sectionRef = useRef(null);
-  const cardRefs = useRef([]);
+  const spirits = [
+    {
+      id: 0,
+      img: img1,
+      title: "Brass Knuckles Canadian Whiskey",
+      shortDesc: "The first ultra-premium Canadian Whiskey. Aged for five years in charred White Oak Barrels.",
+      detailDesc: "Brass Knuckles Canadian Whiskey™ is the first ultra-premium Canadian whiskey, aged five years in charred White Oak barrels for a smooth, sweet oak flavor and rich aroma. Locally crafted in Toronto, BK supports Canadian industry and honors over a century of whiskey-making tradition. Every sip delivers bold character and a taste that leaves a lasting impression.",
+      specs: [
+        { name: "Aging", value: "5 years" },
+        { name: "Barrels", value: "Charred White Oak" },
+        { name: "Origin", value: "Toronto, Canada" },
+        { name: "Flavor", value: "Sweet Oak" }
+      ],
+      link: "https://bkwhiskey.ca/"
+    },
+    {
+      id: 1,
+      img: img2,
+      title: "GOAT Vodka",
+      shortDesc: "The Undisputed Champion of Premium Spirits. Distilled seven times for supreme purity.",
+      detailDesc: "GOAT Vodka-The Undisputed Champion of Premium Spirits.stilled seven times for unmatched purity, GOAT Vodka is crafted for those who don’t settle — they dominate. With bold character, smooth clarity, and heritage-level precision, it’s more than vodka — it’s your victory lap in a glass. Distilled Different. Crowned by Fire.",
+      specs: [
+        { name: "Distillation", value: "7 times" },
+        { name: "Profile", value: "Clean & Legendary" },
+        { name: "Experience", value: "Victory Lap" }
+      ],
+      link: "https://goatvodka.ca/"
+    },
+    {
+      id: 2,
+      img: img3,
+      title: "RAW Sipping Gin Green Label",
+      shortDesc: "Clean, herbaceous profile with zesty fresh ground pepper notes.",
+      detailDesc: "RAW Sipping Gin – Green Label offers a clean, herbaceous profile with botanicals like Juniper, Coriander, Yuzu, Angelica Root, and Galangal.Born without filters, we are raw — and so is this gin. True to nature, unmasked, and unapologetic. RAW Gin is a return to what’s real.",
+      specs: [
+        { name: "Botanicals", value: "Juniper, Grain de Paradis, " },
+        { name: "Key Flavor", value: "Pepper, Citrus, " },
+        { name: "Nose", value: "Zesty fresh ground pepper" },
+       
+      ],
+      link: "https://bornnakedrawgin.ca/"
+    },
+    {
+      id: 3,
+      img: img4,
+      title: "RAW Sipping Gin Orange Label",
+      shortDesc: "Richer, warmer citrus twist with aromatic Lebanese juniper.",
+      detailDesc: "RAW Sipping Gin – Orange Label delivers a warm, citrus-forward profile with aromatic Lebanese juniper and botanicals like Lemon, Orange, Coriander, Cardamom, Pink Pepper, and Rose Petal.  The finish is long, with layered root complexity.Born unmasked, we are raw — and so is this gin. Honest, bold, and rooted in nature. RAW is a return to what’s real.",
+      specs: [
+        { name: "Botanicals", value: "Lemon, Orange,etc" },
+        { name: "Key Flavor", value: "Citrus, Juniper" },
+        { name: "Nose", value: "Fresh & crisp, with agrumes" },
+        
+       
+      ],
+      link: "https://bornnakedrawgin.ca/"
+    },
+    {
+      id: 4,
+      img: img5,
+      title: "Ladrillo de Cristal Puro",
+      shortDesc: "Crafted from the finest agave in the heart of Mexico, perfected and bottled in Canada.",
+      detailDesc: "Crafted from the finest agave in the heart of Mexico, perfected and bottled in Canada. Ladrillo de Cristal Puro delivers an unyielding spirit and a smooth, bold flavor that stands the test of time. Each sip brings a rush of pure enjoyment - a moment of blissful satisfaction that elevates your spirit and leaves a lasting impression.",
+      specs: [
+        { name: "Origin", value: "Mexico" },
+        { name: "Bottled", value: "Canada" },
+        { name: "Profile", value: "Smooth & Bold" },
+        { name: "Experience", value: "Blissful Satisfaction" }
+      ],
+      link: "#"
+    }
+  ];
+
+  const [showDetail, setShowDetail] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const carouselRef = useRef(null);
+  const itemsRef = useRef([]);
+  const touchStartX = useRef(0);
+
+  // Track window size for responsive adjustments
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+      if (showDetail) {
+        handleBack();
+      }
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [showDetail]);
+
+  // Swipe gestures for mobile
+  useEffect(() => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+
+    const handleTouchStart = (e) => {
+      touchStartX.current = e.touches[0].clientX;
+    };
+
+    const handleTouchEnd = (e) => {
+      if (showDetail || isAnimating) return;
+      
+      const touchEndX = e.changedTouches[0].clientX;
+      const diff = touchStartX.current - touchEndX;
+      const swipeThreshold = 50;
+      
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+          handleNext();
+        } else {
+          handlePrev();
+        }
+      }
+    };
+
+    carousel.addEventListener('touchstart', handleTouchStart);
+    carousel.addEventListener('touchend', handleTouchEnd);
+    
+    return () => {
+      carousel.removeEventListener('touchstart', handleTouchStart);
+      carousel.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [showDetail, isAnimating]);
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    setupCarouselItems();
     
-    cardRefs.current.forEach((card, index) => {
-      gsap.fromTo(card, 
-        { y: 80, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          delay: index * 0.15,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-            toggleActions: "play none none none",
+    gsap.set(".intro-content", { opacity: 1, pointerEvents: "auto" });
+    
+    gsap.fromTo(
+      ".active-item .content-animate",
+      { y: -30, opacity: 0, filter: "blur(10px)" },
+      { 
+        y: 0, 
+        opacity: 1, 
+        filter: "blur(0px)",
+        stagger: 0.2,
+        delay: 0.5,
+        duration: 0.5,
+        ease: "power2.out"
+      }
+    );
+    
+    // Adjust gradient size based on screen
+    const gradientSize = windowWidth < 768 ? 300 : 500;
+    const gradientBlur = windowWidth < 768 ? 100 : 150;
+    
+    gsap.set(".gradient-bg", {
+      width: gradientSize,
+      height: gradientSize * 0.6,
+      x: "-10%",
+      y: "-50%",
+      top: "50%",
+      left: "50%",
+      borderRadius: "20% 30% 80% 10%",
+      filter: `blur(${gradientBlur}px)`
+    });
+  }, [windowWidth]);
+
+  const setupCarouselItems = () => {
+    const isMobile = windowWidth < 768;
+    
+    // Mobile positions
+    const mobilePositions = [
+      { x: "-150%", y: "0%", scale: 0.7, filter: "blur(20px)", zIndex: 1, opacity: 0 },
+      { x: "0%", y: "0%", scale: 1, filter: "blur(0px)", zIndex: 10, opacity: 1 },
+      { x: "150%", y: "0%", scale: 0.7, filter: "blur(20px)", zIndex: 9, opacity: 1 },
+      { x: "300%", y: "0%", scale: 0.4, filter: "blur(30px)", zIndex: 8, opacity: 0 },
+      { x: "450%", y: "0%", scale: 0.2, filter: "blur(40px)", zIndex: 7, opacity: 0 }
+    ];
+    
+    // Desktop positions
+    const desktopPositions = [
+      { x: "-100%", y: "-5%", scale: 1.5, filter: "blur(30px)", zIndex: 1, opacity: 0 },
+      { x: "0%", y: "0%", scale: 1, filter: "blur(0px)", zIndex: 10, opacity: 1 },
+      { x: "50%", y: "10%", scale: 0.8, filter: "blur(10px)", zIndex: 9, opacity: 1 },
+      { x: "90%", y: "20%", scale: 0.5, filter: "blur(30px)", zIndex: 8, opacity: 1 },
+      { x: "120%", y: "30%", scale: 0.3, filter: "blur(40px)", zIndex: 7, opacity: 0 }
+    ];
+    
+    const positions = isMobile ? mobilePositions : desktopPositions;
+
+    itemsRef.current.forEach((item, i) => {
+      if (!item) return;
+      const pos = positions[i] || positions[positions.length - 1];
+      gsap.set(item, {
+        x: pos.x,
+        y: pos.y,
+        scale: pos.scale,
+        filter: pos.filter,
+        zIndex: pos.zIndex,
+        opacity: pos.opacity,
+        pointerEvents: i === 1 ? "auto" : "none"
+      });
+    });
+  };
+
+  const handleNext = () => {
+    if (isAnimating || showDetail) return;
+    setIsAnimating(true);
+    
+    // Hide current content
+    gsap.to(".active-item .content-animate", {
+      y: -20,
+      opacity: 0,
+      filter: "blur(10px)",
+      stagger: 0.1,
+      duration: 0.3
+    });
+    
+    // Animate all items
+    itemsRef.current.forEach((item, i) => {
+      if (!item) return;
+      const nextIndex = i === 0 ? itemsRef.current.length - 1 : i - 1;
+      
+      const timeline = gsap.timeline({
+        onComplete: () => {
+          if (i === 1) {
+            setCurrentIndex(prev => (prev + 1) % spirits.length);
+            setIsAnimating(false);
+            
+            // Show new content
+            gsap.fromTo(
+              ".active-item .content-animate",
+              { y: -30, opacity: 0, filter: "blur(10px)" },
+              { 
+                y: 0, 
+                opacity: 1, 
+                filter: "blur(0px)",
+                stagger: 0.2,
+                duration: 0.5,
+                ease: "power2.out"
+              }
+            );
           }
         }
-      );
+      });
+      
+      const nextItem = itemsRef.current[nextIndex];
+      if (!nextItem) return;
+      
+      const nextStyles = window.getComputedStyle(nextItem);
+      timeline.to(item, {
+        x: nextStyles.getPropertyValue('transform').split(',')[4],
+        y: nextStyles.getPropertyValue('transform').split(',')[5],
+        scale: nextStyles.getPropertyValue('transform').includes('matrix3d') 
+          ? parseFloat(nextStyles.getPropertyValue('transform').split(',')[0].slice(9)) 
+          : parseFloat(nextStyles.getPropertyValue('transform').split(',')[0].slice(7)),
+        filter: nextStyles.getPropertyValue('filter'),
+        opacity: nextStyles.getPropertyValue('opacity'),
+        zIndex: nextStyles.getPropertyValue('z-index'),
+        pointerEvents: nextIndex === 1 ? "auto" : "none",
+        duration: 0.7,
+        ease: "power3.out",
+        delay: i * 0.1
+      });
     });
-  }, []);
+  };
+
+  const handlePrev = () => {
+    if (isAnimating || showDetail) return;
+    setIsAnimating(true);
+    
+    gsap.to(".active-item .content-animate", {
+      y: -20,
+      opacity: 0,
+      filter: "blur(10px)",
+      stagger: 0.1,
+      duration: 0.3
+    });
+    
+    itemsRef.current.forEach((item, i) => {
+      if (!item) return;
+      const prevIndex = i === itemsRef.current.length - 1 ? 0 : i + 1;
+      
+      const timeline = gsap.timeline({
+        onComplete: () => {
+          if (i === 1) {
+            setCurrentIndex(prev => (prev - 1 + spirits.length) % spirits.length);
+            setIsAnimating(false);
+            
+            gsap.fromTo(
+              ".active-item .content-animate",
+              { y: -30, opacity: 0, filter: "blur(10px)" },
+              { 
+                y: 0, 
+                opacity: 1, 
+                filter: "blur(0px)",
+                stagger: 0.2,
+                duration: 0.5,
+                ease: "power2.out"
+              }
+            );
+          }
+        }
+      });
+      
+      const prevItem = itemsRef.current[prevIndex];
+      if (!prevItem) return;
+      
+      const prevStyles = window.getComputedStyle(prevItem);
+      timeline.to(item, {
+        x: prevStyles.getPropertyValue('transform').split(',')[4],
+        y: prevStyles.getPropertyValue('transform').split(',')[5],
+        scale: prevStyles.getPropertyValue('transform').includes('matrix3d') 
+          ? parseFloat(prevStyles.getPropertyValue('transform').split(',')[0].slice(9)) 
+          : parseFloat(prevStyles.getPropertyValue('transform').split(',')[0].slice(7)),
+        filter: prevStyles.getPropertyValue('filter'),
+        opacity: prevStyles.getPropertyValue('opacity'),
+        zIndex: prevStyles.getPropertyValue('z-index'),
+        pointerEvents: prevIndex === 1 ? "auto" : "none",
+        duration: 0.7,
+        ease: "power3.out",
+        delay: i * 0.1
+      });
+    });
+  };
+
+  const handleSeeMore = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    
+    // Hide non-active items
+    gsap.to(itemsRef.current.filter((_, i) => i !== 1), {
+      x: "100%",
+      opacity: 0,
+      duration: 0.5,
+      stagger: 0.1
+    });
+    
+    // Expand active item
+    gsap.to(itemsRef.current[1], {
+      width: "100%",
+      duration: 0.7
+    });
+    
+    // Move image to center on desktop
+    if (windowWidth >= 768) {
+      gsap.to(".active-item img", {
+        right: "50%",
+        opacity: 1,
+        duration: 1
+      });
+    }
+    
+    // Hide intro content
+    gsap.to(".active-item .intro-content", {
+      opacity: 0,
+      duration: 0.3,
+      pointerEvents: "none"
+    });
+    
+    // Show detail content
+    gsap.fromTo(
+      ".active-item .detail-content",
+      { opacity: 0, pointerEvents: "none" },
+      { 
+        opacity: 1, 
+        pointerEvents: "auto",
+        delay: 0.5,
+        duration: 0.5
+      }
+    );
+    
+    // Animate detail elements
+    gsap.fromTo(
+      ".active-item .detail-animate",
+      { y: -30, opacity: 0, filter: "blur(10px)" },
+      {
+        y: 0,
+        opacity: 1,
+        filter: "blur(0px)",
+        stagger: 0.2,
+        delay: 1,
+        duration: 0.8
+      }
+    );
+    
+    // Animate background gradient
+    gsap.to(".gradient-bg", {
+      x: windowWidth < 768 ? "0%" : "-100%",
+      rotation: 90,
+      filter: "blur(130px)",
+      duration: 1
+    });
+    
+    // Hide navigation buttons
+    gsap.to([".prev-btn", ".next-btn"], {
+      opacity: 0,
+      pointerEvents: "none",
+      duration: 0.3
+    });
+    
+    // Show back button
+    gsap.to(".back-btn", {
+      opacity: 1,
+      duration: 0.5,
+      delay: 0.5
+    });
+    
+    setShowDetail(true);
+    setIsAnimating(false);
+  };
+
+  const handleBack = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    
+    // Hide detail content
+    gsap.to(".active-item .detail-content", {
+      opacity: 0,
+      duration: 0.3,
+      pointerEvents: "none"
+    });
+    
+    // Show intro content
+    gsap.to(".active-item .intro-content", {
+      opacity: 1,
+      pointerEvents: "auto",
+      delay: 0.5,
+      duration: 0.5
+    });
+    
+    // Reset active item width
+    gsap.to(itemsRef.current[1], {
+      width: windowWidth < 768 ? "100%" : "70%",
+      duration: 0.7
+    });
+    
+    // Reset image position on desktop
+    if (windowWidth >= 768) {
+      gsap.to(".active-item img", {
+        right: 0,
+        opacity: 1,
+        duration: 1
+      });
+    }
+    
+    // Show all items again
+    setupCarouselItems();
+    
+    // Reset background gradient
+    gsap.to(".gradient-bg", {
+      x: "-10%",
+      rotation: 0,
+      filter: "blur(150px)",
+      duration: 1
+    });
+    
+    // Show navigation buttons
+    gsap.to([".prev-btn", ".next-btn"], {
+      opacity: 1,
+      pointerEvents: "auto",
+      duration: 0.5,
+      delay: 0.5
+    });
+    
+    // Hide back button
+    gsap.to(".back-btn", {
+      opacity: 0,
+      duration: 0.3
+    });
+    
+    // Animate intro elements
+    gsap.fromTo(
+      ".active-item .content-animate",
+      { y: -30, opacity: 0, filter: "blur(10px)" },
+      { 
+        y: 0, 
+        opacity: 1, 
+        filter: "blur(0px)",
+        stagger: 0.2,
+        delay: 0.8,
+        duration: 0.5,
+        ease: "power2.out"
+      }
+    );
+    
+    setShowDetail(false);
+    setIsAnimating(false);
+  };
 
   return (
-    <section 
-      ref={sectionRef}
-      id="spirits"
-      className="py-20 px-4 container mx-auto animate-section"
-    >
-      <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center text-gold mb-16">
-        Our Spirits
-      </h2>
+    <div
+  className="bg-[#F4F4F4] m-0 py-6 md:py-16 overflow-x-hidden overflow-y-hidden h-auto"
+  style={{ fontFamily: "Inter" }}
+>
+
+      <div className="text-center mb-6 md:mb-8 px-4">
+        <h1 className="text-3xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 md:mb-4">
+          Premium Spirits Collection
+        </h1>
+        <p className="text-gray-800 text-md md:text-base lg:text-lg max-w-2xl mx-auto">
+          Discover our exclusive range of handcrafted spirits, each with a unique story and exceptional flavor profile. 
+          From award-winning whiskeys to artisanal gins, our collection celebrates the craft of distilling.
+        </p>
+      </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {spirits.map((spirit, index) => (
-          <div 
-            key={index}
-            ref={el => cardRefs.current[index] = el}
-            className="group relative h-96 bg-black border border-gold/20 rounded-lg overflow-hidden opacity-0"
-          >
-            <div 
-              className="absolute inset-0 transition-all duration-700 opacity-20 group-hover:opacity-30"
-              style={{ backgroundColor: spirit.color }}
-            ></div>
-            <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-10">
-              <div className="w-32 h-64 mb-6 flex items-end">
-                <div 
-                  className="w-full h-5/6 rounded-lg transition-all duration-500 group-hover:scale-105"
-                  style={{ backgroundColor: spirit.color }}
-                ></div>
+      <div 
+        ref={carouselRef}
+        className="relative min-h-[925px] md:min-h-[600px] lg:min-h-[700px] bottom-10 md:bottom-1"
+      > 
+        <div className="gradient-bg absolute bg-gradient-to-tr from-[#DC422A] to-blue-500 z-[-1]"></div>
+        
+        <div className="absolute w-[90%] max-w-[1140px] h-[80%] md:h-[80%] left-1/2 -translate-x-1/2">
+          {spirits.map((spirit, index) => {
+            const visualIndex = (index - currentIndex + 1 + spirits.length) % spirits.length;
+            return (
+              <div 
+                key={spirit.id} 
+                ref={el => itemsRef.current[visualIndex] = el}
+                className={`absolute left-0 w-full md:w-[70%] h-full text-[15px] ${visualIndex === 1 ? 'active-item' : ''}`}
+              >
+                <div className="flex flex-col md:flex-row items-center md:items-start h-full">
+                  {/* Image container - visible in intro view for all, and in detail view for desktop */}
+                  {(windowWidth >= 768 || !showDetail) && (
+                    <div className="w-full md:w-[45%] h-[70%] md:h-full flex items-center justify-center mb-4 md:mb-0">
+                      <img 
+                        src={spirit.img} 
+                        alt={spirit.title}
+                        className="max-h-full max-w-full object-contain transition-all duration-1500 md:absolute top-11 relative md:right-0 md:top-1/2 md:-translate-y-1/2"
+                      />
+                    </div>
+                  )}
+                  
+                  {/* Intro content */}
+                  <div className="intro-content w-full md:w-[400px] md:absolute md:top-1/2 md:-translate-y-1/2 transition-opacity duration-500 px-4 md:px-0 mt-5">
+                    <div className="text-3xl md:text-4xl lg:text-4xl font-medium leading-tight content-animate text-gray-900">
+                      {spirit.title}
+                    </div>
+                    <div className="text-md md:text-md lg:text-base text-gray-800 content-animate mt-2 md:mt-4">
+                      {spirit.shortDesc}
+                    </div>
+                    <button 
+                      onClick={handleSeeMore}
+                      className="mt-7 md:mt-5 py-2 px-4 bg-gray-900 text-white font-bold tracking-[3px] rounded-none transition-all duration-500 font-[Poppins] hover:bg-gray-800 content-animate text-sm md:text-base"
+                    >
+                      SEE MORE ↗
+                    </button>
+                  </div>
+                  
+                  {/* Detail content */}
+                  <div className={`detail-content opacity-0 pointer-events-none w-full md:w-1/2 md:absolute md:right-0 ${windowWidth < 768 ? 'top-[10%]' : 'top-1/2 md:-translate-y-1/2'} bg-transparent p-4 md:p-6 lg:p-8 flex flex-col h-[80%] md:h-auto border border-gray-300`}>
+                    {/* Detail image - shown in detail view on mobile */}
+                    {showDetail && windowWidth < 768 && (
+                      <div className="w-full flex-shrink-0 flex justify-center mb-4">
+                        <img 
+                          src={spirit.img} 
+                          alt={spirit.title}
+                          className="max-h-[220px] object-contain"
+                        />
+                      </div>
+                    )}
+                    <div className="overflow-hidden flex-grow ">
+                      <div className="text-xl md:text-2xl lg:text-3xl detail-animate font-bold mb-2 md:mb-4 text-gray-900 ">
+                        {spirit.title}
+                      </div>
+                      <div className="detail-animate max-h-[200px]  py-2 md:py-4 text-gray-700 text-sm overflow-hidden md:text-base">
+                        {spirit.detailDesc}
+                      </div>
+                      <div className="flex gap-2 w-full border-t border-gray-300 mt-3 md:mt-5 overflow-auto py-3 md:py-4 detail-animate">
+                        {spirit.specs.map((spec, specIndex) => (
+                          <div key={specIndex} className="w-[80px] md:w-[90px] text-center flex-shrink-0">
+                            <p className="font-bold text-gray-800 text-xs md:text-sm">{spec.name}</p>
+                            <p className="text-gray-600 text-xs md:text-sm">{spec.value}</p>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="detail-animate mt-2 md:mt-4">
+                        {spirit.link !== "#" && (
+                          <a 
+                            href={spirit.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-[Poppins] bg-transparent border border-gray-300 py-2 px-4 tracking-[2px] font-medium hover:bg-gray-400 transition-colors inline-block text-gray-900 text-xs md:text-sm"
+                          >
+                            LEARN MORE
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <h3 className="text-xl font-playfair font-bold text-light mb-2">{spirit.name}</h3>
-              <p className="text-muted text-sm">{spirit.description}</p>
-            </div>
-          </div>
+            );
+          })}
+        </div>
+        
+        {/* Navigation controls */}
+        <div className="absolute bottom-4 md:bottom-6 w-[90%] max-w-[1140px] flex justify-between left-1/2 -translate-x-1/2 px-4">
+          <button 
+            onClick={handlePrev}
+            className="prev-btn w-10 h-10 md:w-12 md:h-12 rounded-full font-mono border border-gray-300 text-lg bg-black text-white hover:bg-gray-800 transition-colors flex items-center justify-center relative bottom-25 ml-32 md:bottom-20 md:ml-115"
+            aria-label="Previous product"
+          >
+            &lt;
+          </button>
+          <button 
+            onClick={handleNext}
+            className="next-btn w-10 h-10 md:w-12 md:h-12 rounded-full font-mono border border-gray-300 text-lg bg-black text-white hover:bg-gray-800 transition-colors flex items-center justify-center relative bottom-25 mr-26 md:bottom-20 md:mr-96 "
+            aria-label="Next product"
+          >
+            &gt;
+            
+          </button>
+          <button 
+            onClick={handleBack}
+            className="back-btn absolute z-[100] bottom-12 left-1/2 -translate-x-1/2 bg-white md:text-gray-900 font-[Poppins] font-bold tracking-[3px] px-4 py-2 opacity-0 border border-gray-300 hover:bg-gray-100 transition-colors text-xs md:text-sm md:bottom-16 text-gray-600"
+          >
+            BACK TO COLLECTION
+          </button>
+        </div>
+      </div>
+      
+      {/* Mobile indicators */}
+      <div className="md:hidden flex justify-center ml-7 relative bottom-25  space-x-2">
+        {spirits.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentIndex(index)}
+            className={`w-2 h-2 rounded-full ${
+              currentIndex === index ? 'bg-gray-900' : 'bg-gray-300'
+            }`}
+            aria-label={`Go to product ${index + 1}`}
+          />
         ))}
       </div>
-    </section>
+    </div>
   );
 };
 

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const BrandCreationPreview = () => {
   const sectionRef = useRef(null);
   const contentRef = useRef(null);
-  const bottleRef = useRef(null);
+  const featureRefs = useRef([]);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -23,46 +23,95 @@ const BrandCreationPreview = () => {
     tl.fromTo(contentRef.current, 
       { y: 60, opacity: 0 },
       { y: 0, opacity: 1, duration: 1, ease: "power3.out" }
-    ).fromTo(bottleRef.current, 
-      { scale: 0.8, opacity: 0, rotation: -10 },
-      { scale: 1, opacity: 1, rotation: 0, duration: 1.2, ease: "back.out(1.7)" }, 
-      "-=0.5"
+    ).fromTo(featureRefs.current, 
+      { y: 20, opacity: 0 },
+      { 
+        y: 0, 
+        opacity: 1, 
+        duration: 0.6, 
+        stagger: 0.1,
+        ease: "power2.out"
+      }, 
+      "-=0.4"
     );
   }, []);
 
   return (
     <section 
       ref={sectionRef}
-      className="py-20 px-4 bg-gradient-to-r from-black to-gold/10 animate-section"
+      className="py-28 px-4 bg-white relative overflow-hidden"
     >
-      <div className="container mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div ref={contentRef} className="opacity-0">
-            <h2 className="text-3xl font-playfair font-bold text-gold mb-6">
+      {/* Decorative elements */}
+      <div className="absolute top-10 right-10 w-32 h-32 bg-gray-100 rounded-full -z-10"></div>
+      <div className="absolute bottom-20 left-8 w-24 h-24 border-2 border-gray-200 rounded-full -z-10"></div>
+      
+      <div className="container mx-auto max-w-4xl">
+        <div className="flex flex-col items-center text-center">
+          <div ref={contentRef} className="opacity-0 relative z-10 max-w-3xl">
+            <div className="mb-2">
+              <span className="text-sm uppercase tracking-widest text-gray-500 font-medium">
+                Premium Craftsmanship
+              </span>
+            </div>
+            
+            <h2 className="text-4xl md:text-5xl font-playfair font-bold text-black mb-6 leading-tight">
               Alcohol Brand Creation Studio
             </h2>
-            <p className="text-light mb-6">
+            
+            <div className="w-20 h-0.5 bg-gray-300 mx-auto mb-8"></div>
+            
+            <p className="text-gray-700 mb-10 text-lg leading-relaxed">
               Transform your vision into a premium spirit brand with our expert guidance and production capabilities. 
-              From concept to shelf, we provide end-to-end solutions including recipe development, regulatory compliance, 
-              packaging design, and distribution strategy.
+              From concept to shelf, we provide end-to-end solutions for exceptional brand development.
             </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+              {[
+                { title: 'Concept Development', desc: 'Crafting unique brand narratives and positioning' },
+                { title: 'Recipe Formulation', desc: 'Expert distillation and flavor profiling' },
+                { title: 'Regulatory Compliance', desc: 'Navigating complex alcohol regulations' },
+                { title: 'Packaging Design', desc: 'Creating iconic, shelf-stunning presentations' }
+              ].map((feature, index) => (
+                <div 
+                  key={feature.title}
+                  ref={el => featureRefs.current[index] = el}
+                  className="opacity-0 p-6 bg-gray-50 rounded-lg border border-gray-100 hover:shadow-md transition-all duration-300"
+                >
+                  <div className="flex items-start">
+                    <div className="mr-4 mt-1">
+                      <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+                        <span className="text-black font-bold">{index + 1}</span>
+                      </div>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-black mb-2">{feature.title}</h3>
+                      <p className="text-gray-600">{feature.desc}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
             <Link 
               to="/alcohol-brand-creation" 
-              className="inline-block bg-gold text-black py-3 px-8 font-medium hover:bg-opacity-90 transition-all"
+              className="inline-block bg-black text-white py-4 px-10 font-medium tracking-wide 
+                         hover:bg-gray-800 transition-all duration-300 relative group"
             >
-              Create Your Brand
+              <span className="relative z-10 flex items-center justify-center">
+                Create Your Brand
+                <svg 
+                  className="ml-3 transition-transform duration-300 group-hover:translate-x-1" 
+                  width="16" 
+                  height="16" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </span>
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-300 transition-all duration-500 group-hover:h-full group-hover:opacity-10 -z-10"></span>
             </Link>
-          </div>
-          <div ref={bottleRef} className="opacity-0 flex justify-center">
-            <div className="relative w-48 h-72">
-              <div className="absolute inset-0 bg-gradient-to-b from-gold/20 to-transparent rounded-lg"></div>
-              <div className="relative w-full h-full flex items-end justify-center">
-                <div className="w-24 h-56 bg-gradient-to-b from-amber-300 to-amber-800 rounded-lg shadow-xl"></div>
-                <div className="absolute top-0 w-32 h-4 bg-gold/50 rounded-full"></div>
-                <div className="absolute bottom-0 w-full h-8 bg-gold/30 rounded-b-lg"></div>
-              </div>
-              <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 w-32 h-8 bg-gold/10 rounded-lg border border-gold/30"></div>
-            </div>
           </div>
         </div>
       </div>

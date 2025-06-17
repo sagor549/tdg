@@ -35,3 +35,52 @@ html {
 .border-gold {
   border-color: #FFD700;
 }
+/* styles.css */
+
+
+
+@media screen and (max-width: 1023px) and (min-width: 768px) {
+  :root {
+    --w-column: 100px;
+  }
+  
+  .carousel {
+    height: 60vh !important;
+  }
+  
+  .carousel .content h2 {
+    font-size: 5em !important;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  :root {
+    --w-column: 50px;
+  }
+  
+  .carousel {
+    height: 100vh !important;
+  }
+  
+  .carousel .content {
+    padding-bottom: 100px !important;
+    justify-content: flex-end !important;
+  }
+  
+  .carousel .content h2 {
+    font-size: 5em !important;
+  }
+  
+  .carousel figure {
+    width: 110% !important;
+    top: 200px !important;
+    left: -30px !important;
+    transform: translateY(0) !important;
+  }
+  
+  .indicators .number {
+    font-size: 10em !important;
+    transform: translateX(50px) !important;
+    opacity: 0.5 !important;
+  }
+}

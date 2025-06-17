@@ -32,6 +32,7 @@ function App() {
             <Route path="/co-packing-services" element={<CoPackingServices />} />
           </Routes>
         </main>
+        
         <Footer />
       </div>
     </Router>
