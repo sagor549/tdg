@@ -42,12 +42,16 @@ const Contact = () => {
 
   return (
     <div id='contact' className="min-h-screen relative">
-      {/* Background Image with Gradient Overlay */}
-      <div 
-        className="fixed inset-0 bg-[url('/assets/contact.png')] bg-cover bg-center bg-fixed z-0"
-        style={{ backgroundAttachment: 'fixed' }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/0 to-black/100"></div>
+      {/* Background Image with Gradient Overlay - FIXED FOR MOBILE */}
+      <div className="fixed inset-0 z-0">
+        <div 
+          className="absolute inset-0 bg-[url('/assets/contact.png')] bg-cover bg-center bg-fixed md:bg-fixed"
+          style={{ 
+            backgroundAttachment: 'scroll',
+          }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-black/0 to-black/100"></div>
+        </div>
       </div>
       
       {/* Content Container */}
@@ -181,9 +185,8 @@ const Contact = () => {
         </section>
       </div>
       <div className='max-w-4xl mx-auto block md:hidden rounded-2xl p-20 border border-gray-700 shadow-lg'>
-
+        {/* Empty spacer for mobile layout */}
       </div>
-      
     </div>
   );
 };
