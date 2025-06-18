@@ -1,10 +1,16 @@
-// src/pages/AlcoholBrandCreation.jsx
 import React, { useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const AlcoholBrandCreation = () => {
+  const location = useLocation();
+
+  // Reset scroll position on route change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     
@@ -61,13 +67,21 @@ const AlcoholBrandCreation = () => {
         stagger: 0.2
       }
     );
+    
+    // Refresh ScrollTrigger after initial render
+    ScrollTrigger.refresh();
+    
+    // Cleanup ScrollTrigger instances
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, []);
 
   return (
     <div className="min-h-screen ">
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-4 container mx-auto text-center animate-section relative">
-      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0">
           <div className="bg-[url('/assets/wb.png')] bg-cover bg-center absolute inset-0 opacity-60"></div>
           <div className="absolute inset-0  "></div>
         </div>
@@ -104,7 +118,7 @@ const AlcoholBrandCreation = () => {
 
       {/* Creation Process Section */}
       <section className="py-20 px-4 container mx-auto animate-section relative">
-      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0">
           <div className="bg-[url('/assets/water.png')]  absolute inset-0 opacity-20"></div>
           <div className="absolute inset-0  "></div>
         </div>
@@ -124,7 +138,6 @@ const AlcoholBrandCreation = () => {
                 packaging design, and distribution strategy.
               </p>
             </div>
-            
             
             {/* Process Section */}
             <div className="relative process-section">
@@ -157,79 +170,47 @@ const AlcoholBrandCreation = () => {
               </div>
             </div>
           </div>
-          <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center mb-16">
-            <div className="w-24 h-0.5 bg-transparent mx-auto mb-6 rounded-full"></div>
-            <h2 className="text-4xl font-bold text-white mb-4">Comprehensive Brand Solutions</h2>
-          </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
-            {[
-              { 
-                icon: "🧪", 
-                title: "Expert Formulation", 
-                description: "Create unique flavor profiles" 
-              },
-              { 
-                icon: "📜", 
-                title: "Regulatory Compliance", 
-                description: "Full TTB and state compliance" 
-              },
-              { 
-                icon: "🎨", 
-                title: "Brand Identity", 
-                description: "Distinctive logo and story" 
-              },
-              { 
-                icon: "📦", 
-                title: "Premium Packaging", 
-                description: "Bottle and label design" 
-              },
-              { 
-                icon: "📊", 
-                title: "Market Strategy", 
-                description: "Pricing and distribution" 
-              },
-              { 
-                icon: "🏭", 
-                title: "Production Scaling", 
-                description: "Small batches to full production" 
-              },
-              { 
-                icon: "🌐", 
-                title: "Digital Presence", 
-                description: "Website and social media" 
-              },
-              { 
-                icon: "🤝", 
-                title: "Ongoing Support", 
-                description: "Continuous brand evolution" 
-              }
-            ].map((feature, index) => (
-              <div 
-                key={index}
-                className="backdrop-blur-sm rounded-2xl p-8 border border-gray-700 shadow-lg transition-all duration-300"
-              >
-                <div className="feature-icon mb-6 flex justify-center">
-                  <div className="text-4xl bg-gray-900 p-4 rounded-xl border border-gray-700 shadow-md">
-                    {feature.icon}
+          {/* Features Section */}
+          <div className="container mx-auto px-4 relative z-10 mt-24 features-section">
+            <div className="text-center mb-16">
+              <div className="w-24 h-0.5 bg-transparent mx-auto mb-6 rounded-full"></div>
+              <h2 className="text-4xl font-bold text-white mb-4">Comprehensive Brand Solutions</h2>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+              {[
+                { icon: "🧪", title: "Expert Formulation", description: "Create unique flavor profiles" },
+                { icon: "📜", title: "Regulatory Compliance", description: "Full TTB and state compliance" },
+                { icon: "🎨", title: "Brand Identity", description: "Distinctive logo and story" },
+                { icon: "📦", title: "Premium Packaging", description: "Bottle and label design" },
+                { icon: "📊", title: "Market Strategy", description: "Pricing and distribution" },
+                { icon: "🏭", title: "Production Scaling", description: "Small batches to full production" },
+                { icon: "🌐", title: "Digital Presence", description: "Website and social media" },
+                { icon: "🤝", title: "Ongoing Support", description: "Continuous brand evolution" }
+              ].map((feature, index) => (
+                <div 
+                  key={index}
+                  className="backdrop-blur-sm rounded-2xl p-8 border border-gray-700 shadow-lg transition-all duration-300"
+                >
+                  <div className="feature-icon mb-6 flex justify-center">
+                    <div className="text-4xl bg-gray-900 p-4 rounded-xl border border-gray-700 shadow-md">
+                      {feature.icon}
+                    </div>
                   </div>
+                  <h3 className="text-xl font-bold text-white mb-4 text-center">{feature.title}</h3>
+                  <p className="text-gray-400 text-center">{feature.description}</p>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4 text-center">{feature.title}</h3>
-                <p className="text-gray-400 text-center">{feature.description}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
         </div>
       </section>
 
-      
-
       {/* CTA Section */}
       <section className="py-24 animate-section relative overflow-hidden">
-      <div className="bg-[url('/assets/brand.png')]  absolute inset-0 opacity-70"></div>
-      <div className="absolute inset-0 backdrop-blur-sm "></div>
+        <div className="bg-[url('/assets/brand.png')] absolute inset-0 opacity-70"></div>
+        <div className="absolute inset-0 backdrop-blur-sm "></div>
         
         <div className="container mx-auto px-4 text-center relative z-10">
           <div className="max-w-3xl mx-auto">
@@ -240,7 +221,11 @@ const AlcoholBrandCreation = () => {
               Let's Craft Your Signature Spirit
             </h2>
             <div className="mt-10">
-              <Link to="/contact" className="bg-white text-gray-900 hover:bg-gray-100 font-bold py-4 px-12 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
+              <Link 
+                to="/contact" 
+                className="bg-white text-gray-900 hover:bg-gray-100 font-bold py-4 px-12 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+                onClick={() => window.scrollTo(0, 0)}
+              >
                 Start Your Journey
               </Link>
             </div>

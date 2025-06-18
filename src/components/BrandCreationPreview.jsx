@@ -1,13 +1,18 @@
-// src/components/BrandCreationPreview.jsx
 import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const BrandCreationPreview = () => {
   const sectionRef = useRef(null);
   const contentRef = useRef(null);
   const featureRefs = useRef([]);
+  const location = useLocation();
+
+  // Reset scroll position on route change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -34,6 +39,11 @@ const BrandCreationPreview = () => {
       }, 
       "-=0.4"
     );
+    
+    // Cleanup ScrollTrigger instances
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, []);
 
   return (
@@ -96,6 +106,7 @@ const BrandCreationPreview = () => {
               to="/alcohol-brand-creation" 
               className="inline-block bg-black text-white py-4 px-10 font-medium tracking-wide 
                          hover:bg-gray-800 transition-all duration-300 relative group"
+              onClick={() => window.scrollTo(0, 0)}
             >
               <span className="relative z-10 flex items-center justify-center">
                 Create Your Brand

@@ -1,13 +1,18 @@
-// src/components/CoPackingPreview.jsx
 import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const CoPackingPreview = () => {
   const sectionRef = useRef(null);
   const contentRef = useRef(null);
   const iconRefs = useRef([]);
+  const location = useLocation();
+
+  // Reset scroll position on route change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -43,6 +48,11 @@ const CoPackingPreview = () => {
         }
       );
     });
+    
+    // Cleanup ScrollTrigger instances
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, []);
 
   const services = [
@@ -87,6 +97,7 @@ const CoPackingPreview = () => {
             <Link 
               to="/co-packing-services" 
               className="inline-block bg-gray-900 text-white py-3 px-8 font-medium tracking-wide rounded-lg hover:bg-gray-800 transition-all duration-300 shadow-md hover:shadow-lg"
+              onClick={() => window.scrollTo(0, 0)}
             >
               Explore Our Services
             </Link>

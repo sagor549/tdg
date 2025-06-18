@@ -138,12 +138,7 @@ const AboutContent = ({ title, description, buttonText }) => (
       <p className="mb-8 text-xl text-neutral-600 md:text-2xl">
         {description}
       </p>
-      {buttonText && (
-        <button className="flex items-center gap-1 text-black font-medium group">
-          {buttonText}
-          <FiArrowUpRight className="group-hover:rotate-45 transition-transform duration-300" />
-        </button>
-      )}
+      
     </div>
   </div>
 );
