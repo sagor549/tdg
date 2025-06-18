@@ -46,7 +46,8 @@ const Hero = () => {
   useEffect(() => {
     if (startAutoAnimation && lenis) {
       lenis.scrollTo('#spirits', {
-        duration: 2,
+        duration: 1,
+        offset:100,
         easing: (t) => t,
       });
     }
@@ -190,7 +191,7 @@ const SpiritsSection = () => {
   return (
     <section
       id="spirits"
-      className="relative min-h-screen overflow-hidden bg-gradient-to-br from-zinc-900 to-black"
+      className="relative min-h-screen overflow-hidden bg-gradient-to-br from-zinc-900 to-black bottom-50 md:bottom-0"
     >
       <div className="absolute inset-0 z-0 opacity-40">
         <img
@@ -244,7 +245,7 @@ const SpiritsSection = () => {
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ ease: "easeInOut", duration: 0.75 }}
         >
-          <a href="#product-section" className="bg-transparent border border-white   text-white hover:bg-black rounded-4xl p-3 text-xl font-bold">Explore Our Spirits </a>
+          <a href="#product-section" className="bg-transparent border border-white   text-white hover:bg-black rounded-4xl p-4  text-xl font-bold">Explore Our Spirits  </a>
           <CTAButton to="/alcohol-brand-creation">Alcohol Brand Creation Studio</CTAButton>
           <CTAButton to="/co-packing-services">Co-Packing Services</CTAButton>
         </motion.div>
