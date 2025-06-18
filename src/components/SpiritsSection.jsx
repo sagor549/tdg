@@ -13,7 +13,7 @@ const SpiritsSection = () => {
       img: img1,
       title: "Brass Knuckles Canadian Whiskey",
       shortDesc: "The first ultra-premium Canadian Whiskey. Aged for five years in charred White Oak Barrels.",
-      detailDesc: "Brass Knuckles Canadian Whiskey™ is the first ultra-premium Canadian whiskey, aged five years in charred White Oak barrels for a smooth, sweet oak flavor and rich aroma. Locally crafted in Toronto, BK supports Canadian industry and honors over a century of whiskey-making tradition. Every sip delivers bold character and a taste that leaves a lasting impression.",
+      detailDesc: "Brass Knuckles Canadian Whiskey™ is the first ultra-premium Canadian whiskey Locally crafted in Toronto, BK supports Canadian industry and honors over a century of whiskey-making tradition. Every sip delivers bold character and a taste that leaves a lasting impression.",
       specs: [
         { name: "Aging", value: "5 years" },
         { name: "Barrels", value: "Charred White Oak" },
@@ -547,21 +547,21 @@ const SpiritsSection = () => {
                     </button>
                   </div>
                   
-                  <div className={`detail-content opacity-0 pointer-events-none w-full md:w-1/2 md:absolute md:right-0 ${windowWidth < 768 ? 'top-0 h-full' : 'top-1/2 md:-translate-y-1/2'} bg-transparent p-4 md:p-6 lg:p-8 flex flex-col`}>
+                  <div className={`detail-content opacity-0 pointer-events-none w-full md:w-1/2 md:absolute md:right-0 ${windowWidth < 768 ? 'top-0 h-full' : 'top-1/2 md:-translate-y-1/2'} bg-transparent p-1 md:p-6 lg:p-8 flex flex-col`}>
                     {showDetail && windowWidth < 768 && (
                       <div className="w-full flex-shrink-0 flex justify-center mb-4">
                         <img 
                           src={spirit.img} 
                           alt={spirit.title}
-                          className="max-h-[220px] object-contain"
+                          className="max-h-[260px] object-contain"
                         />
                       </div>
                     )}
                     <div className="overflow-y-auto flex-grow pr-2">
-                      <div className="text-xl md:text-2xl lg:text-3xl detail-animate font-bold mb-2 md:mb-4 text-gray-900">
+                      <div className="text-xl md:text-2xl lg:text-3xl detail-animate font-bold mb-1 md:mb-4 text-gray-900">
                         {spirit.title}
                       </div>
-                      <div className="detail-animate py-2 md:py-4 text-gray-700 text-sm md:text-base">
+                      <div className="detail-animate py-0 md:py-4 text-gray-700 text-sm md:text-base">
                         {spirit.detailDesc}
                       </div>
                       <div className="flex gap-2 w-full border-t border-gray-300 mt-3 md:mt-5 overflow-x-auto py-3 md:py-4 detail-animate">
@@ -572,13 +572,13 @@ const SpiritsSection = () => {
                           </div>
                         ))}
                       </div>
-                      <div className="detail-animate mt-2 md:mt-4">
+                      <div className="detail-animate mt-1 md:mt-4">
                         {spirit.link !== "#" && (
                           <a 
                             href={spirit.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="font-[Poppins] bg-transparent border border-gray-300 py-2 px-4 tracking-[2px] font-medium hover:bg-gray-400 transition-colors inline-block text-gray-900 text-xs md:text-sm"
+                            className="font-[Poppins] bg-transparent border border-gray-300 py-1 px-4 tracking-[2px] font-medium hover:bg-gray-400 transition-colors inline-block text-gray-900 text-xs md:text-sm"
                           >
                             LEARN MORE
                           </a>
@@ -609,7 +609,7 @@ const SpiritsSection = () => {
           </button>
           <button 
             onClick={handleBack}
-            className={`back-btn absolute z-[100] bottom-12 left-1/2 -translate-x-1/2 bg-white md:text-gray-900 font-[Poppins] font-bold tracking-[3px] px-4 py-2 opacity-0 border border-gray-300 hover:bg-gray-100 transition-colors text-xs md:text-sm md:bottom-16 text-gray-600 ${
+            className={`back-btn absolute z-[100] bottom-26 left-1/2 -translate-x-1/2 bg-white md:text-gray-900 font-[Poppins] font-bold tracking-[3px] px-4 py-2 opacity-0 border border-gray-300 hover:bg-gray-100 transition-colors text-xs md:text-sm md:bottom-16 text-gray-600 ${
               showDetail && windowWidth < 768 ? 'fixed bottom-4' : ''
             }`}
           >
