@@ -80,6 +80,7 @@ const SpiritsSection = () => {
     }
   ];
 
+
   const [showDetail, setShowDetail] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -88,6 +89,7 @@ const SpiritsSection = () => {
   const itemsRef = useRef([]);
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
+  const originalOverflowRef = useRef('');
 
   // Track window size for responsive adjustments
   useEffect(() => {
@@ -102,7 +104,7 @@ const SpiritsSection = () => {
   // Reset body overflow on unmount
   useEffect(() => {
     return () => {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = originalOverflowRef.current || 'auto';
     };
   }, []);
 
@@ -125,7 +127,6 @@ const SpiritsSection = () => {
       const diffY = Math.abs(touchStartY.current - touchEndY);
       const swipeThreshold = 50;
       
-      // Only trigger if horizontal swipe is significant and vertical movement is minimal
       if (Math.abs(diffX) > swipeThreshold && diffY < 50) {
         if (diffX > 0) {
           handleNext();
@@ -163,7 +164,6 @@ const SpiritsSection = () => {
       }
     );
     
-    // Adjust gradient size based on screen
     const gradientSize = windowWidth < 768 ? 300 : 500;
     const gradientBlur = windowWidth < 768 ? 100 : 150;
     
@@ -184,7 +184,6 @@ const SpiritsSection = () => {
     
     const isMobile = windowWidth < 768;
     
-    // Mobile positions
     const mobilePositions = [
       { x: "-150%", y: "0%", scale: 0.7, filter: "blur(20px)", zIndex: 1, opacity: 0 },
       { x: "0%", y: "0%", scale: 1, filter: "blur(0px)", zIndex: 10, opacity: 1 },
@@ -193,7 +192,6 @@ const SpiritsSection = () => {
       { x: "450%", y: "0%", scale: 0.2, filter: "blur(40px)", zIndex: 7, opacity: 0 }
     ];
     
-    // Desktop positions
     const desktopPositions = [
       { x: "-100%", y: "-5%", scale: 1.5, filter: "blur(30px)", zIndex: 1, opacity: 0 },
       { x: "0%", y: "0%", scale: 1, filter: "blur(0px)", zIndex: 10, opacity: 1 },
@@ -223,7 +221,6 @@ const SpiritsSection = () => {
     if (isAnimating || showDetail) return;
     setIsAnimating(true);
     
-    // Hide current content
     gsap.to(".active-item .content-animate", {
       y: -20,
       opacity: 0,
@@ -232,7 +229,6 @@ const SpiritsSection = () => {
       duration: 0.3
     });
     
-    // Animate all items
     itemsRef.current.forEach((item, i) => {
       if (!item) return;
       const nextIndex = i === 0 ? itemsRef.current.length - 1 : i - 1;
@@ -243,7 +239,6 @@ const SpiritsSection = () => {
             setCurrentIndex(prev => (prev + 1) % spirits.length);
             setIsAnimating(false);
             
-            // Show new content
             gsap.fromTo(
               ".active-item .content-animate",
               { y: -30, opacity: 0, filter: "blur(10px)" },
@@ -344,10 +339,10 @@ const SpiritsSection = () => {
     if (isAnimating) return;
     setIsAnimating(true);
     
-    // Store original body overflow
+    // Store original overflow and lock scrolling
+    originalOverflowRef.current = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     
-    // Hide non-active items
     gsap.to(itemsRef.current.filter((_, i) => i !== 1), {
       x: "100%",
       opacity: 0,
@@ -355,14 +350,12 @@ const SpiritsSection = () => {
       stagger: 0.1
     });
     
-    // Expand active item
     gsap.to(itemsRef.current[1], {
       width: "100%",
       height: windowWidth < 768 ? "calc(100vh - 100px)" : "100%",
       duration: 0.7
     });
     
-    // Move image to center on desktop
     if (windowWidth >= 768) {
       gsap.to(".active-item img", {
         right: "50%",
@@ -371,14 +364,12 @@ const SpiritsSection = () => {
       });
     }
     
-    // Hide intro content
     gsap.to(".active-item .intro-content", {
       opacity: 0,
       duration: 0.3,
       pointerEvents: "none"
     });
     
-    // Show detail content
     gsap.fromTo(
       ".active-item .detail-content",
       { opacity: 0, pointerEvents: "none" },
@@ -390,7 +381,6 @@ const SpiritsSection = () => {
       }
     );
     
-    // Animate detail elements
     gsap.fromTo(
       ".active-item .detail-animate",
       { y: -30, opacity: 0, filter: "blur(10px)" },
@@ -404,7 +394,6 @@ const SpiritsSection = () => {
       }
     );
     
-    // Animate background gradient
     gsap.to(".gradient-bg", {
       x: windowWidth < 768 ? "0%" : "-100%",
       rotation: 90,
@@ -412,14 +401,12 @@ const SpiritsSection = () => {
       duration: 1
     });
     
-    // Hide navigation buttons
     gsap.to([".prev-btn", ".next-btn"], {
       opacity: 0,
       pointerEvents: "none",
       duration: 0.3
     });
     
-    // Show back button
     gsap.to(".back-btn", {
       opacity: 1,
       duration: 0.5,
@@ -434,17 +421,12 @@ const SpiritsSection = () => {
     if (isAnimating) return;
     setIsAnimating(true);
     
-    // Restore body overflow
-    document.body.style.overflow = 'auto';
-    
-    // Hide detail content
     gsap.to(".active-item .detail-content", {
       opacity: 0,
       duration: 0.3,
       pointerEvents: "none"
     });
     
-    // Show intro content
     gsap.to(".active-item .intro-content", {
       opacity: 1,
       pointerEvents: "auto",
@@ -452,14 +434,12 @@ const SpiritsSection = () => {
       duration: 0.5
     });
     
-    // Reset active item width
     gsap.to(itemsRef.current[1], {
       width: windowWidth < 768 ? "100%" : "70%",
       height: "100%",
       duration: 0.7
     });
     
-    // Reset image position on desktop
     if (windowWidth >= 768) {
       gsap.to(".active-item img", {
         right: 0,
@@ -468,10 +448,8 @@ const SpiritsSection = () => {
       });
     }
     
-    // Show all items again
     setupCarouselItems();
     
-    // Reset background gradient
     gsap.to(".gradient-bg", {
       x: "-10%",
       rotation: 0,
@@ -479,7 +457,6 @@ const SpiritsSection = () => {
       duration: 1
     });
     
-    // Show navigation buttons
     gsap.to([".prev-btn", ".next-btn"], {
       opacity: 1,
       pointerEvents: "auto",
@@ -487,13 +464,11 @@ const SpiritsSection = () => {
       delay: 0.5
     });
     
-    // Hide back button
     gsap.to(".back-btn", {
       opacity: 0,
       duration: 0.3
     });
     
-    // Animate intro elements
     gsap.fromTo(
       ".active-item .content-animate",
       { y: -30, opacity: 0, filter: "blur(10px)" },
@@ -504,7 +479,11 @@ const SpiritsSection = () => {
         stagger: 0.2,
         delay: 0.8,
         duration: 0.5,
-        ease: "power2.out"
+        ease: "power2.out",
+        onComplete: () => {
+          // Restore scrolling AFTER animation completes
+          document.body.style.overflow = originalOverflowRef.current || 'auto';
+        }
       }
     );
     
@@ -543,7 +522,6 @@ const SpiritsSection = () => {
                 className={`absolute left-0 w-full md:w-[70%] h-full text-[15px] ${visualIndex === 1 ? 'active-item' : ''}`}
               >
                 <div className="flex flex-col md:flex-row items-center md:items-start h-full">
-                  {/* Image container - visible in intro view for all, and in detail view for desktop */}
                   {(windowWidth >= 768 || !showDetail) && (
                     <div className="w-full md:w-[45%] h-[70%] md:h-full flex items-center justify-center mb-4 md:mb-0">
                       <img 
@@ -554,7 +532,6 @@ const SpiritsSection = () => {
                     </div>
                   )}
                   
-                  {/* Intro content */}
                   <div className="intro-content w-full md:w-[400px] md:absolute md:top-1/2 md:-translate-y-1/2 transition-opacity duration-500 px-4 md:px-0 mt-5">
                     <div className="text-3xl md:text-4xl lg:text-4xl font-medium leading-tight content-animate text-gray-900">
                       {spirit.title}
@@ -570,9 +547,7 @@ const SpiritsSection = () => {
                     </button>
                   </div>
                   
-                  {/* Detail content */}
                   <div className={`detail-content opacity-0 pointer-events-none w-full md:w-1/2 md:absolute md:right-0 ${windowWidth < 768 ? 'top-0 h-full' : 'top-1/2 md:-translate-y-1/2'} bg-transparent p-4 md:p-6 lg:p-8 flex flex-col`}>
-                    {/* Detail image - shown in detail view on mobile */}
                     {showDetail && windowWidth < 768 && (
                       <div className="w-full flex-shrink-0 flex justify-center mb-4">
                         <img 
@@ -617,7 +592,6 @@ const SpiritsSection = () => {
           })}
         </div>
         
-        {/* Navigation controls */}
         <div className="absolute bottom-4 md:bottom-6 w-[90%] max-w-[1140px] flex justify-between left-1/2 -translate-x-1/2 px-4">
           <button 
             onClick={handlePrev}
@@ -644,7 +618,6 @@ const SpiritsSection = () => {
         </div>
       </div>
       
-      {/* Mobile indicators */}
       <div className="md:hidden flex justify-center ml-7 relative bottom-10 space-x-2">
         {spirits.map((_, index) => (
           <button
