@@ -93,14 +93,18 @@ const SpiritsSection = () => {
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
-      if (showDetail) {
-        handleBack();
-      }
     };
     
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [showDetail]);
+  }, []);
+
+  // Reset body overflow on unmount
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
 
   // Swipe gestures for mobile
   useEffect(() => {
@@ -176,6 +180,8 @@ const SpiritsSection = () => {
   }, [windowWidth]);
 
   const setupCarouselItems = () => {
+    if (showDetail) return;
+    
     const isMobile = windowWidth < 768;
     
     // Mobile positions
@@ -339,7 +345,6 @@ const SpiritsSection = () => {
     setIsAnimating(true);
     
     // Store original body overflow
-    const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     
     // Hide non-active items
@@ -423,11 +428,6 @@ const SpiritsSection = () => {
     
     setShowDetail(true);
     setIsAnimating(false);
-    
-    // Cleanup function for overflow
-    return () => {
-      document.body.style.overflow = originalOverflow;
-    };
   };
 
   const handleBack = () => {
@@ -635,7 +635,9 @@ const SpiritsSection = () => {
           </button>
           <button 
             onClick={handleBack}
-            className="back-btn absolute z-[100] bottom-12 left-1/2 -translate-x-1/2 bg-white md:text-gray-900 font-[Poppins] font-bold tracking-[3px] px-4 py-2 opacity-0 border border-gray-300 hover:bg-gray-100 transition-colors text-xs md:text-sm md:bottom-16 text-gray-600"
+            className={`back-btn absolute z-[100] bottom-12 left-1/2 -translate-x-1/2 bg-white md:text-gray-900 font-[Poppins] font-bold tracking-[3px] px-4 py-2 opacity-0 border border-gray-300 hover:bg-gray-100 transition-colors text-xs md:text-sm md:bottom-16 text-gray-600 ${
+              showDetail && windowWidth < 768 ? 'fixed bottom-4' : ''
+            }`}
           >
             BACK TO COLLECTION
           </button>
