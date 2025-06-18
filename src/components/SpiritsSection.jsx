@@ -40,7 +40,7 @@ const SpiritsSection = () => {
       img: img3,
       title: "RAW Sipping Gin Green Label",
       shortDesc: "Clean, herbaceous profile with zesty fresh ground pepper notes.",
-      detailDesc: "RAW Sipping Gin – Green Label offers a clean, herbaceous profile with botanicals like Juniper, Coriander, Yuzu, Angelica Root, and Galangal.Born without filters, we are raw — and so is this gin. True to nature, unmasked, and unapologetic. RAW Gin is a return to what’s real.",
+      detailDesc: "RAW Sipping Gin – Green Label offers a clean, herbaceous profile with botanicals like Juniper, Coriander etc. Born without filters, we are raw — and so is this gin. True to nature, unmasked, and unapologetic. RAW Gin is a return to what’s real.",
       specs: [
         { name: "Botanicals", value: "Juniper, Grain de Paradis, " },
         { name: "Key Flavor", value: "Pepper, Citrus, " },
@@ -54,7 +54,7 @@ const SpiritsSection = () => {
       img: img4,
       title: "RAW Sipping Gin Orange Label",
       shortDesc: "Richer, warmer citrus twist with aromatic Lebanese juniper.",
-      detailDesc: "RAW Sipping Gin – Orange Label delivers a warm, citrus-forward profile with aromatic Lebanese juniper and botanicals like Lemon, Orange, Coriander, Cardamom, Pink Pepper, and Rose Petal.  The finish is long, with layered root complexity.Born unmasked, we are raw — and so is this gin. Honest, bold, and rooted in nature. RAW is a return to what’s real.",
+      detailDesc: "RAW Sipping Gin – Orange Label delivers a warm, citrus-forward profile with aromatic Lebanese juniper and botanicals like Lemon, Orange, Coriander etc.  The finish is long, with layered root complexity.Born unmasked, we are raw — and so is this gin. RAW is a return to what’s real.",
       specs: [
         { name: "Botanicals", value: "Lemon, Orange,etc" },
         { name: "Key Flavor", value: "Citrus, Juniper" },
@@ -74,7 +74,7 @@ const SpiritsSection = () => {
         { name: "Origin", value: "Mexico" },
         { name: "Bottled", value: "Canada" },
         { name: "Profile", value: "Smooth & Bold" },
-        { name: "Experience", value: "Blissful Satisfaction" }
+        
       ],
       link: "#"
     }
@@ -553,7 +553,7 @@ const SpiritsSection = () => {
                         <img 
                           src={spirit.img} 
                           alt={spirit.title}
-                          className="max-h-[260px] object-contain"
+                          className="max-h-[225px] object-contain"
                         />
                       </div>
                     )}
@@ -609,7 +609,7 @@ const SpiritsSection = () => {
           </button>
           <button 
             onClick={handleBack}
-            className={`back-btn absolute z-[100] bottom-26 left-1/2 -translate-x-1/2 bg-white md:text-gray-900 font-[Poppins] font-bold tracking-[3px] px-4 py-2 opacity-0 border border-gray-300 hover:bg-gray-100 transition-colors text-xs md:text-sm md:bottom-16 text-gray-600 ${
+            className={`back-btn absolute z-[100] bottom-20 left-1/2 -translate-x-1/2 bg-white md:text-gray-900 font-[Poppins] font-bold tracking-[3px] px-4 py-2 opacity-0 border border-gray-300 hover:bg-gray-100 transition-colors text-xs md:text-sm md:bottom-16 text-gray-600 ${
               showDetail && windowWidth < 768 ? 'fixed bottom-4' : ''
             }`}
           >
