@@ -9,10 +9,14 @@ import SpiritsSection from '../components/SpiritsSection';
 import BrandCreationPreview from '../components/BrandCreationPreview';
 import CoPackingPreview from '../components/CoPackingPreview';
 import GivesBackSection from '../components/GivesBackSection';
+import { useLocation } from 'react-router-dom';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Home = () => {
+  const location = useLocation(); // Moved to top-level
+
+  // Animation setup
   useEffect(() => {
     const sections = document.querySelectorAll('.animate-section');
     
@@ -39,22 +43,39 @@ const Home = () => {
     };
   }, []);
 
+  // Scroll to section handler
+  useEffect(() => {
+    if (location.state?.scrollTo) {
+      const section = document.getElementById(location.state.scrollTo);
+      if (section) {
+        setTimeout(() => {
+          section.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }, [location.state]);
+
   return (
     <ReactLenis root options={{ lerp: 0.05, smoothWheel: true }}>
       <div>
         <ToronHero />
-        <section className='relative bottom-30 md:bottom-0'>
+        <section className='relative bottom-50 md:bottom-0'>
           <AboutSection />
         </section>
-        <section className='relative bottom-0 md:bottom-0'>
-        <SpiritsSection />
+        <section className='relative bottom-50 md:bottom-0' id="product-section">
+          <SpiritsSection />
         </section>
-
-        <section className='relative'>
+        <section className='relative bottom-49 md:bottom-0'>
           <BrandCreationPreview />
         </section>
+        <section className='relative bottom-49 md:bottom-0'>
         <CoPackingPreview />
+        </section>
+        <section className='relative bottom-49 md:bottom-0'>
         <GivesBackSection />
+        </section>
+        
+        
       </div>
     </ReactLenis>
   );

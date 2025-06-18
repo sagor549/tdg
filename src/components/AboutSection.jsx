@@ -127,11 +127,7 @@ const AboutContent = ({ title, description, buttonText }) => (
       <p className="mb-8 text-xl text-neutral-600 md:text-2xl">
         {description}
       </p>
-      {buttonText && (
-        <button className="rounded bg-neutral-900 px-9 py-4 text-xl text-white transition-colors hover:bg-neutral-700">
-          {buttonText} <FiArrowUpRight className="inline" />
-        </button>
-      )}
+      
     </div>
   </div>
 );

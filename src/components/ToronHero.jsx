@@ -63,6 +63,7 @@ const Hero = () => {
     <div
       style={{ height: `calc(${SECTION_HEIGHT}px + 100vh)` }}
       className="relative w-full"
+      id="page"
     >
       <motion.div 
         className="absolute top-[20vh] z-10 w-full text-center"

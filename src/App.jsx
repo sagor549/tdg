@@ -36,7 +36,9 @@ function App() {
           
         </main>
         
+        <section className='relative bottom-30 md:bottom-0'>
         <Footer />
+        </section>
       </div>
     </Router>
   );

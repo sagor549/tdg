@@ -53,7 +53,7 @@ const Contact = () => {
       {/* Content Container */}
       <div className="relative z-10">
         {/* Hero Section */}
-        <section className="pt-10 pb-0 px-4 container mx-auto text-center">
+        <section className="pt-50 pb-0 px-4 container mx-auto text-center">
           <div className="max-w-3xl mx-auto contact-header opacity-0">
             <div className="inline-block bg-transparent backdrop-blur-sm text-gray-200 py-2 px-6 rounded-full text-sm font-medium tracking-wide mb-6 border border-gray-700">
               GET IN TOUCH
@@ -119,7 +119,7 @@ const Contact = () => {
         </section>
 
         {/* Additional Contact Info */}
-        <section className="py-2 px-4 container mx-auto">
+        <section className="py-18 px-4 container mx-auto">
           <div className="max-w-4xl mx-auto backdrop-blur-sm rounded-2xl p-10 border border-gray-700 shadow-lg">
             <div className="text-center mb-10">
               <div className="w-24 h-0.5 bg-gray-600 mx-auto mb-6 rounded-full"></div>

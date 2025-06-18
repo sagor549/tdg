@@ -1,6 +1,6 @@
 import { useMotionValue, motion, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { href, Link, useLocation, useNavigate } from 'react-router-dom';
 import { FiArrowRight } from "react-icons/fi";
 
 const Navbar = () => {
@@ -39,7 +39,14 @@ const Navbar = () => {
   }, [menuOpen]);
 
   const scrollToSection = (sectionId) => {
-    if (location.pathname === '/') {
+    // Navigate to homepage first if not already there
+    if (location.pathname !== '/') {
+      navigate('/', { 
+        state: { scrollTo: sectionId } // Pass section ID to scroll to
+      });
+    } 
+    // If already on homepage, scroll to section
+    else {
       const section = document.getElementById(sectionId);
       if (section) {
         section.scrollIntoView({ behavior: 'smooth' });
@@ -51,18 +58,18 @@ const Navbar = () => {
   // Navigation links data
   const navLinks = [
     { 
-      id: 'home',
+      id: 'hero',
       title: 'Home',
-      action: () => scrollToSection('hero'),
+      
       href: '/',
       imgSrc: '/assets/media4.png',
       subheading: 'Back to the beginning'
     },
     { 
-      id: 'spirits',
+      id: 'product-section',
       title: 'Our Spirits',
-      action: () => scrollToSection('spirits'),
-      href: '/',
+      
+      action: () => scrollToSection('product-section'),
       imgSrc: '/assets/teq.png',
       subheading: 'Discover our collection'
     },
