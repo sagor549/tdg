@@ -1,5 +1,4 @@
-// src/components/ToronHero.jsx
-import { ReactLenis, useLenis } from "lenis/dist/lenis-react";
+import { ReactLenis } from "lenis/dist/lenis-react";
 import {
   motion,
   useMotionTemplate,
@@ -8,8 +7,7 @@ import {
   AnimatePresence
 } from "framer-motion";
 import { FiArrowRight } from "react-icons/fi";
-import { useRef, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useRef } from "react";
 
 export const ToronHero = () => {
   return (
@@ -31,27 +29,6 @@ const SECTION_HEIGHT = 1500;
 
 const Hero = () => {
   const { scrollY } = useScroll();
-  const [startAutoAnimation, setStartAutoAnimation] = useState(false);
-  const lenis = useLenis();
-
-  useEffect(() => {
-    const unsubscribe = scrollY.onChange((y) => {
-      if (y > 100 && !startAutoAnimation) {
-        setStartAutoAnimation(true);
-      }
-    });
-    return () => unsubscribe();
-  }, [scrollY, startAutoAnimation]);
-
-  useEffect(() => {
-    if (startAutoAnimation && lenis) {
-      lenis.scrollTo('#spirits', {
-        duration: 2,
-        easing: (t) => t,
-      });
-    }
-  }, [startAutoAnimation, lenis]);
-
   const headerOpacity = useTransform(
     scrollY, 
     [0, 300], 
@@ -63,13 +40,13 @@ const Hero = () => {
       style={{ height: `calc(${SECTION_HEIGHT}px + 100vh)` }}
       className="relative w-full"
     >
+      {/* Header text */}
       <motion.div 
         className="absolute top-[20vh] z-10 w-full text-center"
         style={{ opacity: headerOpacity }}
       >
         <AnimatePresence>
           <motion.h1 
-            key="hero-heading"
             className="mx-auto max-w-4xl bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-5xl font-black uppercase tracking-tighter text-transparent md:text-7xl"
             initial={{ y: 20, opacity: 0 }}
             style={{ fontFamily: "Inter" }}
@@ -114,7 +91,8 @@ const CenterImage = () => {
         clipPath,
         backgroundSize,
         opacity,
-        backgroundImage: "url('/assets/intro.png')",
+        backgroundImage:
+          "url(/assets/intro.png)",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}
@@ -126,33 +104,29 @@ const ParallaxImages = () => {
   return (
     <div className="mx-auto max-w-5xl px-4 pt-[200px]">
       <ParallaxImg
-        key="img1"
         src="/assets/don.png"
-        alt="Don Julio spirit"
+        alt="An example of a space launch"
         start={-200}
         end={200}
         className="w-1/3"
       />
       <ParallaxImg
-        key="img2"
         src="/assets/bk.jpg"
-        alt="Brass Knuckles whiskey"
+        alt="An example of a space launch"
         start={200}
         end={-250}
         className="mx-auto w-2/3"
       />
       <ParallaxImg
-        key="img3"
         src="/assets/media4.png"
-        alt="Distillery media"
+        alt="Orbiting satellite"
         start={-200}
         end={200}
         className="ml-auto w-1/3"
       />
       <ParallaxImg
-        key="img4"
         src="/assets/intro.png"
-        alt="Distillery intro"
+        alt="Orbiting satellite"
         start={0}
         end={-500}
         className="ml-24 w-5/12"
@@ -192,41 +166,44 @@ const SpiritsSection = () => {
       id="spirits"
       className="relative min-h-screen overflow-hidden bg-gradient-to-br from-zinc-900 to-black"
     >
+      {/* Toronto Skyline Background */}
       <div className="absolute inset-0 z-0 opacity-40">
         <img
-          src="/assets/bgg.jpg"
+          src="/assets/bgg.jpg" // Using image from public folder
           alt="Toronto skyline"
           className="h-full w-full object-cover"
         />
       </div>
       
+     
+      
+      
+      {/* Content */}
       <div className="relative z-20 mx-auto max-w-6xl px-4 py-32 text-center">
         <motion.h1
-          key="spirits-heading"
           initial={{ y: 48, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ ease: "easeInOut", duration: 0.75 }}
-          className="mb-8 text-5xl font-black uppercase tracking-wide text-white md:text-7xl"
+          className="mb-8 text-5xl font-black uppercase tracking-wide text-gold-500 md:text-7xl"
         >
           Distilled in Toronto.<br />Poured Worldwide.
         </motion.h1>
         
+        {/* Brand image from public folder */}
         <motion.div
-          key="spirits-image"
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7 }}
           className="mx-auto mb-16 max-w-3xl"
         >
           <img 
-            src="/assets/hero.png"
+            src="/assets/hero.png" // Using image from public folder
             alt="Toronto Distillery Group Spirits"
             className="mx-auto rounded-xl shadow-2xl md:w-6xl"
           />
         </motion.div>
         
         <motion.p
-          key="spirits-description"
           initial={{ y: 36, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ ease: "easeInOut", duration: 0.75, delay: 0.1 }}
@@ -237,26 +214,26 @@ const SpiritsSection = () => {
           Four world-class spirits. Zero compromises. One standard: perfection.
         </motion.p>
         
+        {/* CTAs in specified order */}
         <motion.div 
-          key="spirits-ctas"
           className="flex flex-col items-center justify-center gap-4 md:flex-row"
           initial={{ y: 24, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ ease: "easeInOut", duration: 0.75 }}
         >
-          <a href="#product-section" className="bg-transparent border border-white   text-white hover:bg-black rounded-4xl p-3 text-xl font-bold">Explore Our Spirits </a>
-          <CTAButton to="/alcohol-brand-creation">Alcohol Brand Creation Studio</CTAButton>
-          <CTAButton to="/co-packing-services">Co-Packing Services</CTAButton>
+          <CTAButton variant="outline">Explore Our Spirits</CTAButton>
+          <CTAButton variant="outline">Alcohol Brand Creation Studio</CTAButton>
+          <CTAButton variant="outline">Co-Packing Services</CTAButton>
         </motion.div>
         
+        {/* Scroll Cue */}
         <motion.div
-          key="spirits-scroll-cue"
           className="mt-24 flex items-center justify-center gap-2 text-zinc-400"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ ease: "easeInOut", duration: 0.75, delay: 0.5 }}
         >
-          <span className="block h-8 w-px bg-white animate-bounce"></span>
+          <span className="block h-8 w-px bg-gold-500 animate-bounce"></span>
           <span className="text-sm font-medium tracking-wide">
             Discover Toronto Distillery Group
           </span>
@@ -266,23 +243,21 @@ const SpiritsSection = () => {
   );
 };
 
-const CTAButton = ({ children, variant = "primary", to }) => {
+const CTAButton = ({ children, variant = "primary" }) => {
   return (
-    <Link to={to} className="group">
-      <motion.div
-        className={`flex items-center gap-2 rounded-full px-8 py-4 font-bold uppercase tracking-wide transition-all duration-300 ${
-          variant === "primary"
-            ? "bg-transparent border border-white   text-white hover:bg-black"
-            : "border-2 border-white text-white hover:bg-white/10"
-        }`}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        {children}
-        {variant === "primary" && (
-          <FiArrowRight className="transition-transform group-hover:translate-x-1" />
-        )}
-      </motion.div>
-    </Link>
+    <motion.button
+      className={`flex items-center gap-2 rounded-full px-8 py-4 font-bold uppercase tracking-wide transition-all duration-300 ${
+        variant === "primary"
+          ? "bg-gold-500 text-black hover:bg-gold-400"
+          : "border-2 border-gold-500 text-gold-500 hover:bg-gold-500/10"
+      }`}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+    >
+      {children}
+      {variant === "primary" && (
+        <FiArrowRight className="transition-transform group-hover:translate-x-1" />
+      )}
+    </motion.button>
   );
 };

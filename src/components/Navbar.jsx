@@ -1,4 +1,4 @@
-import { useMotionValue, motion, useSpring, useTransform } from "framer-motion";
+import { useMotionValue, motion, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FiArrowRight } from "react-icons/fi";
@@ -9,6 +9,7 @@ const Navbar = () => {
   const [isDesktop, setIsDesktop] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const menuRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,11 +24,19 @@ const Navbar = () => {
     window.addEventListener('resize', checkIfDesktop);
     checkIfDesktop();
     
+    // Prevent body scroll when menu is open
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', checkIfDesktop);
+      document.body.style.overflow = 'auto';
     };
-  }, []);
+  }, [menuOpen]);
 
   const scrollToSection = (sectionId) => {
     if (location.pathname === '/') {
@@ -94,6 +103,7 @@ const Navbar = () => {
     const left = useTransform(mouseXSpring, [0.5, -0.5], ["60%", "70%"]);
 
     const handleMouseMove = (e) => {
+      if (!ref.current) return;
       const rect = ref.current.getBoundingClientRect();
       const mouseX = e.clientX - rect.left;
       const mouseY = e.clientY - rect.top;
@@ -112,7 +122,7 @@ const Navbar = () => {
         onClick={onClick}
         initial="initial"
         whileHover="whileHover"
-        className="group relative flex items-center justify-between border-b border-gray-700 py-4 md:py-6 transition-colors duration-500 hover:border-gray-400 cursor-pointer"
+        className="group relative flex items-center justify-between border-b border-gray-700 py-4 md:py-5 transition-colors duration-500 hover:border-gray-400 cursor-pointer"
       >
         <div>
           <motion.span
@@ -125,7 +135,7 @@ const Navbar = () => {
               staggerChildren: 0.075,
               delayChildren: 0.25,
             }}
-            className="relative z-10 block text-2xl md:text-4xl font-bold text-white transition-colors duration-500 group-hover:text-gray-200"
+            className="relative z-10 block text-xl md:text-2xl font-bold text-white transition-colors duration-500 group-hover:text-gray-200"
           >
             {title.split("").map((l, i) => (
               <motion.span
@@ -141,7 +151,7 @@ const Navbar = () => {
               </motion.span>
             ))}
           </motion.span>
-          <span className="relative z-10 mt-1 md:mt-2 block text-sm md:text-base text-gray-400 transition-colors duration-500 group-hover:text-gray-300">
+          <span className="relative z-10 mt-1 block text-xs md:text-sm text-gray-400 transition-colors duration-500 group-hover:text-gray-300">
             {subheading}
           </span>
         </div>
@@ -159,7 +169,7 @@ const Navbar = () => {
           }}
           transition={{ type: "spring" }}
           src={imgSrc}
-          className="absolute z-0 h-20 w-28 md:h-24 md:w-32 rounded-lg object-cover shadow-xl border border-gray-600 group-hover:border-gray-300"
+          className="absolute z-0 h-16 w-20 md:h-20 md:w-24 rounded-lg object-cover shadow-xl border border-gray-600 group-hover:border-gray-300"
           alt={`Image for ${title}`}
         />
 
@@ -175,9 +185,9 @@ const Navbar = () => {
             },
           }}
           transition={{ type: "spring" }}
-          className="relative z-10 p-2 md:p-4"
+          className="relative z-10 p-2"
         >
-          <FiArrowRight className="text-xl md:text-3xl text-gray-500 group-hover:text-white" />
+          <FiArrowRight className="text-xl text-gray-500 group-hover:text-white" />
         </motion.div>
       </motion.div>
     );
@@ -187,7 +197,7 @@ const Navbar = () => {
     <nav 
       className={`fixed w-full z-50 transition-all duration-500 ${
         isScrolled 
-          ? 'bg-transparent py-6' 
+          ? 'bg-transparent py-4' 
           : 'bg-transparent py-3'
       }`}
     >
@@ -205,103 +215,113 @@ const Navbar = () => {
           />
         </Link>
         
-        {/* Animated Hamburger Menu - Increased size */}
+        {/* Custom Menu Button with Images */}
         <motion.button 
-          className="relative z-50 w-20 h-12 flex flex-col items-center justify-center group"
+          className="relative z-50 w-12 h-12 flex items-center justify-center group"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
-          animate={menuOpen ? "open" : "closed"}
+          whileTap={{ scale: 0.95 }}
         >
-          <motion.span
-            className="absolute w-8 h-0.5 bg-white rounded-full"
-            variants={{
-              closed: { rotate: 0, y: -8 },
-              open: { rotate: 45, y: 0 },
-            }}
-          />
-          <motion.span
-            className="absolute w-8 h-0.5 bg-white rounded-full"
-            variants={{
-              closed: { opacity: 1 },
-              open: { opacity: 0 },
-            }}
-          />
-          <motion.span
-            className="absolute w-8 h-0.5 bg-white rounded-full"
-            variants={{
-              closed: { rotate: 0, y: 8 },
-              open: { rotate: -45, y: 0 },
-            }}
-          />
+          <AnimatePresence mode="wait">
+            {menuOpen ? (
+              <motion.img
+                key="close"
+                src="/assets/x.png"
+                alt="Close menu"
+                className="w-30 h-16"
+                initial={{ opacity: 0, rotate: -90 }}
+                animate={{ opacity: 1, rotate: 0 }}
+                exit={{ opacity: 0, rotate: 90 }}
+                transition={{ duration: 0.2 }}
+              />
+            ) : (
+              <motion.img
+                key="menu"
+                src="/assets/hem.png"
+                alt="Open menu"
+                className="w-30 h-16"
+                initial={{ opacity: 0, rotate: -90 }}
+                animate={{ opacity: 1, rotate: 0 }}
+                exit={{ opacity: 0, rotate: 90 }}
+                transition={{ duration: 0.2 }}
+              />
+            )}
+          </AnimatePresence>
         </motion.button>
       </div>
       
       {/* Animated Menu */}
-      {menuOpen && (
-        <motion.div 
-          initial={{ 
-            opacity: 0,
-            x: isDesktop ? '100%' : 0,
-            scale: isDesktop ? 0.95 : 1
-          }}
-          animate={{ 
-            opacity: 1,
-            x: 0,
-            scale: 1
-          }}
-          exit={{ 
-            opacity: 0,
-            x: isDesktop ? '100%' : 0,
-            scale: isDesktop ? 0.95 : 1
-          }}
-          transition={{ duration: 0.4, ease: "easeInOut" }}
-          className={`fixed inset-0 z-40 flex flex-col ${
-            isDesktop ? 'left-auto w-[40%]' : ''
-          }`}
-          style={{
-            background: `
-              linear-gradient(rgba(5, 5, 10, 0.98), rgba(5, 5, 10, 0.98)),
-              url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")
-            `,
-            backgroundSize: 'cover'
-          }}
-        >
-          <div className="flex-grow overflow-y-auto p-4 md:p-8">
-            <div className={`mx-auto ${isDesktop ? 'max-w-md pt-8' : 'max-w-3xl pt-16'}`}>
-              <div className="mb-8 pb-8 border-b border-gray-700">
-                <div className="flex items-center space-x-3">
-                  <img 
-                    src="/assets/logo.png" 
-                    alt="TDG Logo" 
-                    className="h-16 w-16"  // Increased logo size
-                  />
-                  <div>
-                    <h2 className="text-white text-2xl font-bold">
-                      TDG Spirits
-                    </h2>
-                    <p className="text-gray-500 text-sm">Premium Craft Distillery</p>
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div 
+            ref={menuRef}
+            initial={{ 
+              opacity: 0,
+              x: isDesktop ? '100%' : 0,
+              y: isDesktop ? 0 : '100%',
+              scale: isDesktop ? 0.95 : 1
+            }}
+            animate={{ 
+              opacity: 1,
+              x: 0,
+              y: 0,
+              scale: 1
+            }}
+            exit={{ 
+              opacity: 0,
+              x: isDesktop ? '100%' : 0,
+              y: isDesktop ? 0 : '100%',
+              scale: isDesktop ? 0.95 : 1
+            }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className={`fixed inset-0 z-40 flex flex-col ${
+              isDesktop ? 'left-auto w-[40%]' : ''
+            }`}
+            style={{
+              background: `
+                linear-gradient(rgba(5, 5, 10, 0.98), rgba(5, 5, 10, 0.98)),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")
+              `,
+              backgroundSize: 'cover'
+            }}
+          >
+            <div className="flex-grow overflow-y-auto p-4 md:p-6">
+              <div className={`mx-auto ${isDesktop ? 'max-w-md' : 'max-w-3xl pt-12'}`}>
+                <div className="mb-6 pb-6 border-b border-gray-700">
+                  <div className="flex items-center space-x-3">
+                    <img 
+                      src="/assets/logo.png" 
+                      alt="TDG Logo" 
+                      className="h-14 w-14"
+                    />
+                    <div>
+                      <h2 className="text-white text-xl font-bold">
+                        TDG Spirits
+                      </h2>
+                      <p className="text-gray-500 text-xs">Premium Craft Distillery</p>
+                    </div>
                   </div>
                 </div>
+                
+                <div className="space-y-2 md:space-y-3">
+                  {navLinks.map((link) => (
+                    <AnimatedLink
+                      key={link.id}
+                      title={link.title}
+                      imgSrc={link.imgSrc}
+                      subheading={link.subheading}
+                      onClick={link.action || (() => {
+                        navigate(link.href);
+                        setMenuOpen(false);
+                      })}
+                    />
+                  ))}
+                </div>
               </div>
-              
-              {navLinks.map((link) => (
-                <AnimatedLink
-                  key={link.id}
-                  title={link.title}
-                  imgSrc={link.imgSrc}
-                  subheading={link.subheading}
-                  onClick={link.action || (() => {
-                    navigate(link.href);
-                    setMenuOpen(false);
-                  })}
-                />
-              ))}
-              
-              
             </div>
-          </div>
-        </motion.div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };

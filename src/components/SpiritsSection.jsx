@@ -495,7 +495,7 @@ const SpiritsSection = () => {
 
   return (
     <div
-  className="bg-[#F4F4F4] m-0 py-6 md:py-16 overflow-x-hidden overflow-y-hidden h-auto"
+  className="bg-[#F4F4F4] m-0 py-6 md:py-16 overflow-x-hidden overflow-y-hidden h-auto" id="product-section"
   style={{ fontFamily: "Inter" }}
 >
 
