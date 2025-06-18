@@ -36,7 +36,7 @@ const Hero = () => {
 
   useEffect(() => {
     const unsubscribe = scrollY.onChange((y) => {
-      if (y > 100 && !startAutoAnimation) {
+      if (y > 20 && !startAutoAnimation) {
         setStartAutoAnimation(true);
       }
     });

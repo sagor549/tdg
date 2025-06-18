@@ -43,8 +43,13 @@ const Home = () => {
     <ReactLenis root options={{ lerp: 0.05, smoothWheel: true }}>
       <div>
         <ToronHero />
-        <AboutSection />
+        <section className='relative bottom-30 md:bottom-0'>
+          <AboutSection />
+        </section>
+        <section className='relative bottom-0 md:bottom-0'>
         <SpiritsSection />
+        </section>
+
         <section className='relative'>
           <BrandCreationPreview />
         </section>
