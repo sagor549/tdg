@@ -5,7 +5,7 @@ import logo from '/assets/logo.png';
 
 const Footer = () => {
   return (
-    <footer className="bg-black border-t border-white/10 py-0 md:py-10 font-poppins">
+    <footer className="bg-black border-t border-white/10 py-5 md:py-10 font-poppins">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* Brand section */}

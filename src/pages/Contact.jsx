@@ -44,7 +44,7 @@ const Contact = () => {
     <div id='contact' className="min-h-screen relative">
       {/* Background Image with Gradient Overlay */}
       <div 
-        className="fixed inset-0 bg-[url('/assets/contact.png')] bg-cover bg-center z-0"
+        className="fixed inset-0 bg-[url('/assets/contact.png')] bg-cover bg-center bg-fixed z-0"
         style={{ backgroundAttachment: 'fixed' }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/0 to-black/100"></div>
@@ -53,7 +53,7 @@ const Contact = () => {
       {/* Content Container */}
       <div className="relative z-10">
         {/* Hero Section */}
-        <section className="pt-50 pb-0 px-4 container mx-auto text-center">
+        <section className="pt-30 pb-0 px-4 container mx-auto text-center">
           <div className="max-w-3xl mx-auto contact-header opacity-0">
             <div className="inline-block bg-transparent backdrop-blur-sm text-gray-200 py-2 px-6 rounded-full text-sm font-medium tracking-wide mb-6 border border-gray-700">
               GET IN TOUCH
@@ -61,17 +61,20 @@ const Contact = () => {
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
               Connect With Us
             </h1>
+            <div className=" backdrop-blur-sm rounded-2xl p-10 border border-gray-700 shadow-lg transition-all duration-300 hover:shadow-xl">
             <p className="text-gray-300 text-lg max-w-2xl mx-auto leading-relaxed">
               Reach out for inquiries, collaborations, or to learn more about our premium co-packing and brand creation services.
             </p>
+            </div>
+            
           </div>
         </section>
 
         {/* Contact Information */}
-        <section className="py-20 px-4 container mx-auto">
+        <section className="py-10 px-4 container mx-auto">
           <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
             {/* Email */}
-            <div className="contact-info opacity-0 backdrop-blur-sm rounded-2xl p-10 border border-gray-700 shadow-lg transition-all duration-300 hover:shadow-xl">
+            <div className="contact-info opacity-0 backdrop-blur-sm rounded-2xl p-10 border border-gray-700 shadow-lg transition-all duration-300 hover:shadow-xl" >
               <div className="flex justify-center mb-6">
                 <div className="bg-gray-900 p-4 rounded-xl border border-gray-700">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -119,7 +122,7 @@ const Contact = () => {
         </section>
 
         {/* Additional Contact Info */}
-        <section className="py-18 px-4 container mx-auto">
+        <section className="py-0 px-4 container mx-auto">
           <div className="max-w-4xl mx-auto backdrop-blur-sm rounded-2xl p-10 border border-gray-700 shadow-lg">
             <div className="text-center mb-10">
               <div className="w-24 h-0.5 bg-gray-600 mx-auto mb-6 rounded-full"></div>
@@ -176,6 +179,9 @@ const Contact = () => {
             </div>
           </div>
         </section>
+      </div>
+      <div className='max-w-4xl mx-auto block md:hidden rounded-2xl p-20 border border-gray-700 shadow-lg'>
+
       </div>
       
     </div>
