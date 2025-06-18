@@ -81,10 +81,10 @@ const Navbar = () => {
       subheading: 'Premium production services'
     },
     { 
-      id: 'givesback',
-      title: 'TDG Gives Back',
-      action: () => scrollToSection('gives-back'),
-      href: '/',
+      id: 'contact',
+      title: 'Contact',
+      
+      href: '/contact',
       imgSrc: '/assets/green.webp',
       subheading: 'Our commitment to community'
     }
@@ -217,7 +217,7 @@ const Navbar = () => {
         
         {/* Custom Menu Button with Images */}
         <motion.button 
-          className="relative z-50 w-12 h-12 flex items-center justify-center group"
+          className="relative z-50 w-30 h-30 flex items-center justify-center group"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           whileTap={{ scale: 0.95 }}
@@ -228,7 +228,7 @@ const Navbar = () => {
                 key="close"
                 src="/assets/x.png"
                 alt="Close menu"
-                className="w-30 h-16"
+                className="w-17 h-16"
                 initial={{ opacity: 0, rotate: -90 }}
                 animate={{ opacity: 1, rotate: 0 }}
                 exit={{ opacity: 0, rotate: 90 }}
@@ -239,7 +239,7 @@ const Navbar = () => {
                 key="menu"
                 src="/assets/hem.png"
                 alt="Open menu"
-                className="w-30 h-16"
+                className="w-23 h-16"
                 initial={{ opacity: 0, rotate: -90 }}
                 animate={{ opacity: 1, rotate: 0 }}
                 exit={{ opacity: 0, rotate: 90 }}
