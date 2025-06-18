@@ -603,14 +603,14 @@ const SpiritsSection = () => {
         <div className="absolute bottom-4 md:bottom-6 w-[90%] max-w-[1140px] flex justify-between left-1/2 -translate-x-1/2 px-4">
           <button 
             onClick={handlePrev}
-            className="prev-btn w-10 h-10 md:w-12 md:h-12 rounded-full font-mono border border-gray-300 text-lg bg-black text-white hover:bg-gray-800 transition-colors flex items-center justify-center relative bottom-25 ml-32 md:bottom-20 md:ml-115"
+            className="prev-btn w-15 h-15 md:w-16 md:h-16 rounded-full font-mono border border-gray-300 text-lg bg-black text-white hover:bg-gray-800 transition-colors flex items-center justify-center relative bottom-25 ml-10 md:bottom-20 md:ml-115"
             aria-label="Previous product"
           >
             &lt;
           </button>
           <button 
             onClick={handleNext}
-            className="next-btn w-10 h-10 md:w-12 md:h-12 rounded-full font-mono border border-gray-300 text-lg bg-black text-white hover:bg-gray-800 transition-colors flex items-center justify-center relative bottom-25 mr-26 md:bottom-20 md:mr-96 "
+            className="next-btn w-15 h-15 md:w-16 md:h-16 rounded-full font-mono border border-gray-300 text-lg bg-black text-white hover:bg-gray-800 transition-colors flex items-center justify-center relative bottom-25 mr-10 md:bottom-20 md:mr-96 "
             aria-label="Next product"
           >
             &gt;

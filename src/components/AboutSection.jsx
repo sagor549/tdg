@@ -4,12 +4,22 @@ import { FiArrowUpRight } from "react-icons/fi";
 
 export default function AboutSection() {
   return (
-    <div className="bg-white ">
+    <div className="bg-white">
+      {/* Introductory Text Section */}
+      <div className="max-w-5xl mx-auto px-4 py-24 text-center">
+        <h1 className="text-4xl md:text-5xl font-bold text-black mb-6">
+          Toronto Distillery Group
+        </h1>
+        <p className="text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto">
+          Crafting exceptional spirits with passion and precision, rooted in the heart of Canada.
+        </p>
+      </div>
+
+      {/* Parallax Sections */}
       <TextParallaxContent
         imgUrl="/assets/intro.png"
         subheading="Our Story"
         heading="Founded in 2019"
-        
       >
         <AboutContent 
           title="Mastering the craft" 
@@ -41,6 +51,7 @@ export default function AboutSection() {
         />
       </TextParallaxContent>
       
+      {/* Closing Statement */}
       <div className="mx-auto max-w-5xl px-4 py-20 text-center">
         <p className="text-4xl font-bold text-black">This is Toronto Distillery Group.</p>
         <p className="mt-4 text-2xl text-gray-900">Rooted in craft. Driven by purpose. Proudly Canadian.</p>
@@ -127,7 +138,12 @@ const AboutContent = ({ title, description, buttonText }) => (
       <p className="mb-8 text-xl text-neutral-600 md:text-2xl">
         {description}
       </p>
-      
+      {buttonText && (
+        <button className="flex items-center gap-1 text-black font-medium group">
+          {buttonText}
+          <FiArrowUpRight className="group-hover:rotate-45 transition-transform duration-300" />
+        </button>
+      )}
     </div>
   </div>
 );
