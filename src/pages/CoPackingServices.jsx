@@ -198,7 +198,7 @@ const CoPackingServices = () => {
                     <div className="text-2xl bg-gray-950 p-3 rounded-xl border border-gray-700 mr-4">
                       {step.icon}
                     </div>
-                    <div className="text-3xl font-bold text-gray-300">{index + 1}.</div>
+                    
                   </div>
                   <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
                   <p className="text-gray-300">{step.description}</p>

@@ -76,8 +76,34 @@ const Footer = () => {
             </address>
           </div>
           
-          
-         
+          {/* Core Values Section - Added for desktop right side */}
+          <div className="md:col-span-1">
+            <h4 className="text-white text-xl font-semibold mb-6 tracking-wider border-b border-amber-500 pb-2 inline-block">
+              OUR CORE VALUES
+            </h4>
+            <ul className="space-y-4 text-white/80">
+              <li className="flex items-start">
+                <i className="fas fa-star text-amber-500 mt-1 mr-3 text-sm"></i>
+                <span className="flex-1">Craftsmanship in every batch</span>
+              </li>
+              <li className="flex items-start">
+                <i className="fas fa-star text-amber-500 mt-1 mr-3 text-sm"></i>
+                <span className="flex-1">Innovation through tradition</span>
+              </li>
+              <li className="flex items-start">
+                <i className="fas fa-star text-amber-500 mt-1 mr-3 text-sm"></i>
+                <span className="flex-1">Uncompromising quality</span>
+              </li>
+              <li className="flex items-start">
+                <i className="fas fa-star text-amber-500 mt-1 mr-3 text-sm"></i>
+                <span className="flex-1">Sustainable distilling practices</span>
+              </li>
+              <li className="flex items-start">
+                <i className="fas fa-star text-amber-500 mt-1 mr-3 text-sm"></i>
+                <span className="flex-1">Community partnerships</span>
+              </li>
+            </ul>
+          </div>
         </div>
         
         <div className="border-t border-white/20 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">

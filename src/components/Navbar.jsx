@@ -1,6 +1,6 @@
 import { useMotionValue, motion, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import React, { useState, useEffect, useRef } from 'react';
-import { href, Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FiArrowRight } from "react-icons/fi";
 
 const Navbar = () => {
@@ -10,6 +10,11 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const menuRef = useRef(null);
+
+  // Reset scroll position on route change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,7 +47,8 @@ const Navbar = () => {
     // Navigate to homepage first if not already there
     if (location.pathname !== '/') {
       navigate('/', { 
-        state: { scrollTo: sectionId } // Pass section ID to scroll to
+        state: { scrollTo: sectionId },
+        replace: true
       });
     } 
     // If already on homepage, scroll to section
@@ -60,7 +66,6 @@ const Navbar = () => {
     { 
       id: 'hero',
       title: 'Home',
-      
       href: '/',
       imgSrc: '/assets/media4.png',
       subheading: 'Back to the beginning'
@@ -68,7 +73,6 @@ const Navbar = () => {
     { 
       id: 'product-section',
       title: 'Our Spirits',
-      
       action: () => scrollToSection('product-section'),
       imgSrc: '/assets/teq.png',
       subheading: 'Discover our collection'
@@ -90,7 +94,6 @@ const Navbar = () => {
     { 
       id: 'contact',
       title: 'Contact',
-      
       href: '/contact',
       imgSrc: '/assets/green.webp',
       subheading: 'Our commitment to community'
@@ -214,6 +217,7 @@ const Navbar = () => {
           className={`z-50 transition-opacity duration-300 ${
             menuOpen && !isDesktop ? 'opacity-0' : 'opacity-100'
           }`}
+          onClick={() => window.scrollTo(0, 0)}
         >
           <img 
             src="/assets/logo.png" 

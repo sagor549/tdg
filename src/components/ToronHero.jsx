@@ -269,15 +269,16 @@ const SpiritsSection = () => {
         
         <motion.div 
           key="spirits-ctas"
-          className="flex flex-col items-center justify-center gap-4 md:flex-row"
+          className="flex flex-col items-center justify-center gap-4"
           initial={{ y: 24, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ ease: "easeInOut", duration: 0.75 }}
         >
-          <a href="#product-section" className="bg-transparent border border-white text-white hover:bg-black rounded-full px-6 py-3 md:px-8 md:py-4 text-base md:text-xl font-bold">
+          <a href="#product-section" className="group flex items-center justify-center gap-2 rounded-full border border-white bg-transparent px-6 py-3 text-base font-bold uppercase tracking-wide text-white transition-all duration-300 hover:bg-black md:text-xl">
             Explore Our Spirits
+            <FiArrowRight className="transition-transform group-hover:translate-x-1" />
           </a>
-          <div className="flex gap-4">
+          <div className="flex flex-col md:flex-row gap-4">
             <CTAButton to="/alcohol-brand-creation">Alcohol Brand Creation</CTAButton>
             <CTAButton to="/co-packing-services">Co-Packing Services</CTAButton>
           </div>

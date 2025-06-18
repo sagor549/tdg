@@ -87,6 +87,7 @@ const SpiritsSection = () => {
   const carouselRef = useRef(null);
   const itemsRef = useRef([]);
   const touchStartX = useRef(0);
+  const touchStartY = useRef(0);
 
   // Track window size for responsive adjustments
   useEffect(() => {
@@ -108,17 +109,21 @@ const SpiritsSection = () => {
 
     const handleTouchStart = (e) => {
       touchStartX.current = e.touches[0].clientX;
+      touchStartY.current = e.touches[0].clientY;
     };
 
     const handleTouchEnd = (e) => {
       if (showDetail || isAnimating) return;
       
       const touchEndX = e.changedTouches[0].clientX;
-      const diff = touchStartX.current - touchEndX;
+      const touchEndY = e.changedTouches[0].clientY;
+      const diffX = touchStartX.current - touchEndX;
+      const diffY = Math.abs(touchStartY.current - touchEndY);
       const swipeThreshold = 50;
       
-      if (Math.abs(diff) > swipeThreshold) {
-        if (diff > 0) {
+      // Only trigger if horizontal swipe is significant and vertical movement is minimal
+      if (Math.abs(diffX) > swipeThreshold && diffY < 50) {
+        if (diffX > 0) {
           handleNext();
         } else {
           handlePrev();
@@ -333,6 +338,10 @@ const SpiritsSection = () => {
     if (isAnimating) return;
     setIsAnimating(true);
     
+    // Store original body overflow
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    
     // Hide non-active items
     gsap.to(itemsRef.current.filter((_, i) => i !== 1), {
       x: "100%",
@@ -344,6 +353,7 @@ const SpiritsSection = () => {
     // Expand active item
     gsap.to(itemsRef.current[1], {
       width: "100%",
+      height: windowWidth < 768 ? "calc(100vh - 100px)" : "100%",
       duration: 0.7
     });
     
@@ -413,11 +423,19 @@ const SpiritsSection = () => {
     
     setShowDetail(true);
     setIsAnimating(false);
+    
+    // Cleanup function for overflow
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
   };
 
   const handleBack = () => {
     if (isAnimating) return;
     setIsAnimating(true);
+    
+    // Restore body overflow
+    document.body.style.overflow = 'auto';
     
     // Hide detail content
     gsap.to(".active-item .detail-content", {
@@ -437,6 +455,7 @@ const SpiritsSection = () => {
     // Reset active item width
     gsap.to(itemsRef.current[1], {
       width: windowWidth < 768 ? "100%" : "70%",
+      height: "100%",
       duration: 0.7
     });
     
@@ -495,10 +514,9 @@ const SpiritsSection = () => {
 
   return (
     <div
-  className="bg-[#F4F4F4] m-0 py-6 md:py-16 overflow-x-hidden overflow-y-hidden h-auto" id="product-section"
-  style={{ fontFamily: "Inter" }}
->
-
+      className="bg-[#F4F4F4] m-0 py-6 md:py-16 overflow-x-hidden h-auto" id="product-section"
+      style={{ fontFamily: "Inter" }}
+    >
       <div className="text-center mb-6 md:mb-8 px-4">
         <h1 className="text-3xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 md:mb-4">
           Premium Spirits Collection
@@ -553,7 +571,7 @@ const SpiritsSection = () => {
                   </div>
                   
                   {/* Detail content */}
-                  <div className={`detail-content opacity-0 pointer-events-none w-full md:w-1/2 md:absolute md:right-0 ${windowWidth < 768 ? 'top-[10%]' : 'top-1/2 md:-translate-y-1/2'} bg-transparent p-4 md:p-6 lg:p-8 flex flex-col h-[80%] md:h-auto border border-gray-300`}>
+                  <div className={`detail-content opacity-0 pointer-events-none w-full md:w-1/2 md:absolute md:right-0 ${windowWidth < 768 ? 'top-0 h-full' : 'top-1/2 md:-translate-y-1/2'} bg-transparent p-4 md:p-6 lg:p-8 flex flex-col`}>
                     {/* Detail image - shown in detail view on mobile */}
                     {showDetail && windowWidth < 768 && (
                       <div className="w-full flex-shrink-0 flex justify-center mb-4">
@@ -564,14 +582,14 @@ const SpiritsSection = () => {
                         />
                       </div>
                     )}
-                    <div className="overflow-hidden flex-grow ">
-                      <div className="text-xl md:text-2xl lg:text-3xl detail-animate font-bold mb-2 md:mb-4 text-gray-900 ">
+                    <div className="overflow-y-auto flex-grow pr-2">
+                      <div className="text-xl md:text-2xl lg:text-3xl detail-animate font-bold mb-2 md:mb-4 text-gray-900">
                         {spirit.title}
                       </div>
-                      <div className="detail-animate max-h-[200px]  py-2 md:py-4 text-gray-700 text-sm overflow-hidden md:text-base">
+                      <div className="detail-animate py-2 md:py-4 text-gray-700 text-sm md:text-base">
                         {spirit.detailDesc}
                       </div>
-                      <div className="flex gap-2 w-full border-t border-gray-300 mt-3 md:mt-5 overflow-auto py-3 md:py-4 detail-animate">
+                      <div className="flex gap-2 w-full border-t border-gray-300 mt-3 md:mt-5 overflow-x-auto py-3 md:py-4 detail-animate">
                         {spirit.specs.map((spec, specIndex) => (
                           <div key={specIndex} className="w-[80px] md:w-[90px] text-center flex-shrink-0">
                             <p className="font-bold text-gray-800 text-xs md:text-sm">{spec.name}</p>
@@ -603,18 +621,17 @@ const SpiritsSection = () => {
         <div className="absolute bottom-4 md:bottom-6 w-[90%] max-w-[1140px] flex justify-between left-1/2 -translate-x-1/2 px-4">
           <button 
             onClick={handlePrev}
-            className="prev-btn w-15 h-15 md:w-16 md:h-16 rounded-full font-mono border border-gray-300 text-lg bg-black text-white hover:bg-gray-800 transition-colors flex items-center justify-center relative bottom-25 ml-10 md:bottom-20 md:ml-115"
+            className="prev-btn w-15 h-15 md:w-16 md:h-16 rounded-full font-mono border border-gray-300 text-lg bg-black text-white hover:bg-gray-800 transition-colors flex items-center justify-center relative bottom-20 ml-7 md:bottom-20 md:ml-20"
             aria-label="Previous product"
           >
             &lt;
           </button>
           <button 
             onClick={handleNext}
-            className="next-btn w-15 h-15 md:w-16 md:h-16 rounded-full font-mono border border-gray-300 text-lg bg-black text-white hover:bg-gray-800 transition-colors flex items-center justify-center relative bottom-25 mr-10 md:bottom-20 md:mr-96 "
+            className="next-btn w-15 h-15 md:w-16 md:h-16 rounded-full font-mono border border-gray-300 text-lg bg-black text-white hover:bg-gray-800 transition-colors flex items-center justify-center relative bottom-20 mr-7 md:bottom-20 md:mr-20"
             aria-label="Next product"
           >
             &gt;
-            
           </button>
           <button 
             onClick={handleBack}
@@ -626,7 +643,7 @@ const SpiritsSection = () => {
       </div>
       
       {/* Mobile indicators */}
-      <div className="md:hidden flex justify-center ml-7 relative bottom-25  space-x-2">
+      <div className="md:hidden flex justify-center ml-7 relative bottom-10 space-x-2">
         {spirits.map((_, index) => (
           <button
             key={index}
