@@ -64,20 +64,7 @@ const SpiritsSection = () => {
       ],
       link: "https://bornnakedrawgin.ca/"
     },
-    {
-      id: 4,
-      img: img5,
-      title: "Ladrillo de Cristal Puro",
-      shortDesc: "Crafted from the finest agave in the heart of Mexico, perfected and bottled in Canada.",
-      detailDesc: "Crafted from the finest agave in the heart of Mexico, perfected and bottled in Canada. Ladrillo de Cristal Puro delivers an unyielding spirit and a smooth, bold flavor that stands the test of time. Each sip brings a rush of pure enjoyment - a moment of blissful satisfaction that elevates your spirit and leaves a lasting impression.",
-      specs: [
-        { name: "Origin", value: "Mexico" },
-        { name: "Bottled", value: "Canada" },
-        { name: "Profile", value: "Smooth & Bold" },
-        
-      ],
-      link: "#"
-    }
+   
   ];
 
 
@@ -510,11 +497,11 @@ const SpiritsSection = () => {
               >
                 <div className="flex flex-col md:flex-row items-center md:items-start h-full">
                   {(windowWidth >= 768 || !showDetail) && (
-                    <div className="w-full md:w-[45%] h-[300px] md:h-full flex items-center justify-center mb-4 md:mb-0">
+                    <div className="w-full md:w-[55%] h-[350px]  flex items-center justify-center mb-4 md:mb-0">
                       <img 
                         src={spirit.img} 
                         alt={spirit.title}
-                        className="max-h-[250px] max-w-full object-contain transition-all duration-1500 md:absolute top-11 relative md:right-0 md:top-1/2 md:-translate-y-1/2"
+                        className="max-h-[350px] max-w-full object-contain transition-all duration-1500 md:absolute top-11 relative md:right-0 md:top-1/2 md:-translate-y-1/2"
                       />
                     </div>
                   )}
@@ -588,14 +575,14 @@ const SpiritsSection = () => {
         <div className="absolute bottom-4 md:bottom-6 w-[90%] max-w-[1140px] flex justify-between left-1/2 -translate-x-1/2 px-4">
           <button 
             onClick={handlePrev}
-            className="prev-btn w-15 h-15 md:w-16 md:h-16 rounded-full font-mono border border-gray-300 text-lg bg-black text-white hover:bg-gray-800 transition-colors flex items-center justify-center relative bottom-20 ml-7 md:bottom-20 md:ml-20"
+            className="prev-btn w-15 h-15 md:w-16 md:h-16 rounded-full font-mono border border-gray-300 text-lg bg-black text-white hover:bg-gray-800 transition-colors flex items-center justify-center relative bottom-60 ml-7 md:bottom-30 md:ml-20"
             aria-label="Previous product"
           >
             &lt;
           </button>
           <button 
             onClick={handleNext}
-            className="next-btn w-15 h-15 md:w-16 md:h-16 rounded-full font-mono border border-gray-300 text-lg bg-black text-white hover:bg-gray-800 transition-colors flex items-center justify-center relative bottom-20 mr-7 md:bottom-20 md:mr-20"
+            className="next-btn w-15 h-15 md:w-16 md:h-16 rounded-full font-mono border border-gray-300 text-lg bg-black text-white hover:bg-gray-800 transition-colors flex items-center justify-center relative bottom-60 mr-7 md:bottom-30 md:mr-20"
             aria-label="Next product"
           >
             &gt;
