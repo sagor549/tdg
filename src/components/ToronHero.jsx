@@ -1,19 +1,159 @@
-// src/components/ToronHero.jsx
-import { ReactLenis, useLenis } from "lenis/dist/lenis-react";
-import {
-  motion,
-  useMotionTemplate,
-  useScroll,
-  useTransform,
-  AnimatePresence
-} from "framer-motion";
+import React, { useEffect, useState } from 'react';
+import gsap from 'gsap';
+import { CustomEase } from 'gsap/all';
+import { ReactLenis } from "lenis/dist/lenis-react";
+import { motion } from "framer-motion";
 import { FiArrowRight } from "react-icons/fi";
-import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-export const ToronHero = () => {
+gsap.registerPlugin(CustomEase);
+CustomEase.create("hop", "0.9, 0, 0.1, 1");
+
+const ToronHero = () => {
+  const [animationComplete, setAnimationComplete] = useState(false);
+  
+  useEffect(() => {
+    // Preload critical images
+    const preloadImages = [
+      '/assets/hero.png',
+      '/assets/bgg.jpg',
+      '/assets/bk.jpg',
+      '/assets/bki.png',
+      '/assets/bl.png',
+      '/assets/bot.png',
+      '/assets/bottleg.png',
+      '/assets/don.png',
+      '/assets/intro.png',
+      '/assets/media4.png',
+      '/assets/orange.webp',
+      '/assets/green.webp',
+      '/assets/teq.png'
+    ];
+    
+    preloadImages.forEach(src => {
+      new Image().src = src;
+    });
+
+    // Set initial states
+    gsap.set(".initial-nav", { y: "-125%" });
+    gsap.set(".initial-grid-container", { opacity: 0 });
+    
+    const masterTimeline = gsap.timeline();
+    const overlayTimeline = gsap.timeline();
+    const gridTimeline = gsap.timeline();
+
+    // Logo animation
+    overlayTimeline.to(".initial-logo-line-1", {
+      backgroundPosition: "0% 0%",
+      color: "#fff",
+      duration: 1,
+      ease: "none",
+      delay: 0.5
+    });
+
+    overlayTimeline.to(".initial-logo-line-2", {
+      backgroundPosition: "0% 0%",
+      color: "#fff",
+      duration: 1,
+      ease: "none"
+    }, "-=0.5");
+
+    // After logo animation, show the grid
+    overlayTimeline.to(".initial-overlay", {
+      opacity: 0,
+      duration: 0.5,
+      delay: 0.5,
+      onComplete: () => {
+        gsap.set(".initial-grid-container", { display: "grid", opacity: 1 });
+        
+        const gridImages = [
+          '/assets/bk.jpg',
+          '/assets/bki.png',
+          '/assets/bl.png',
+          '/assets/bot.png',
+          '/assets/hero.png',
+          '/assets/bottleg.png',
+          '/assets/don.png',
+          '/assets/orange.webp',
+          '/assets/teq.png'
+        ];
+        
+        // Set initial grid images
+        document.querySelectorAll(".initial-grid-img").forEach((img, i) => {
+          img.src = gridImages[i];
+        });
+        
+        // Grid animation sequence
+        gridTimeline.to(".initial-grid-img", {
+          clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+          duration: 1,
+          stagger: { 
+            each: 0.05,
+            from: "random"
+          },
+          ease: "hop"
+        });
+        
+        gridTimeline.to(".initial-grid-img", {
+          clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
+          duration: 1,
+          delay: 0.5,
+          stagger: { 
+            each: -0.05,
+            from: "center"
+          },
+          ease: "hop"
+        });
+        
+        gridTimeline.to(".initial-grid-container", {
+          opacity: 0,
+          duration: 0.5,
+          onComplete: () => setAnimationComplete(true)
+        });
+      }
+    });
+    
+    masterTimeline.add(overlayTimeline);
+  }, []);
+
+  if (!animationComplete) {
+    return (
+      <div className="relative min-h-screen bg-black font-pp-neue-montreal overflow-hidden">
+        <nav className="initial-nav fixed top-0 left-0 w-full z-50 p-8">
+          <a href="#" className="text-[1.75rem] font-druk font-extrabold italic leading-tight text-black">
+            Logo
+          </a>
+        </nav>
+        
+        <div className="initial-overlay fixed inset-0 w-full h-full bg-black flex items-center justify-center z-40">
+          <div className="flex flex-col items-center gap-0">
+            <h1 className="initial-logo-line-1 text-center uppercase font-druk text-[4rem] md:text-[6rem] italic leading-[0.9] text-transparent bg-clip-text bg-gradient-to-b from-[#3a3a3a] to-[#3a3a3a] bg-[length:100%_200%] bg-[0%_100%]">
+              Toronto
+            </h1>
+            <h1 className="initial-logo-line-2 text-center uppercase font-druk text-[4rem] md:text-[6rem] italic leading-[0.9] text-transparent bg-clip-text bg-gradient-to-b from-[#3a3a3a] to-[#3a3a3a] bg-[length:100%_200%] bg-[0%_100%]">
+              Distillery
+            </h1>
+          </div>
+        </div>
+        
+        <div className="initial-grid-container fixed inset-0 w-full h-full hidden grid-cols-3 grid-rows-3 gap-[1px] z-50 bg-black">
+          {[...Array(9)].map((_, index) => (
+            <div key={index} className="relative overflow-hidden">
+              <img 
+                src="/assets/hero.png" 
+                alt="" 
+                className="initial-grid-img absolute inset-0 w-full h-full object-cover transition-all duration-300"
+                style={{ clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)" }}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="bg-zinc-950">
+    <div className="bg-black">
       <ReactLenis
         root
         options={{
@@ -22,197 +162,9 @@ export const ToronHero = () => {
           smoothTouch: true
         }}
       >
-        <Hero />
         <SpiritsSection />
       </ReactLenis>
     </div>
-  );
-};
-
-const SECTION_HEIGHT = 1500;
-
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    checkIfMobile();
-    window.addEventListener('resize', checkIfMobile);
-
-    return () => window.removeEventListener('resize', checkIfMobile);
-  }, []);
-
-  return isMobile;
-};
-
-const Hero = () => {
-  const { scrollY } = useScroll();
-  const [startAutoAnimation, setStartAutoAnimation] = useState(false);
-  const lenis = useLenis();
-  const isMobile = useIsMobile();
-  const triggered = useRef(false);
-  const scrolledToSpirits = useRef(false);
-
-  useEffect(() => {
-    const unsubscribe = scrollY.onChange((y) => {
-      // Trigger at 15px scroll
-      if (y > 2 && y < 300 && !triggered.current) {
-        setStartAutoAnimation(true);
-        triggered.current = true;
-      }
-    });
-    return () => unsubscribe();
-  }, [scrollY]);
-
-  useEffect(() => {
-    if (startAutoAnimation && lenis && !scrolledToSpirits.current) {
-      const offset = isMobile ? 200 : 280;
-      lenis.scrollTo('#spirits', {
-        duration: 2, // Slower animation (3 seconds)
-        offset: -offset,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      });
-      scrolledToSpirits.current = true;
-    }
-  }, [startAutoAnimation, lenis, isMobile]);
-
-  const headerOpacity = useTransform(
-    scrollY, 
-    [0, 300], 
-    [1, 0]
-  );
-
-  return (
-    <div
-      style={{ height: `calc(${SECTION_HEIGHT}px + 100vh)` }}
-      className="relative w-full"
-      id="page"
-    >
-      <motion.div 
-        className="absolute top-[20vh] z-10 w-full text-center"
-        style={{ opacity: headerOpacity }}
-      >
-        <AnimatePresence>
-          <motion.h1 
-            key="hero-heading"
-            className="mx-auto max-w-4xl bg-gradient-to-b from-white to-zinc-400 bg-clip-text px-4 text-4xl font-black uppercase tracking-tighter text-transparent md:text-7xl"
-            initial={{ y: 20, opacity: 0 }}
-            style={{ fontFamily: "Inter" }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-          >
-            Toronto Distillery Group
-          </motion.h1>
-        </AnimatePresence>
-      </motion.div>
-
-      <CenterImage isMobile={isMobile} />
-      <ParallaxImages />
-      <div className="absolute bottom-0 left-0 right-0 h-96 bg-gradient-to-b from-zinc-950/0 to-zinc-950" />
-    </div>
-  );
-};
-
-const CenterImage = ({ isMobile }) => {
-  const { scrollY } = useScroll();
-
-  const clip1 = useTransform(scrollY, [0, 1500], [25, 0]);
-  const clip2 = useTransform(scrollY, [0, 1500], [75, 100]);
-
-  const clipPath = useMotionTemplate`polygon(${clip1}% ${clip1}%, ${clip2}% ${clip1}%, ${clip2}% ${clip2}%, ${clip1}% ${clip2}%)`;
-
-  const backgroundSize = useTransform(
-    scrollY,
-    [0, SECTION_HEIGHT + 500],
-    ["170%", "100%"]
-  );
-  const opacity = useTransform(
-    scrollY,
-    [SECTION_HEIGHT, SECTION_HEIGHT + 500],
-    [1, 0]
-  );
-
-  return (
-    <motion.div
-      className="sticky top-0 h-screen w-full"
-      style={{
-        clipPath,
-        backgroundSize,
-        opacity,
-        backgroundImage: isMobile 
-          ? "url('/assets/mobile.png')" 
-          : "url('/assets/intro.png')",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
-    />
-  );
-};
-
-const ParallaxImages = () => {
-  return (
-    <div className="mx-auto max-w-5xl px-4 pt-[200px]">
-      <ParallaxImg
-        key="img1"
-        src="/assets/don.png"
-        alt="Don Julio spirit"
-        start={-200}
-        end={200}
-        className="w-1/3"
-      />
-      <ParallaxImg
-        key="img2"
-        src="/assets/bk.jpg"
-        alt="Brass Knuckles whiskey"
-        start={200}
-        end={-250}
-        className="mx-auto w-2/3"
-      />
-      <ParallaxImg
-        key="img3"
-        src="/assets/media4.png"
-        alt="Distillery media"
-        start={-200}
-        end={200}
-        className="ml-auto w-1/3"
-      />
-      <ParallaxImg
-        key="img4"
-        src="/assets/intro.png"
-        alt="Distillery intro"
-        start={0}
-        end={-500}
-        className="ml-24 w-5/12"
-      />
-    </div>
-  );
-};
-
-const ParallaxImg = ({ className, alt, src, start, end }) => {
-  const ref = useRef(null);
-
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: [`${start}px end`, `end ${end * -1}px`],
-  });
-
-  const opacity = useTransform(scrollYProgress, [0.75, 1], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0.75, 1], [1, 0.85]);
-
-  const y = useTransform(scrollYProgress, [0, 1], [start, end]);
-  const transform = useMotionTemplate`translateY(${y}px) scale(${scale})`;
-
-  return (
-    <motion.img
-      src={src}
-      alt={alt}
-      className={className}
-      ref={ref}
-      style={{ transform, opacity }}
-    />
   );
 };
 
@@ -220,9 +172,9 @@ const SpiritsSection = () => {
   return (
     <section
       id="spirits"
-      className="relative min-h-screen overflow-hidden bg-gradient-to-br from-zinc-900 to-black"
+      className="relative min-h-screen overflow-hidden bg-black"
     >
-      <div className="absolute inset-0 z-0 opacity-40">
+      <div className="absolute inset-0 z-0 opacity-30">
         <img
           src="/assets/bgg.jpg"
           alt="Toronto skyline"
@@ -230,19 +182,17 @@ const SpiritsSection = () => {
         />
       </div>
       
-      <div className="relative z-20 mx-auto max-w-6xl px-4 py-16 md:py-32 text-center">
+      <div className="relative z-20 mx-auto max-w-6xl px-4 py-28 md:py-32 text-center">
         <motion.h1
-          key="spirits-heading"
           initial={{ y: 48, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ ease: "easeInOut", duration: 0.75 }}
-          className="mb-8 px-4 text-4xl font-black uppercase tracking-wide text-white md:text-7xl"
+          className="mb-8 px-4 text-3xl font-black uppercase tracking-wide text-white md:text-7xl"
         >
           Distilled in Toronto.<br />Poured Worldwide.
         </motion.h1>
         
         <motion.div
-          key="spirits-image"
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7 }}
@@ -256,11 +206,10 @@ const SpiritsSection = () => {
         </motion.div>
         
         <motion.p
-          key="spirits-description"
           initial={{ y: 36, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ ease: "easeInOut", duration: 0.75, delay: 0.1 }}
-          className="mx-auto mb-16 max-w-2xl px-4 text-lg font-medium text-zinc-200 md:text-2xl"
+          className="mx-auto mb-16 max-w-2xl px-4 text-lg font-medium text-white md:text-2xl"
         >
           Brass Knuckles Canadian Whiskey. GOAT Vodka. Born Naked Raw Gin. Ladrillo Tequila.
           <br />
@@ -268,13 +217,12 @@ const SpiritsSection = () => {
         </motion.p>
         
         <motion.div 
-          key="spirits-ctas"
           className="flex flex-col items-center justify-center gap-4"
           initial={{ y: 24, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ ease: "easeInOut", duration: 0.75 }}
         >
-          <a href="#product-section" className="group flex items-center justify-center gap-2 rounded-full border border-white bg-transparent px-6 py-3 text-base font-bold uppercase tracking-wide text-white transition-all duration-300 hover:bg-black md:text-xl">
+          <a href="#product-section" className="group flex items-center justify-center gap-2 rounded-full border border-white bg-transparent px-6 py-3 text-base font-bold uppercase tracking-wide text-white transition-all duration-300 hover:bg-white/10 md:text-xl">
             Explore Our Spirits
             <FiArrowRight className="transition-transform group-hover:translate-x-1" />
           </a>
@@ -285,14 +233,13 @@ const SpiritsSection = () => {
         </motion.div>
         
         <motion.div
-          key="spirits-scroll-cue"
           className="mt-16 md:mt-24 flex items-center justify-center gap-2 text-zinc-400"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ ease: "easeInOut", duration: 0.75, delay: 0.5 }}
         >
           <span className="block h-8 w-px bg-white animate-bounce"></span>
-          <span className="text-sm font-medium tracking-wide">
+          <span className="text-sm font-medium tracking-wide text-white">
             Discover Toronto Distillery Group
           </span>
         </motion.div>
@@ -301,23 +248,18 @@ const SpiritsSection = () => {
   );
 };
 
-const CTAButton = ({ children, variant = "primary", to }) => {
+const CTAButton = ({ children, to }) => {
   return (
     <Link to={to} className="group">
       <motion.div
-        className={`flex items-center gap-2 rounded-full px-6 py-3 md:px-8 md:py-4 text-base md:text-xl font-bold uppercase tracking-wide transition-all duration-300 ${
-          variant === "primary"
-            ? "bg-transparent border border-white text-white hover:bg-black"
-            : "border-2 border-white text-white hover:bg-white/10"
-        }`}
+        className="flex items-center gap-2 rounded-full border-2 border-white px-6 py-3 md:px-8 md:py-4 text-base md:text-xl font-bold uppercase tracking-wide text-white transition-all duration-300 hover:bg-white/10"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
         {children}
-        {variant === "primary" && (
-          <FiArrowRight className="transition-transform group-hover:translate-x-1" />
-        )}
       </motion.div>
     </Link>
   );
 };
+
+export default ToronHero;

@@ -1,9 +1,8 @@
-// src/pages/Home.jsx
 import React, { useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ReactLenis } from "lenis/dist/lenis-react";
-import { ToronHero } from '../components/ToronHero';
+import ToronHero from '../components/ToronHero';
 import AboutSection from '../components/AboutSection';
 import SpiritsSection from '../components/SpiritsSection';
 import BrandCreationPreview from '../components/BrandCreationPreview';
@@ -14,7 +13,7 @@ import { useLocation } from 'react-router-dom';
 gsap.registerPlugin(ScrollTrigger);
 
 const Home = () => {
-  const location = useLocation(); // Moved to top-level
+  const location = useLocation();
 
   // Animation setup
   useEffect(() => {
@@ -37,7 +36,6 @@ const Home = () => {
       );
     });
     
-    // Cleanup
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
@@ -52,6 +50,9 @@ const Home = () => {
           section.scrollIntoView({ behavior: 'smooth' });
         }, 100);
       }
+    } else {
+      // Ensure the page starts at the top when no scroll target is specified
+      window.scrollTo(0, 0);
     }
   }, [location.state]);
 
@@ -59,23 +60,21 @@ const Home = () => {
     <ReactLenis root options={{ lerp: 0.05, smoothWheel: true }}>
       <div>
         <ToronHero />
-        <section className='relative  md:bottom-0'>
+        <section className="relative md:bottom-0 animate-section">
           <AboutSection />
         </section>
-        <section className='relative  md:bottom-0' id="product-section">
+        <section className="relative md:bottom-0 animate-section" id="product-section">
           <SpiritsSection />
         </section>
-        <section className='relative  md:bottom-0'>
+        <section className="relative md:bottom-0 animate-section">
           <BrandCreationPreview />
         </section>
-        <section className='relative  md:bottom-0'>
-        <CoPackingPreview />
+        <section className="relative md:bottom-0 animate-section">
+          <CoPackingPreview />
         </section>
-        <section className='relative  md:bottom-0'>
-        <GivesBackSection />
+        <section className="relative md:bottom-0 animate-section">
+          <GivesBackSection />
         </section>
-        
-        
       </div>
     </ReactLenis>
   );

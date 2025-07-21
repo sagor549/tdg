@@ -6,7 +6,7 @@ export default function AboutSection() {
   return (
     <div className="bg-white">
       {/* Introductory Text Section */}
-      <div className="max-w-5xl mx-auto px-4 py-24 text-center">
+      <div className="max-w-5xl mx-auto px-4 py-16 md:py-24 text-center">
         <h1 className="text-4xl md:text-5xl font-bold text-black mb-6">
           Toronto Distillery Group
         </h1>
@@ -52,7 +52,7 @@ export default function AboutSection() {
       </TextParallaxContent>
       
       {/* Closing Statement */}
-      <div className="mx-auto max-w-5xl px-4 py-20 text-center">
+      <div className="mx-auto max-w-5xl px-4 py-16 md:py-24 text-center">
         <p className="text-4xl font-bold text-black">This is Toronto Distillery Group.</p>
         <p className="mt-4 text-2xl text-gray-900">Rooted in craft. Driven by purpose. Proudly Canadian.</p>
       </div>
@@ -64,8 +64,8 @@ const IMG_PADDING = 12;
 
 const TextParallaxContent = ({ imgUrl, subheading, heading, children }) => {
   return (
-    <div style={{ paddingLeft: IMG_PADDING, paddingRight: IMG_PADDING }}>
-      <div className="relative h-[150vh]">
+    <div className="mb-8" style={{ paddingLeft: IMG_PADDING, paddingRight: IMG_PADDING }}>
+      <div className="relative h-[100vh]">
         <StickyImage imgUrl={imgUrl} />
         <OverlayCopy heading={heading} subheading={subheading} />
       </div>
@@ -112,7 +112,7 @@ const OverlayCopy = ({ subheading, heading }) => {
     offset: ["start end", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [250, -250]);
+  const y = useTransform(scrollYProgress, [0, 1], [150, -150]);
   const opacity = useTransform(scrollYProgress, [0.25, 0.5, 0.75], [0, 1, 0]);
 
   return (
@@ -130,15 +130,20 @@ const OverlayCopy = ({ subheading, heading }) => {
 };
 
 const AboutContent = ({ title, description, buttonText }) => (
-  <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 px-4 pb-24 pt-12 md:grid-cols-12">
+  <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 px-4 pb-12 pt-8 md:grid-cols-12 md:pt-12">
     <h2 className="col-span-1 text-3xl font-bold md:col-span-4 text-black">
       {title}
     </h2>
     <div className="col-span-1 md:col-span-8">
-      <p className="mb-8 text-xl text-neutral-600 md:text-2xl">
+      <p className="mb-6 text-xl text-neutral-600 md:text-2xl">
         {description}
       </p>
-      
+      {buttonText && (
+        <button className="flex items-center gap-2 text-lg font-semibold text-black hover:underline">
+          {buttonText}
+          <FiArrowUpRight />
+        </button>
+      )}
     </div>
   </div>
 );
