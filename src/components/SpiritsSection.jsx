@@ -89,7 +89,6 @@ const SpiritsSection = () => {
   const itemsRef = useRef([]);
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
-  const originalOverflowRef = useRef('');
 
   // Track window size for responsive adjustments
   useEffect(() => {
@@ -99,13 +98,6 @@ const SpiritsSection = () => {
     
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  // Reset body overflow on unmount
-  useEffect(() => {
-    return () => {
-      document.body.style.overflow = originalOverflowRef.current || 'auto';
-    };
   }, []);
 
   // Swipe gestures for mobile
@@ -218,6 +210,7 @@ const SpiritsSection = () => {
   };
 
   const handleNext = () => {
+    // ... (same as before)
     if (isAnimating || showDetail) return;
     setIsAnimating(true);
     
@@ -277,7 +270,9 @@ const SpiritsSection = () => {
   };
 
   const handlePrev = () => {
-    if (isAnimating || showDetail) return;
+    // ... (same as before)
+
+     if (isAnimating || showDetail) return;
     setIsAnimating(true);
     
     gsap.to(".active-item .content-animate", {
@@ -338,10 +333,6 @@ const SpiritsSection = () => {
   const handleSeeMore = () => {
     if (isAnimating) return;
     setIsAnimating(true);
-    
-    // Store original overflow and lock scrolling
-    originalOverflowRef.current = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
     
     gsap.to(itemsRef.current.filter((_, i) => i !== 1), {
       x: "100%",
@@ -479,11 +470,7 @@ const SpiritsSection = () => {
         stagger: 0.2,
         delay: 0.8,
         duration: 0.5,
-        ease: "power2.out",
-        onComplete: () => {
-          // Restore scrolling AFTER animation completes
-          document.body.style.overflow = originalOverflowRef.current || 'auto';
-        }
+        ease: "power2.out"
       }
     );
     
@@ -523,11 +510,11 @@ const SpiritsSection = () => {
               >
                 <div className="flex flex-col md:flex-row items-center md:items-start h-full">
                   {(windowWidth >= 768 || !showDetail) && (
-                    <div className="w-full md:w-[45%] h-[70%] md:h-full flex items-center justify-center mb-4 md:mb-0">
+                    <div className="w-full md:w-[45%] h-[300px] md:h-full flex items-center justify-center mb-4 md:mb-0">
                       <img 
                         src={spirit.img} 
                         alt={spirit.title}
-                        className="max-h-full max-w-full object-contain transition-all duration-1500 md:absolute top-11 relative md:right-0 md:top-1/2 md:-translate-y-1/2"
+                        className="max-h-[250px] max-w-full object-contain transition-all duration-1500 md:absolute top-11 relative md:right-0 md:top-1/2 md:-translate-y-1/2"
                       />
                     </div>
                   )}
@@ -547,7 +534,10 @@ const SpiritsSection = () => {
                     </button>
                   </div>
                   
-                  <div className={`detail-content opacity-0 pointer-events-none w-full md:w-1/2 md:absolute md:right-0 ${windowWidth < 768 ? 'top-0 h-full' : 'top-1/2 md:-translate-y-1/2'} bg-transparent p-1 md:p-6 lg:p-8 flex flex-col`}>
+                  <div 
+                    className={`detail-content opacity-0 pointer-events-none w-full md:w-1/2 md:absolute md:right-0 ${windowWidth < 768 ? 'top-0 h-full' : 'top-1/2 md:-translate-y-1/2'} bg-transparent p-1 md:p-6 lg:p-8 flex flex-col`}
+                    style={{ touchAction: 'pan-y' }} // Enable native scrolling
+                  >
                     {showDetail && windowWidth < 768 && (
                       <div className="w-full flex-shrink-0 flex justify-center mb-4">
                         <img 
@@ -557,7 +547,10 @@ const SpiritsSection = () => {
                         />
                       </div>
                     )}
-                    <div className="overflow-y-auto flex-grow pr-2">
+                    <div 
+                      className="overflow-y-auto flex-grow pr-2"
+                      style={{ WebkitOverflowScrolling: 'touch' }} // Smooth iOS scrolling
+                    >
                       <div className="text-xl md:text-2xl lg:text-3xl detail-animate font-bold mb-1 md:mb-4 text-gray-900">
                         {spirit.title}
                       </div>
