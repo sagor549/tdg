@@ -80,9 +80,9 @@ const AlcoholBrandCreation = () => {
   return (
     <div className="min-h-screen ">
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 container mx-auto text-center animate-section relative">
+      <section className="pt-32 pb-20 px-4  mx-auto text-center animate-section relative">
         <div className="absolute inset-0 z-0">
-          <div className="bg-[url('/assets/wb.png')] bg-cover bg-center absolute inset-0 opacity-60"></div>
+          <div className="bg-[url('/assets/wb.png')] bg-cover bg-center absolute inset-0 opacity-100"></div>
           <div className="absolute inset-0  "></div>
         </div>
         
@@ -129,6 +129,7 @@ const AlcoholBrandCreation = () => {
   <source src="/assets/bgvid.mp4" type="video/mp4" />
   Your browser does not support the video tag.
 </video>
+<div className="absolute inset-0  backdrop-blur-2xl"></div>
 
          
         </div>
@@ -219,7 +220,7 @@ const AlcoholBrandCreation = () => {
 
       {/* CTA Section */}
       <section className="py-24 animate-section relative overflow-hidden">
-        <div className="bg-[url('/assets/brand.png')] absolute inset-0 opacity-70"></div>
+        <div className="bg-[url('/assets/brand.png')] absolute inset-0 opacity-100"></div>
         <div className="absolute inset-0 backdrop-blur-sm "></div>
         
         <div className="container mx-auto px-4 text-center relative z-10">

@@ -63,10 +63,10 @@ const BrandCreationPreview = () => {
         <source src="/assets/bgvid.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
+      <div className="absolute inset-0  backdrop-blur-md"></div>
 
       {/* === Decorative Overlays === */}
-      <div className="absolute top-10 right-10 w-32 h-32 bg-white/10 rounded-full z-10"></div>
-      <div className="absolute bottom-20 left-8 w-24 h-24 border-2 border-white/20 rounded-full z-10"></div>
+      
 
       <div className="container mx-auto max-w-4xl relative z-20">
         <div className="flex flex-col items-center text-center">
