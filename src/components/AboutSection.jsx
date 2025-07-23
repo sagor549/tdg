@@ -17,7 +17,7 @@ export default function AboutSection() {
 
       {/* Parallax Sections */}
       <TextParallaxContent
-        imgUrl="/assets/intro.png"
+        imgUrl="/assets/tdg-bg.png"
         subheading="Our Story"
         heading="Founded in 2019"
       >

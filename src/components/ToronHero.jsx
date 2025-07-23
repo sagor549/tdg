@@ -5,152 +5,74 @@ import { ReactLenis } from "lenis/dist/lenis-react";
 import { motion } from "framer-motion";
 import { FiArrowRight } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import Navbar from './Navbar';
 
 gsap.registerPlugin(CustomEase);
 CustomEase.create("hop", "0.9, 0, 0.1, 1");
 
 const ToronHero = () => {
-  const [animationComplete, setAnimationComplete] = useState(false);
+   const [animationComplete, setAnimationComplete] = useState(
+    localStorage.getItem('introPlayed') === 'true'
+  );
   
   useEffect(() => {
-    // Preload critical images
-    const preloadImages = [
-      '/assets/hero.png',
-      '/assets/bgg.jpg',
+    if (localStorage.getItem('introPlayed') === 'true') {
+      return;
+    }
+
+    const gridImages = [
       '/assets/bk.jpg',
-      '/assets/bki.png',
-      '/assets/bl.png',
-      '/assets/bot.png',
-      '/assets/bottleg.png',
-      '/assets/don.png',
-      '/assets/intro.png',
+      '/assets/go.jpg',
       '/assets/media4.png',
+      '/assets/raw.jpg',
+      '/assets/gd.png',
+      '/assets/bk6.jpg',
+      '/assets/tdg-bg.png',
       '/assets/orange.webp',
-      '/assets/green.webp',
-      '/assets/teq.png'
+      '/assets/gin.jpg'
     ];
     
-    preloadImages.forEach(src => {
+    gridImages.forEach(src => {
       new Image().src = src;
     });
 
-    // Set initial states
-    gsap.set(".initial-nav", { y: "-125%" });
-    gsap.set(".initial-grid-container", { opacity: 0 });
-    
     const masterTimeline = gsap.timeline();
-    const overlayTimeline = gsap.timeline();
     const gridTimeline = gsap.timeline();
 
-    // Logo animation
-    overlayTimeline.to(".initial-logo-line-1", {
-      backgroundPosition: "0% 0%",
-      color: "#fff",
-      duration: 1,
-      ease: "none",
-      delay: 0.5
+    gsap.set(".initial-grid-container", { opacity: 0 });
+    
+    gridTimeline.to(".initial-grid-img", {
+      clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+      duration: 0.8,
+      stagger: { 
+        each: 0.05,
+        from: "random"
+      },
+      ease: "hop"
     });
-
-    overlayTimeline.to(".initial-logo-line-2", {
-      backgroundPosition: "0% 0%",
-      color: "#fff",
-      duration: 1,
-      ease: "none"
-    }, "-=0.5");
-
-    // After logo animation, show the grid
-    overlayTimeline.to(".initial-overlay", {
+    
+    gridTimeline.to(".initial-grid-img", {
+      clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
+      duration: 0.8,
+      delay: 0.3,
+      stagger: { 
+        each: -0.05,
+        from: "center"
+      },
+      ease: "hop"
+    }, "+=0.2");
+    
+    gridTimeline.to(".initial-grid-container", {
       opacity: 0,
       duration: 0.5,
-      delay: 0.5,
       onComplete: () => {
-        gsap.set(".initial-grid-container", { display: "grid", opacity: 1 });
-        
-        const gridImages = [
-          '/assets/bk.jpg',
-          '/assets/bki.png',
-          '/assets/bl.png',
-          '/assets/bot.png',
-          '/assets/hero.png',
-          '/assets/bottleg.png',
-          '/assets/don.png',
-          '/assets/orange.webp',
-          '/assets/teq.png'
-        ];
-        
-        // Set initial grid images
-        document.querySelectorAll(".initial-grid-img").forEach((img, i) => {
-          img.src = gridImages[i];
-        });
-        
-        // Grid animation sequence
-        gridTimeline.to(".initial-grid-img", {
-          clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-          duration: 1,
-          stagger: { 
-            each: 0.05,
-            from: "random"
-          },
-          ease: "hop"
-        });
-        
-        gridTimeline.to(".initial-grid-img", {
-          clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
-          duration: 1,
-          delay: 0.5,
-          stagger: { 
-            each: -0.05,
-            from: "center"
-          },
-          ease: "hop"
-        });
-        
-        gridTimeline.to(".initial-grid-container", {
-          opacity: 0,
-          duration: 0.5,
-          onComplete: () => setAnimationComplete(true)
-        });
+        localStorage.setItem('introPlayed', 'true');
+        setAnimationComplete(true);
       }
     });
     
-    masterTimeline.add(overlayTimeline);
+    masterTimeline.add(gridTimeline);
   }, []);
-
-  if (!animationComplete) {
-    return (
-      <div className="relative min-h-screen bg-black font-pp-neue-montreal overflow-hidden">
-        <nav className="initial-nav fixed top-0 left-0 w-full z-50 p-8">
-          <a href="#" className="text-[1.75rem] font-druk font-extrabold italic leading-tight text-black">
-            Logo
-          </a>
-        </nav>
-        
-        <div className="initial-overlay fixed inset-0 w-full h-full bg-black flex items-center justify-center z-40">
-          <div className="flex flex-col items-center gap-0">
-            <h1 className="initial-logo-line-1 text-center uppercase font-druk text-[4rem] md:text-[6rem] italic leading-[0.9] text-transparent bg-clip-text bg-gradient-to-b from-[#3a3a3a] to-[#3a3a3a] bg-[length:100%_200%] bg-[0%_100%]">
-              Toronto
-            </h1>
-            <h1 className="initial-logo-line-2 text-center uppercase font-druk text-[4rem] md:text-[6rem] italic leading-[0.9] text-transparent bg-clip-text bg-gradient-to-b from-[#3a3a3a] to-[#3a3a3a] bg-[length:100%_200%] bg-[0%_100%]">
-              Distillery
-            </h1>
-          </div>
-        </div>
-        
-        <div className="initial-grid-container fixed inset-0 w-full h-full hidden grid-cols-3 grid-rows-3 gap-[1px] z-50 bg-black">
-          {[...Array(9)].map((_, index) => (
-            <div key={index} className="relative overflow-hidden">
-              <img 
-                src="/assets/hero.png" 
-                alt="" 
-                className="initial-grid-img absolute inset-0 w-full h-full object-cover transition-all duration-300"
-                style={{ clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)" }}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="bg-black">
@@ -162,7 +84,26 @@ const ToronHero = () => {
           smoothTouch: true
         }}
       >
-        <SpiritsSection />
+        <Navbar />
+        
+        {!animationComplete ? (
+          <div className="relative min-h-screen bg-black font-pp-neue-montreal overflow-hidden">
+            <div className="initial-grid-container fixed inset-0 w-full h-full grid grid-cols-3 grid-rows-3 gap-[1px] z-50 bg-black">
+              {[...Array(9)].map((_, index) => (
+                <div key={index} className="relative overflow-hidden">
+                  <img 
+                    src={`/assets/grid-${index + 1}.jpg`} 
+                    alt="" 
+                    className="initial-grid-img absolute inset-0 w-full h-full object-cover"
+                    style={{ clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)" }}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <SpiritsSection />
+        )}
       </ReactLenis>
     </div>
   );
@@ -174,66 +115,145 @@ const SpiritsSection = () => {
       id="spirits"
       className="relative min-h-screen overflow-hidden bg-black"
     >
-      <div className="absolute inset-0 z-0 opacity-30">
+      {/* Background image */}
+      <div className="absolute inset-0 z-0">
         <img
-          src="/assets/bgg.jpg"
-          alt="Toronto skyline"
-          className="h-full w-full object-cover"
+          src="/assets/apbg.jpeg"
+          alt="Toronto Distillery background"
+          className="w-full h-full object-cover"
         />
       </div>
       
-      <div className="relative z-20 mx-auto max-w-6xl px-4 py-28 md:py-32 text-center">
+      <div className="relative z-20 mx-auto max-w-6xl px-4 py-28 md:py-32 min-h-screen flex flex-col justify-center">
+        {/* Centered heading */}
         <motion.h1
           initial={{ y: 48, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ ease: "easeInOut", duration: 0.75 }}
-          className="mb-8 px-4 text-3xl font-black uppercase tracking-wide text-white md:text-7xl"
+          className="mb-8 text-3xl font-black uppercase tracking-wide text-white text-center md:text-5xl lg:text-6xl xl:text-7xl"
         >
-          Distilled in Toronto.<br />Poured Worldwide.
+          Distilled in Toronto<br />Poured Worldwide
         </motion.h1>
         
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7 }}
-          className="mx-auto mb-16 max-w-3xl px-4"
-        >
-          <img 
-            src="/assets/hero.png"
-            alt="Toronto Distillery Group Spirits"
-            className="mx-auto rounded-xl shadow-2xl w-full"
-          />
-        </motion.div>
-        
-        <motion.p
-          initial={{ y: 36, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ ease: "easeInOut", duration: 0.75, delay: 0.1 }}
-          className="mx-auto mb-16 max-w-2xl px-4 text-lg font-medium text-white md:text-2xl"
-        >
-          Brass Knuckles Canadian Whiskey. GOAT Vodka. Born Naked Raw Gin. Ladrillo Tequila.
-          <br />
-          Four world-class spirits. Zero compromises. One standard: perfection.
-        </motion.p>
-        
+        {/* Bottle images - mobile view */}
         <motion.div 
-          className="flex flex-col items-center justify-center gap-4"
-          initial={{ y: 24, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ ease: "easeInOut", duration: 0.75 }}
+          className="md:hidden mb-6 flex justify-center"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
         >
-          <a href="#product-section" className="group flex items-center justify-center gap-2 rounded-full border border-white bg-transparent px-6 py-3 text-base font-bold uppercase tracking-wide text-white transition-all duration-300 hover:bg-white/10 md:text-xl">
-            Explore Our Spirits
-            <FiArrowRight className="transition-transform group-hover:translate-x-1" />
-          </a>
-          <div className="flex flex-col md:flex-row gap-4">
-            <CTAButton to="/alcohol-brand-creation">Alcohol Brand Creation</CTAButton>
-            <CTAButton to="/co-packing-services">Co-Packing Services</CTAButton>
+          <div className="flex items-end justify-center -mx-4">
+            <motion.img 
+              src="/assets/orange.webp" 
+              alt="GOAT Vodka" 
+              className="w-[30%] max-w-[170px] transform -translate-y-4 relative left-58 top-10"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.7 }}
+            />
+            <motion.img 
+              src="/assets/bk2.png" 
+              alt="Brass Knuckles Canadian Whiskey" 
+              className="w-[160%] max-w-[460px] mx-[-15px] relative left-15 z-40"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.7 }}
+            />
+            <motion.img 
+              src="/assets/bottleg.png" 
+              alt="Born Naked Raw Gin" 
+              className="w-[80%] max-w-[220px] transform -translate-y-4 relative right-40 z-20"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.7 }}
+            />
           </div>
         </motion.div>
         
+        {/* Main content container */}
+        <div className="flex flex-col md:flex-row gap-6 md:gap-18 items-center justify-evenly relative md:top-15">
+          {/* Text content - left-aligned on desktop */}
+          <motion.div 
+            className="w-full md:w-1/2"
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <motion.p
+              initial={{ y: 36, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ ease: "easeInOut", duration: 0.75, delay: 0.1 }}
+              className="mb-6 md:mb-8 text-lg md:text-xl lg:text-2xl font-medium text-white text-center md:text-left"
+            >
+              Born Naked Raw Gin. Brass Knuckles Canadian Whiskey. GOAT Vodka. 
+              <br  /> 
+              <br  />
+              Four world-class spirits. Zero compromises. One standard: PERFECTION.
+            </motion.p>
+            
+            <motion.div 
+              className="flex flex-col items-center md:items-start gap-4"
+              initial={{ y: 24, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ ease: "easeInOut", duration: 0.75 }}
+            >
+              <a 
+                href="#product-section" 
+                className="group flex items-center justify-center gap-2 rounded-full border border-white bg-white text-black px-4 py-2 text-sm md:px-6 md:py-3 md:text-base font-bold uppercase tracking-wide transition-all duration-300 hover:bg-gray-300"
+              >
+                Explore Our Spirits
+                <FiArrowRight className="transition-transform group-hover:translate-x-1" />
+              </a>
+              <div className="flex flex-col md:flex-row gap-3 md:gap-4">
+                <CTAButton to="/alcohol-brand-creation">Alcohol Brand Creation</CTAButton>
+                <CTAButton to="/co-packing-services">Co-Packing Services</CTAButton>
+              </div>
+            </motion.div>
+          </motion.div>
+          
+          {/* Bottle images - desktop view */}
+          <motion.div 
+            className="hidden md:flex w-full md:w-1/2 items-end justify-center"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="relative w-full h-[420px] flex items-end justify-center left-58 top-10">
+              {/* Whiskey bottle - larger and centered */}
+              <motion.img 
+                src="/assets/bk2.png" 
+                alt="Brass Knuckles Canadian Whiskey" 
+                className="absolute z-20 w-[180%] max-w-[680px] bottom-0"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1, duration: 0.7 }}
+              />
+              
+              {/* Vodka bottle - left side */}
+              <motion.img 
+                src="/assets/orange.webp" 
+                alt="GOAT Vodka" 
+                className="absolute z-10 w-[35%] max-w-[220px] left-[4%] bottom-[-15%] transform -translate-y-4 "
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.7 }}
+              />
+              
+              {/* Gin bottle - right side */}
+              <motion.img 
+                src="/assets/bottleg.png" 
+                alt="Born Naked Raw Gin" 
+                className="absolute z-10 w-[70%] max-w-[320px] right-[-9%] bottom-10 transform -translate-y-4 "
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.7 }}
+              />
+            </div>
+          </motion.div>
+        </div>
+        
         <motion.div
-          className="mt-16 md:mt-24 flex items-center justify-center gap-2 text-zinc-400"
+          className="mt-16 md:mt-40 flex items-center justify-center gap-2 text-zinc-400"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ ease: "easeInOut", duration: 0.75, delay: 0.5 }}
@@ -252,11 +272,12 @@ const CTAButton = ({ children, to }) => {
   return (
     <Link to={to} className="group">
       <motion.div
-        className="flex items-center gap-2 rounded-full border-2 border-white px-6 py-3 md:px-8 md:py-4 text-base md:text-xl font-bold uppercase tracking-wide text-white transition-all duration-300 hover:bg-white/10"
+        className="group flex items-center justify-center gap-2 rounded-full border border-white bg-white text-black px-4 py-2 text-sm md:px-6 md:py-3 md:text-base font-bold uppercase tracking-wide transition-all duration-300 hover:bg-gray-300 whitespace-nowrap"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
         {children}
+        <FiArrowRight className="transition-transform group-hover:translate-x-1" />
       </motion.div>
     </Link>
   );

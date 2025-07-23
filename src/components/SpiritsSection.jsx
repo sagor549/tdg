@@ -4,7 +4,7 @@ import img1 from '/assets/bki.png';
 import img2 from '/assets/bottleg.png';
 import img3 from '/assets/green.webp';
 import img4 from '/assets/orange.webp';
-import img5 from '/assets/teq.png';
+
 
 const SpiritsSection = () => {
   const spirits = [

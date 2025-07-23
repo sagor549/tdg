@@ -74,28 +74,28 @@ const Navbar = () => {
       id: 'product-section',
       title: 'Our Spirits',
       action: () => scrollToSection('product-section'),
-      imgSrc: '/assets/teq.png',
+      imgSrc: '/assets/bk4.jpg',
       subheading: 'Discover our collection'
     },
     { 
       id: 'brand',
       title: 'Brand Creation',
       href: '/alcohol-brand-creation',
-      imgSrc: '/assets/orange.webp',
+      imgSrc: '/assets/raw.jpg',
       subheading: 'Craft your signature brand'
     },
     { 
       id: 'copacking',
       title: 'Co-Packing',
       href: '/co-packing-services',
-      imgSrc: '/assets/bottleg.png',
+      imgSrc: '/assets/go.jpg',
       subheading: 'Premium production services'
     },
     { 
       id: 'contact',
       title: 'Contact',
       href: '/contact',
-      imgSrc: '/assets/green.webp',
+      imgSrc: '/assets/bk3.jpg',
       subheading: 'Our commitment to community'
     }
   ];
@@ -205,13 +205,13 @@ const Navbar = () => {
 
   return (
     <nav 
-      className={`fixed w-full z-50 transition-all duration-500 ${
+      className={`fixed w-full z-50 transition-all duration-500  ${
         isScrolled 
           ? 'bg-transparent py-4' 
-          : 'bg-transparent py-3'
+          : 'bg-transparent py-4'
       }`}
     >
-      <div className="container mx-auto px-4 flex justify-between items-center">
+      <div className="container mx-auto px-4 flex justify-between items-center relative bottom-5 md:bottom-0">
         <Link 
           to="/" 
           className={`z-50 transition-opacity duration-300 ${
@@ -239,7 +239,7 @@ const Navbar = () => {
                 key="close"
                 src="/assets/x.png"
                 alt="Close menu"
-                className="w-17 h-16"
+                className="w-17 h-16 relative bottom-0 md:bottom-5"
                 initial={{ opacity: 0, rotate: -90 }}
                 animate={{ opacity: 1, rotate: 0 }}
                 exit={{ opacity: 0, rotate: 90 }}
