@@ -34,8 +34,8 @@ export default function AboutSection() {
       >
         <AboutContent 
           title="Elite spirits collection" 
-          description="Today, our flagship Brass Knuckles Canadian Whiskey – Master Select leads a portfolio of elite, handcrafted spirits: GOAT Vodka, Born Naked Raw Gin, and Ladrillo Tequila. Each reflects our commitment to quality, character, and our Toronto roots."
-          buttonText="Explore spirits"
+          description="Today, our flagship Brass Knuckles Canadian Whiskey – Master Select leads a portfolio of elite, handcrafted spirits: GOAT Vodka, Born Naked Raw Gin. Each reflects our commitment to quality, character, and our Toronto roots."
+         
         />
       </TextParallaxContent>
 
@@ -47,7 +47,7 @@ export default function AboutSection() {
         <AboutContent 
           title="Community commitment" 
           description="We've supported good causes since day one. As we grow, so does our impact. Giving back isn't a side project—it's core to our mission. From local sponsorships to national initiatives, we'll do whatever it takes for communities that stand with us."
-          buttonText="Our initiatives"
+        
         />
       </TextParallaxContent>
       
