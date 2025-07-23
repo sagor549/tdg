@@ -66,13 +66,13 @@ const Home = () => {
         <section className="relative md:bottom-0 animate-section" id="product-section">
           <SpiritsSection />
         </section>
-        <section className="relative md:bottom-0 animate-section">
+        <section className="relative md:bottom-0 bottom-40 animate-section">
           <BrandCreationPreview />
         </section>
-        <section className="relative md:bottom-0 animate-section">
+        <section className="relative md:bottom-0 animate-section bottom-40">
           <CoPackingPreview />
         </section>
-        <section className="relative md:bottom-0 animate-section">
+        <section className="relative md:bottom-0 animate-section bottom-30">
           <GivesBackSection />
         </section>
       </div>

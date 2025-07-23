@@ -81,7 +81,7 @@ const CoPackingPreview = () => {
       ref={sectionRef}
       className="relative py-24 px-4 bg-cover bg-center"
      style={{
-  backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/assets/packbg.jpg')`,
+  backgroundImage: ` url('/assets/apbg.jpeg')`,
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat'

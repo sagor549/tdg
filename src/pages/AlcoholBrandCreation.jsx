@@ -117,23 +117,33 @@ const AlcoholBrandCreation = () => {
       </section>
 
       {/* Creation Process Section */}
-      <section className="py-20 px-4 container mx-auto animate-section relative">
+      <section className="py-20 px-4  mx-auto animate-section relative w-full">
         <div className="absolute inset-0 z-0">
-          <div className="bg-[url('/assets/water.png')]  absolute inset-0 opacity-20"></div>
-          <div className="absolute inset-0  "></div>
+         <video
+  autoPlay
+  loop
+  muted
+  playsInline
+  className="absolute inset-0 w-full h-full object-cover opacity-100 z-0"
+>
+  <source src="/assets/bgvid.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+
+         
         </div>
         <div className="relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className='backdrop-blur-lg rounded-2xl p-10 border border-gray-700 shadow-lg'>
+            <div className=' rounded-2xl p-10 border border-gray-700 shadow-lg'>
               <div className="mb-8">
-                <div className="w-20 h-1 bg-gradient-to-r from-gray-400 to-gray-300 mb-4"></div>
-                <h2 className="text-3xl font-bold text-white mb-6">Craft Your Unique Spirit</h2>
+             
+                <h2 className="text-3xl font-bold text-black mb-6">Craft Your Unique Spirit</h2>
               </div>
-              <p className="text-gray-300 mb-4 leading-relaxed">
+              <p className="text-gray-900 mb-4 leading-relaxed text-lg">
                 Our studio helps entrepreneurs and established brands develop exceptional spirits 
                 from concept to shelf with state-of-the-art facilities and expert distillers.
               </p>
-              <p className="text-gray-300 mb-8 leading-relaxed">
+              <p className="text-gray-900 text-lg mb-8 leading-relaxed">
                 We provide end-to-end solutions including recipe development, regulatory compliance, 
                 packaging design, and distribution strategy.
               </p>
@@ -143,8 +153,8 @@ const AlcoholBrandCreation = () => {
             <div className="relative process-section">
               <div className="backdrop-blur-lg rounded-2xl p-10 border border-gray-700 shadow-lg">
                 <div className="mb-8">
-                  <div className="w-20 h-1 bg-gradient-to-r from-gray-400 to-gray-300 mb-4"></div>
-                  <h3 className="text-2xl font-bold text-white mb-4">Our Creation Process</h3>
+                  
+                  <h3 className="text-2xl font-bold text-black mb-4">Our Creation Process</h3>
                 </div>
                 
                 <div className="space-y-8">
@@ -160,9 +170,9 @@ const AlcoholBrandCreation = () => {
                         <span className="text-xl">{item.icon}</span>
                       </div>
                       <div>
-                        <div className="text-xs text-gray-400 font-semibold tracking-wider mb-1">{item.step}</div>
-                        <h4 className="font-bold text-white text-lg mb-1">{item.title}</h4>
-                        <p className="text-gray-400">{item.desc}</p>
+                        <div className="text-xs text-black font-semibold tracking-wider mb-1">{item.step}</div>
+                        <h4 className="font-bold text-black text-lg mb-1">{item.title}</h4>
+                        <p className="text-gray-600">{item.desc}</p>
                       </div>
                     </div>
                   ))}
@@ -175,7 +185,7 @@ const AlcoholBrandCreation = () => {
           <div className="container mx-auto px-4 relative z-10 mt-24 features-section">
             <div className="text-center mb-16">
               <div className="w-24 h-0.5 bg-transparent mx-auto mb-6 rounded-full"></div>
-              <h2 className="text-4xl font-bold text-white mb-4">Comprehensive Brand Solutions</h2>
+              <h2 className="text-4xl md:text-5xl font-bold text-black mb-4">Comprehensive Brand Solutions</h2>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
@@ -194,12 +204,12 @@ const AlcoholBrandCreation = () => {
                   className="backdrop-blur-sm rounded-2xl p-8 border border-gray-700 shadow-lg transition-all duration-300"
                 >
                   <div className="feature-icon mb-6 flex justify-center">
-                    <div className="text-4xl bg-gray-900 p-4 rounded-xl border border-gray-700 shadow-md">
+                    <div className="text-4xl  p-4 rounded-xl border border-gray-700 shadow-md">
                       {feature.icon}
                     </div>
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-4 text-center">{feature.title}</h3>
-                  <p className="text-gray-400 text-center">{feature.description}</p>
+                  <h3 className="text-xl font-bold text-black mb-4 text-center">{feature.title}</h3>
+                  <p className="text-gray-700 text-center">{feature.description}</p>
                 </div>
               ))}
             </div>

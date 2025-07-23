@@ -598,7 +598,7 @@ const SpiritsSection = () => {
         </div>
       </div>
       
-      <div className="md:hidden flex justify-center ml-7 relative bottom-10 space-x-2">
+      <div className="md:hidden flex justify-center  relative bottom-50 space-x-2">
         {spirits.map((_, index) => (
           <button
             key={index}

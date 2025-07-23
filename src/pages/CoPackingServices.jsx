@@ -68,6 +68,23 @@ const CoPackingServices = () => {
       }
     );
     
+    // Animate service points
+    gsap.fromTo('.service-point', 
+      { x: (index) => index % 2 === 0 ? -100 : 100, opacity: 0 },
+      {
+        x: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: '.services-grid',
+          start: "top 85%",
+          toggleActions: "play none none none",
+        },
+        stagger: 0.15
+      }
+    );
+    
     // Refresh ScrollTrigger after initial render
     ScrollTrigger.refresh();
     
@@ -120,11 +137,11 @@ const CoPackingServices = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black to-black">
+    <div className="min-h-screen ">
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 container mx-auto text-center animate-section relative">
+      <section className="pt-32 pb-20 px-4  mx-auto text-center animate-section relative">
         <div className="absolute inset-0 z-0">
-          <div className="bg-[url('/assets/hero.png')] bg-cover bg-center absolute inset-0 opacity-50"></div>
+          <div className="bg-[url('/assets/tdg-bg.png')] bg-cover bg-center absolute inset-0 opacity-90"></div>
           <div className="absolute inset-0 bg-gradient-to-b from-black via-black/0 to-black backdrop-blur-xs"></div>
         </div>
         
@@ -157,48 +174,63 @@ const CoPackingServices = () => {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section className="py-20 px-4 container mx-auto services-section animate-section relative">
-        <div className="absolute inset-0 z-0">
-          <div className="bg-[url('/assets/water.png')] absolute inset-0 opacity-40"></div>
-          <div className="absolute inset-0 backdrop-blur-xs "></div>
+      {/* Services Section (now containing all three subsections) */}
+      <section className="py-20 px-4 mx-auto services-section animate-section relative">
+        {/* Video Background for entire section */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <video 
+            autoPlay 
+            loop 
+            muted 
+            playsInline 
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src="/assets/bgvid.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <div className="absolute inset-0  backdrop-blur-2xl"></div>
         </div>
         
         <div className="relative z-10">
+          {/* Services Subsection */}
           <div className="text-center mb-16">
-            <div className="w-24 h-0.5 bg-transparent mx-auto mb-6 rounded-full"></div>
-            <h2 className="text-5xl font-bold text-white mb-4">Our Co-Packing Services</h2>
-            <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+            <div className="w-24 h-0.5 bg-gray-300 mx-auto mb-6 rounded-full"></div>
+            <h2 className="md:text-5xl text-4xl font-bold text-black mb-4">Our Co-Packing Services</h2>
+            <p className="text-gray-700 max-w-2xl mx-auto text-2xl">
               Comprehensive solutions tailored to meet the unique needs of craft and commercial spirits brands.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Animated Service Points */}
+          <div className="services-grid max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
               <div 
                 key={index}
-                className="backdrop-blur-xs rounded-2xl p-8 border border-gray-700 shadow-lg hover:shadow-xl transition-all duration-300 group relative overflow-hidden"
+                className="service-point bg-white bg-opacity-95 rounded-2xl p-8 border border-gray-300 shadow-lg hover:shadow-xl transition-all duration-300 group relative overflow-hidden"
               >
-                <div className="service-icon mb-6 flex justify-center">
-                  <div className="text-5xl bg-gray-950 p-4 rounded-xl border border-gray-700 shadow-md transform group-hover:scale-110 transition-transform duration-300">
-                    {service.icon}
+                <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-gray-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="relative z-10">
+                  <div className="service-icon mb-6 flex justify-center">
+                    <div className="text-5xl bg-gray-100 p-4 rounded-xl border border-gray-200 shadow-md transform group-hover:scale-110 transition-transform duration-300">
+                      {service.icon}
+                    </div>
                   </div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4 relative">
+                    {service.title}
+                    <div className="w-16 h-0.5 bg-gray-400 mt-3 rounded-full"></div>
+                  </h3>
+                  <p className="text-gray-700 relative">{service.description}</p>
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-4 relative">
-                  {service.title}
-                  <div className="w-16 h-0.5 bg-gray-400 mt-3 rounded-full"></div>
-                </h3>
-                <p className="text-gray-300 relative">{service.description}</p>
               </div>
             ))}
           </div>
-          
-          {/* Process Section */}
-          <div className="container mx-auto px-4 py-20 relative z-10 process-section">
+
+          {/* Process Subsection */}
+          <div className="pt-20 process-section">
             <div className="text-center mb-16">
-              <div className="w-24 h-0.5 bg-transparent mx-auto mb-6 rounded-full"></div>
-              <h2 className="text-5xl font-bold text-white mb-4">Our Seamless Process</h2>
-              <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+              <div className="w-24 h-0.5 bg-gray-300 mx-auto mb-6 rounded-full"></div>
+              <h2 className="md:text-5xl text-4xl font-bold text-black mb-4">Our Seamless Process</h2>
+              <p className="text-gray-700 max-w-2xl mx-auto text-2xl">
                 A streamlined approach ensuring quality, efficiency, and brand consistency at every step.
               </p>
             </div>
@@ -208,27 +240,28 @@ const CoPackingServices = () => {
                 {processSteps.map((step, index) => (
                   <div 
                     key={index}
-                    className="process-card backdrop-blur-lg rounded-2xl p-8 border border-gray-700 shadow-lg hover:shadow-xl transition-all duration-300 opacity-0"
+                    className="process-card bg-white bg-opacity-90 rounded-2xl p-8 border border-gray-300 shadow-lg hover:shadow-xl transition-all duration-300 opacity-0 group"
                   >
                     <div className="flex items-center mb-5">
-                      <div className="text-2xl bg-gray-950 p-3 rounded-xl border border-gray-700 mr-4">
+                      <div className="text-2xl bg-gray-100 p-3 rounded-xl border border-gray-200 mr-4">
                         {step.icon}
                       </div>
+                      <div className="text-xl font-bold text-gray-900">{step.title}</div>
                     </div>
-                    <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
-                    <p className="text-gray-300">{step.description}</p>
+                    <p className="text-gray-700 pl-14">{step.description}</p>
+                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 to-amber-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
                 ))}
               </div>
             </div>
           </div>
           
-          {/* Benefits Section */}
-          <div className="relative z-10">
+          {/* Benefits Subsection */}
+          <div className="pt-20">
             <div className="text-center mb-16">
-              <div className="w-24 h-0.5 mx-auto mb-6 rounded-full"></div>
-              <h2 className="text-4xl font-bold text-white mb-4">Why Distilleries Choose Us</h2>
-              <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+              <div className="w-24 h-0.5 bg-gray-300 mx-auto mb-6 rounded-full"></div>
+              <h2 className="text-4xl md:text-5xl font-bold text-black mb-4">Why Distilleries Choose Us</h2>
+              <p className="text-gray-700 max-w-2xl mx-auto text-2xl">
                 Partner with a co-packer that understands the premium spirits market.
               </p>
             </div>
@@ -260,17 +293,45 @@ const CoPackingServices = () => {
                   ].map((item, index) => (
                     <div 
                       key={index}
-                      className="flex items-start p-6 bg-transparent backdrop-blur-3xl rounded-2xl border border-gray-700 shadow-lg hover:shadow-xl transition-all duration-300"
+                      className="flex items-start p-6 bg-white bg-opacity-90 rounded-2xl border border-gray-300 shadow-lg hover:shadow-xl transition-all duration-300"
                     >
                       <div className="flex-shrink-0 mt-1 mr-5 text-3xl">
                         {item.icon}
                       </div>
                       <div>
-                        <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
-                        <p className="text-gray-300">{item.description}</p>
+                        <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
+                        <p className="text-gray-700">{item.description}</p>
                       </div>
                     </div>
                   ))}
+                </div>
+              </div>
+              
+              <div className="flex justify-center">
+                <div className="relative w-full max-w-lg">
+                  <div className="absolute inset-0 bg-gradient-to-br from-amber-500/20 to-amber-300/10 rounded-2xl transform rotate-6"></div>
+                  <div className="relative bg-white bg-opacity-95 border border-gray-300 rounded-2xl p-8 shadow-2xl">
+                    <div className="text-5xl text-amber-400 mb-6">✨</div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Craft Distillery Focused</h3>
+                    <p className="text-gray-700 mb-6">
+                      We specialize in working with craft distilleries, understanding the unique challenges and opportunities 
+                      in this growing market segment.
+                    </p>
+                    <ul className="space-y-3">
+                      {[
+                        "Minimum order quantities as low as 500 units",
+                        "Flexible scheduling for seasonal products",
+                        "Batch tracking for premium authenticity",
+                        "Dedicated brand manager for each client",
+                        "Transparent pricing with no hidden fees"
+                      ].map((item, index) => (
+                        <li key={index} className="flex items-start text-gray-700">
+                          <span className="text-amber-400 mr-2">✓</span>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
@@ -281,8 +342,8 @@ const CoPackingServices = () => {
       {/* CTA Section */}
       <section className="py-24 animate-section relative overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <div className="bg-[url('/assets/contact.png')] bg-cover bg-center absolute inset-0 opacity-30"></div>
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-900/5 to-black/95"></div>
+          <div className="bg-[url('/assets/contact.png')] bg-cover bg-center absolute inset-0 opacity-100"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-900/5 to-black/100"></div>
           <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/diagmonds.png')] opacity-20"></div>
         </div>
 
