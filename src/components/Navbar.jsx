@@ -11,7 +11,6 @@ const Navbar = () => {
   const navigate = useNavigate();
   const menuRef = useRef(null);
 
-  // Reset scroll position on route change
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
@@ -28,14 +27,13 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', checkIfDesktop);
     checkIfDesktop();
-    
-    // Prevent body scroll when menu is open
+
     if (menuOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';
     }
-    
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', checkIfDesktop);
@@ -44,15 +42,12 @@ const Navbar = () => {
   }, [menuOpen]);
 
   const scrollToSection = (sectionId) => {
-    // Navigate to homepage first if not already there
     if (location.pathname !== '/') {
       navigate('/', { 
         state: { scrollTo: sectionId },
         replace: true
       });
-    } 
-    // If already on homepage, scroll to section
-    else {
+    } else {
       const section = document.getElementById(sectionId);
       if (section) {
         section.scrollIntoView({ behavior: 'smooth' });
@@ -61,7 +56,6 @@ const Navbar = () => {
     setMenuOpen(false);
   };
 
-  // Navigation links data
   const navLinks = [
     { 
       id: 'hero',
@@ -72,7 +66,7 @@ const Navbar = () => {
     },
     { 
       id: 'product-section',
-      title: 'Our Spirits',
+      title: 'Our   Spirits',
       action: () => scrollToSection('product-section'),
       imgSrc: '/assets/bk4.jpg',
       subheading: 'Discover our collection'
@@ -100,7 +94,6 @@ const Navbar = () => {
     }
   ];
 
-  // Animated Link Component for Menu
   const AnimatedLink = ({ title, imgSrc, subheading, onClick }) => {
     const ref = useRef(null);
     const x = useMotionValue(0);
@@ -117,7 +110,6 @@ const Navbar = () => {
       const rect = ref.current.getBoundingClientRect();
       const mouseX = e.clientX - rect.left;
       const mouseY = e.clientY - rect.top;
-      
       const xPct = mouseX / rect.width - 0.5;
       const yPct = mouseY / rect.height - 0.5;
 
@@ -135,32 +127,9 @@ const Navbar = () => {
         className="group relative flex items-center justify-between border-b border-gray-700 py-4 md:py-5 transition-colors duration-500 hover:border-gray-400 cursor-pointer"
       >
         <div>
-          <motion.span
-            variants={{
-              initial: { x: 0 },
-              whileHover: { x: -16 },
-            }}
-            transition={{
-              type: "spring",
-              staggerChildren: 0.075,
-              delayChildren: 0.25,
-            }}
-            className="relative z-10 block text-xl md:text-2xl font-bold text-white transition-colors duration-500 group-hover:text-gray-200"
-          >
-            {title.split("").map((l, i) => (
-              <motion.span
-                variants={{
-                  initial: { x: 0 },
-                  whileHover: { x: 16 },
-                }}
-                transition={{ type: "spring" }}
-                className="inline-block"
-                key={i}
-              >
-                {l}
-              </motion.span>
-            ))}
-          </motion.span>
+          <span className="relative z-10 block text-xl md:text-2xl font-bold text-white transition-colors duration-500 group-hover:text-gray-200">
+            {title}
+          </span>
           <span className="relative z-10 mt-1 block text-xs md:text-sm text-gray-400 transition-colors duration-500 group-hover:text-gray-300">
             {subheading}
           </span>
@@ -204,19 +173,11 @@ const Navbar = () => {
   };
 
   return (
-    <nav 
-      className={`fixed w-full z-50 transition-all duration-500  ${
-        isScrolled 
-          ? 'bg-transparent py-4' 
-          : 'bg-transparent py-4'
-      }`}
-    >
+    <nav className={`fixed w-full z-50 transition-all duration-500 ${isScrolled ? 'bg-transparent py-4' : 'bg-transparent py-4'}`}>
       <div className="container mx-auto px-4 flex justify-between items-center relative bottom-5 md:bottom-0">
         <Link 
           to="/" 
-          className={`z-50 transition-opacity duration-300 ${
-            menuOpen && !isDesktop ? 'opacity-0' : 'opacity-100'
-          }`}
+          className={`z-50 transition-opacity duration-300 ${menuOpen && !isDesktop ? 'opacity-0' : 'opacity-100'}`}
           onClick={() => window.scrollTo(0, 0)}
         >
           <img 
@@ -225,8 +186,7 @@ const Navbar = () => {
             className="md:w-32 w-20 transition-all duration-300"
           />
         </Link>
-        
-        {/* Custom Menu Button with Images */}
+
         <motion.button 
           className="relative z-50 w-30 h-30 flex items-center justify-center group"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -260,8 +220,7 @@ const Navbar = () => {
           </AnimatePresence>
         </motion.button>
       </div>
-      
-      {/* Animated Menu */}
+
       <AnimatePresence>
         {menuOpen && (
           <motion.div 
@@ -285,9 +244,7 @@ const Navbar = () => {
               scale: isDesktop ? 0.95 : 1
             }}
             transition={{ duration: 0.4, ease: "easeInOut" }}
-            className={`fixed inset-0 z-40 flex flex-col ${
-              isDesktop ? 'left-auto w-[40%]' : ''
-            }`}
+            className={`fixed inset-0 z-40 flex flex-col ${isDesktop ? 'left-auto w-[40%]' : ''}`}
             style={{
               background: `
                 linear-gradient(rgba(5, 5, 10, 0.98), rgba(5, 5, 10, 0.98)),
@@ -306,14 +263,12 @@ const Navbar = () => {
                       className="h-14 w-14"
                     />
                     <div>
-                      <h2 className="text-white text-xl font-bold">
-                        TDG Spirits
-                      </h2>
+                      <h2 className="text-white text-xl font-bold">TDG</h2>
                       <p className="text-gray-500 text-xs">Premium Craft Distillery</p>
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="space-y-2 md:space-y-3">
                   {navLinks.map((link) => (
                     <AnimatedLink

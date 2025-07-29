@@ -470,7 +470,7 @@ const SpiritsSection = () => {
       className="bg-[#F4F4F4] m-0 py-6 md:py-16 overflow-x-hidden h-auto overflow-y-hidden" id="product-section"
       style={{ fontFamily: "Inter" }}
     >
-      <div className="text-center mb-6 md:mb-8 px-4">
+      <div className="text-center mt-20 md:mb-8 px-4">
         <h1 className="text-4xl md:text-5xl lg:text-5xl font-bold text-gray-900 mb-3 md:mb-4">
           Premium Spirits Collection
         </h1>
