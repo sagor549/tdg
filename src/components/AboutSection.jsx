@@ -6,11 +6,11 @@ export default function AboutSection() {
   return (
     <div className="bg-white">
       {/* Introductory Text Section */}
-      <div className="max-w-5xl mx-auto px-4 py-16 md:py-24 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold text-black mb-6">
+      <div className="max-w-5xl mx-auto px-4 py-12 md:py-24 text-center">
+        <h1 className="text-3xl md:text-5xl font-bold text-black mb-4 md:mb-6">
           Toronto Distillery Group
         </h1>
-        <p className="text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto">
+        <p className="text-lg md:text-2xl text-gray-700 max-w-3xl mx-auto">
           Crafting exceptional spirits with passion and precision, rooted in the heart of Canada.
         </p>
       </div>
@@ -35,7 +35,6 @@ export default function AboutSection() {
         <AboutContent 
           title="Elite spirits collection" 
           description="Today, our flagship Brass Knuckles Canadian Whiskey – Master Select leads a portfolio of elite, handcrafted spirits: GOAT Vodka, Born Naked Raw Gin. Each reflects our commitment to quality, character, and our Toronto roots."
-         
         />
       </TextParallaxContent>
 
@@ -47,25 +46,22 @@ export default function AboutSection() {
         <AboutContent 
           title="Community commitment" 
           description="We've supported good causes since day one. As we grow, so does our impact. Giving back isn't a side project—it's core to our mission. From local sponsorships to national initiatives, we'll do whatever it takes for communities that stand with us."
-        
         />
       </TextParallaxContent>
       
       {/* Closing Statement */}
-      <div className="mx-auto max-w-5xl px-4 py-16 md:py-24 text-center">
-        <p className="text-4xl font-bold text-black">This is Toronto Distillery Group.</p>
-        <p className="mt-4 text-2xl text-gray-900">Rooted in craft. Driven by purpose. Proudly Canadian.</p>
+      <div className="mx-auto max-w-5xl px-4 py-12 md:py-24 text-center">
+        <p className="text-3xl md:text-4xl font-bold text-black">This is Toronto Distillery Group.</p>
+        <p className="mt-4 text-xl md:text-2xl text-gray-900">Rooted in craft. Driven by purpose. Proudly Canadian.</p>
       </div>
     </div>
   );
 }
 
-const IMG_PADDING = 12;
-
 const TextParallaxContent = ({ imgUrl, subheading, heading, children }) => {
   return (
-    <div className="mb-8" style={{ paddingLeft: IMG_PADDING, paddingRight: IMG_PADDING }}>
-      <div className="relative h-[100vh]">
+    <div className="mb-4 md:mb-8 px-4 md:px-12">
+      <div className="relative h-[40vh] md:h-[60vh]">
         <StickyImage imgUrl={imgUrl} />
         <OverlayCopy heading={heading} subheading={subheading} />
       </div>
@@ -90,12 +86,10 @@ const StickyImage = ({ imgUrl }) => {
         backgroundImage: `url(${imgUrl})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        height: `calc(100vh - ${IMG_PADDING * 2}px)`,
-        top: IMG_PADDING,
         scale,
       }}
       ref={targetRef}
-      className="sticky z-0 overflow-hidden rounded-3xl"
+      className="sticky z-0 overflow-hidden rounded-xl md:rounded-3xl h-full w-full"
     >
       <motion.div
         className="absolute inset-0 bg-neutral-950/70"
@@ -112,38 +106,32 @@ const OverlayCopy = ({ subheading, heading }) => {
     offset: ["start end", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [150, -150]);
+  const y = useTransform(scrollYProgress, [0, 1], [80, -80]);
   const opacity = useTransform(scrollYProgress, [0.25, 0.5, 0.75], [0, 1, 0]);
 
   return (
     <motion.div
       style={{ y, opacity }}
       ref={targetRef}
-      className="absolute left-0 top-0 flex h-screen w-full flex-col items-center justify-center text-white"
+      className="absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center text-white px-4"
     >
-      <p className="mb-2 text-center text-xl md:mb-4 md:text-3xl">
+      <p className="mb-1 text-center text-lg md:mb-2 md:text-xl">
         {subheading}
       </p>
-      <p className="text-center text-4xl font-bold md:text-7xl">{heading}</p>
+      <p className="text-center text-2xl font-bold md:text-5xl">{heading}</p>
     </motion.div>
   );
 };
 
-const AboutContent = ({ title, description, buttonText }) => (
-  <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 px-4 pb-12 pt-8 md:grid-cols-12 md:pt-12">
-    <h2 className="col-span-1 text-3xl font-bold md:col-span-4 text-black">
+const AboutContent = ({ title, description }) => (
+  <div className="mx-auto max-w-5xl grid grid-cols-1 gap-4 px-4 py-6 md:grid-cols-12 md:gap-6 md:py-12">
+    <h2 className="col-span-1 text-xl font-bold md:col-span-4 md:text-3xl text-black">
       {title}
     </h2>
     <div className="col-span-1 md:col-span-8">
-      <p className="mb-6 text-xl text-neutral-600 md:text-2xl">
+      <p className="text-base text-neutral-600 md:text-xl">
         {description}
       </p>
-      {buttonText && (
-        <button className="flex items-center gap-2 text-lg font-semibold text-black hover:underline">
-          {buttonText}
-          <FiArrowUpRight />
-        </button>
-      )}
     </div>
   </div>
 );

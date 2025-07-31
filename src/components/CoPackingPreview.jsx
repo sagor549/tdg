@@ -70,10 +70,10 @@ const CoPackingPreview = () => {
   }, []);
 
   const services = [
-    { icon: '/assets/bot2.png', title: 'Bottling' },
-    { icon: '/assets/lab1.png', title: 'Labeling' },
-    { icon: '/assets/pack.png', title: 'Packaging' },
-    { icon: '/assets/logistics.png', title: 'Logistics' },
+    { icon: '/assets/bot_icons.png', title: 'Bottling' },
+    { icon: '/assets/lab_icon.png', title: 'Labeling' },
+    { icon: '/assets/pack_icon.png', title: 'Packaging' },
+    { icon: '/assets/logs.png', title: 'Logistics' },
   ];
 
   return (
@@ -107,7 +107,7 @@ const CoPackingPreview = () => {
         </div>
 
         {/* Bottom flex row */}
-        <div className="flex flex-col lg:flex-row gap-12 items-center">
+        <div className="flex flex-col lg:flex-row gap- items-center">
           {/* Left content */}
           <div 
             ref={contentRef}
@@ -129,8 +129,8 @@ const CoPackingPreview = () => {
           </div>
           
           {/* Right icons */}
-          <div className="flex-1">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className=" relative left-0 md:left-26">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {services.map((service, index) => (
                 <div 
                   key={index}
@@ -141,10 +141,10 @@ const CoPackingPreview = () => {
                     <img 
                       src={service.icon} 
                       alt={service.title}
-                      className="w-26 h-26 object-contain"
+                     className="w-full max-w-[120px] h-auto object-cover"
                     />
                   </div>
-                  <div className="text-white font-bold tracking-wide">{service.title}</div>
+                 
                 </div>
               ))}
             </div>

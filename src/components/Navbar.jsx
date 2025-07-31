@@ -1,3 +1,4 @@
+// Navbar.js
 import { useMotionValue, motion, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -50,7 +51,14 @@ const Navbar = () => {
     } else {
       const section = document.getElementById(sectionId);
       if (section) {
-        section.scrollIntoView({ behavior: 'smooth' });
+        // Calculate position accounting for navbar height
+        const navbarHeight = document.querySelector('nav')?.offsetHeight || 0;
+        const targetPosition = section.offsetTop - navbarHeight;
+        
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
       }
     }
     setMenuOpen(false);
@@ -174,7 +182,7 @@ const Navbar = () => {
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-500 ${isScrolled ? 'bg-transparent py-4' : 'bg-transparent py-4'}`}>
-      <div className="container mx-auto px-4 flex justify-between items-center relative bottom-5 md:bottom-0">
+      <div className="container mx-auto px-4 flex justify-between items-center">
         <Link 
           to="/" 
           className={`z-50 transition-opacity duration-300 ${menuOpen && !isDesktop ? 'opacity-0' : 'opacity-100'}`}
@@ -199,7 +207,7 @@ const Navbar = () => {
                 key="close"
                 src="/assets/x.png"
                 alt="Close menu"
-                className="w-17 h-16 relative bottom-0 md:bottom-5"
+                className="w-17 h-16"
                 initial={{ opacity: 0, rotate: -90 }}
                 animate={{ opacity: 1, rotate: 0 }}
                 exit={{ opacity: 0, rotate: 90 }}

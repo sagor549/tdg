@@ -197,7 +197,7 @@ const SpiritsSection = () => {
   };
 
   const handleNext = () => {
-    // ... (same as before)
+    
     if (isAnimating || showDetail) return;
     setIsAnimating(true);
     
@@ -257,7 +257,7 @@ const SpiritsSection = () => {
   };
 
   const handlePrev = () => {
-    // ... (same as before)
+  
 
      if (isAnimating || showDetail) return;
     setIsAnimating(true);
@@ -465,12 +465,13 @@ const SpiritsSection = () => {
     setIsAnimating(false);
   };
 
+
   return (
     <div
-      className="bg-[#F4F4F4] m-0 py-6 md:py-16 overflow-x-hidden h-auto overflow-y-hidden" id="product-section"
+      className="bg-[#F4F4F4]  py- md:py-16 overflow-x-hidden h-auto overflow-y-hidden" id="product-section"
       style={{ fontFamily: "Inter" }}
     >
-      <div className="text-center mb-6 mt-20 md:mb-8 px-4">
+      <div className="text-center mb-6 mt-10 md:mb-8 px-4">
         <h1 className="text-4xl md:text-5xl lg:text-5xl font-bold text-gray-900 mb-3 md:mb-4">
           Premium Spirits Collection
         </h1>
@@ -497,7 +498,7 @@ const SpiritsSection = () => {
               >
                 <div className="flex flex-col md:flex-row items-center md:items-start h-full">
                   {(windowWidth >= 768 || !showDetail) && (
-                    <div className="w-full md:w-[55%] h-[350px]  flex items-center justify-center mb-4 md:mb-0">
+                    <div className="w-full md:w-[55%] h-[350px] flex items-center justify-center mb-4 md:mb-0">
                       <img 
                         src={spirit.img} 
                         alt={spirit.title}
@@ -522,11 +523,11 @@ const SpiritsSection = () => {
                   </div>
                   
                   <div 
-                    className={`detail-content opacity-0 pointer-events-none w-full md:w-1/2 md:absolute md:right-0 ${windowWidth < 768 ? 'top-0 h-full' : 'top-1/2 md:-translate-y-1/2'} bg-transparent p-1 md:p-6 lg:p-8 flex flex-col`}
-                    style={{ touchAction: 'pan-y' }} // Enable native scrolling
+                    className={`detail-content opacity-0  pointer-events-none w-full md:w-1/2 md:absolute md:right-0 ${windowWidth < 768 ? 'top-0 h-full' : 'top-1/2 md:-translate-y-1/2'} bg-transparent p-1 md:p-6 lg:p-8 flex flex-col`}
+                    style={{ touchAction: 'pan-y' }}
                   >
                     {showDetail && windowWidth < 768 && (
-                      <div className="w-full flex-shrink-0 flex justify-center mb-4">
+                      <div className="w-full flex-shrink-0 flex justify-center ">
                         <img 
                           src={spirit.img} 
                           alt={spirit.title}
@@ -536,7 +537,7 @@ const SpiritsSection = () => {
                     )}
                     <div 
                       className="overflow-y-auto flex-grow pr-2"
-                      style={{ WebkitOverflowScrolling: 'touch' }} // Smooth iOS scrolling
+                      style={{ WebkitOverflowScrolling: 'touch' }}
                     >
                       <div className="text-xl md:text-2xl lg:text-3xl detail-animate font-bold mb-1 md:mb-4 text-gray-900">
                         {spirit.title}
@@ -572,24 +573,29 @@ const SpiritsSection = () => {
           })}
         </div>
         
-        <div className="absolute bottom-4 md:bottom-6 w-[90%] max-w-[1140px] flex justify-between left-1/2 -translate-x-1/2 px-4">
+        {/* Updated Navigation Buttons - Positioned beside bottles */}
+        <div className="absolute top-1/4 left-0 w-full -translate-y-1/2 flex justify-between px-4 z-20">
           <button 
             onClick={handlePrev}
-            className="prev-btn w-15 h-15 md:w-16 md:h-16 rounded-full font-mono border border-gray-300 text-lg bg-black text-white hover:bg-gray-800 transition-colors flex items-center justify-center relative bottom-60 ml-7 md:bottom-30 md:ml-20"
+            className="prev-btn w-12 h-12 md:w-16 md:h-16 rounded-full font-mono border border-gray-300 text-lg bg-black text-white hover:bg-gray-800 transition-colors flex items-center justify-center relative left-0 md:left-35 top-0 md:top-30"
             aria-label="Previous product"
           >
             &lt;
           </button>
           <button 
             onClick={handleNext}
-            className="next-btn w-15 h-15 md:w-16 md:h-16 rounded-full font-mono border border-gray-300 text-lg bg-black text-white hover:bg-gray-800 transition-colors flex items-center justify-center relative bottom-60 mr-7 md:bottom-30 md:mr-20"
+            className="next-btn w-12 h-12 md:w-16 md:h-16 rounded-full font-mono border border-gray-300 text-lg bg-black text-white hover:bg-gray-800 transition-colors flex items-center justify-center relative right-0 md:right-35 top-0 md:top-30"
             aria-label="Next product"
           >
             &gt;
           </button>
+        </div>
+        
+        {/* Back Button */}
+        <div className="absolute bottom-24 md:bottom-6 w-[90%] max-w-[1140px] flex justify-center left-1/2 -translate-x-1/2 px-4">
           <button 
             onClick={handleBack}
-            className={`back-btn absolute z-[100] bottom-20 left-1/2 -translate-x-1/2 bg-white md:text-gray-900 font-[Poppins] font-bold tracking-[3px] px-4 py-2 opacity-0 border border-gray-300 hover:bg-gray-100 transition-colors text-xs md:text-sm md:bottom-16 text-gray-600 ${
+            className={`back-btn z-[100] bg-white md:text-gray-900 font-[Poppins] font-bold tracking-[3px] px-4 py-2 opacity-0 border border-gray-300 hover:bg-gray-100 transition-colors text-xs md:text-sm text-gray-600 ${
               showDetail && windowWidth < 768 ? 'fixed bottom-4' : ''
             }`}
           >
@@ -598,7 +604,8 @@ const SpiritsSection = () => {
         </div>
       </div>
       
-      <div className="md:hidden flex justify-center  relative bottom-50 space-x-2">
+      {/* Mobile Indicators */}
+      <div className="md:hidden flex justify-center relative bottom-50 space-x-2">
         {spirits.map((_, index) => (
           <button
             key={index}
