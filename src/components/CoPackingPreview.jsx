@@ -70,36 +70,35 @@ const CoPackingPreview = () => {
   }, []);
 
   const services = [
-    { icon: '/assets/bot_icons.png', title: 'Bottling' },
-    { icon: '/assets/lab_icon.png', title: 'Labeling' },
-    { icon: '/assets/pack_icon.png', title: 'Packaging' },
-    { icon: '/assets/logs.png', title: 'Logistics' },
+    { icon: '/assets/bot.png', title: 'Bottling' },
+    { icon: '/assets/lab.png', title: 'Labeling' },
+    { icon: '/assets/pack.png', title: 'Packaging' },
+    { icon: '/assets/logi.png', title: 'Logistics' },
   ];
 
   return (
     <section 
       ref={sectionRef}
       className="relative py-24 px-4 bg-cover bg-center"
-     style={{
-  backgroundImage: ` url('/assets/apbg.jpeg')`,
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
-  backgroundRepeat: 'no-repeat'
-}}
-
+      style={{
+        backgroundImage: `url('/assets/apbg.jpeg')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
     >
       <div className="container mx-auto max-w-6xl relative z-10">
         {/* Top centered header and description */}
         <div className="text-center mb-16">
           <h2 
             ref={headerRef}
-            className="text-4xl md:text-5xl font-bold text-white mb-6  opacity-0"
+            className="text-4xl md:text-5xl font-bold text-white mb-6 opacity-0"
           >
             Premium Co-Packing Solutions
           </h2>
           <p 
             ref={descRef}
-            className="text-2xl text-gray-200 max-w-3xl mx-auto opacity-0 "
+            className="text-2xl text-gray-200 max-w-3xl mx-auto opacity-0"
           >
             From small craft batches to large commercial runs, we provide world-class co-packing solutions for premium spirits brands. 
             Our state-of-the-art facility ensures precision and quality at every step of the production process.
@@ -107,13 +106,13 @@ const CoPackingPreview = () => {
         </div>
 
         {/* Bottom flex row */}
-        <div className="flex flex-col lg:flex-row gap- items-center">
+        <div className="flex flex-col lg:flex-row items-center gap-12">
           {/* Left content */}
           <div 
             ref={contentRef}
             className="flex-1 opacity-0"
           >
-            <p className="text-gray-200 mb-6  text-2xl">
+            <p className="text-gray-200 mb-6 text-2xl">
               With ISO-certified processes and industry-leading technology, we maintain the highest standards while optimizing your production costs.
             </p>
             <p className="text-gray-200 mb-8 text-2xl">
@@ -121,30 +120,32 @@ const CoPackingPreview = () => {
             </p>
             <Link 
               to="/co-packing-services" 
-              className="inline-block bg-white text-gray-900 py-3 px-8 font-bold tracking-wider  hover:bg-black hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              className="inline-block bg-white text-gray-900 py-3 px-8 font-bold tracking-wider hover:bg-black hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               onClick={() => window.scrollTo(0, 0)}
             >
               Explore Our Services
             </Link>
           </div>
           
-          {/* Right icons */}
-          <div className=" relative left-0 md:left-26">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {/* Right icons - Fixed size and added titles */}
+          <div className="w-full lg:w-auto">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {services.map((service, index) => (
                 <div 
                   key={index}
                   ref={el => iconRefs.current[index] = el}
-                  className="  p-6 text-center shadow-xl hover:bg-opacity-20 transition-all duration-300 opacity-0 transform"
+                  className="flex flex-col items-center opacity-0 transform"
                 >
-                  <div className="flex justify-center mb-3">
+                  <div className="w-32 h-32 mb-4 flex items-center justify-center p-4 bg-white bg-opacity-10 rounded-xl backdrop-blur-sm transition-all duration-300 hover:bg-opacity-20">
                     <img 
                       src={service.icon} 
                       alt={service.title}
-                     className="w-full max-w-[120px] h-auto object-cover"
+                      className="max-h-20 max-w-20 object-contain"
                     />
                   </div>
-                 
+                  <h3 className="text-xl font-semibold text-white text-center">
+                    {service.title}
+                  </h3>
                 </div>
               ))}
             </div>

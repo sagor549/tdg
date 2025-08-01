@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import AlcoholBrandCreation from './pages/AlcoholBrandCreation';
 import CoPackingServices from './pages/CoPackingServices';
 import Contact from './pages/Contact';
+import Foo from './components/Foo';
 
 function App() {
   useEffect(() => {
@@ -39,6 +40,7 @@ function App() {
         <section className='relative  md:bottom-0'>
         <Footer />
         </section>
+       
       </div>
     </Router>
   );

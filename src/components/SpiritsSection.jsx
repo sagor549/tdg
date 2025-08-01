@@ -172,11 +172,11 @@ const SpiritsSection = () => {
     ];
     
     const desktopPositions = [
-      { x: "-100%", y: "-5%", scale: 1.5, filter: "blur(30px)", zIndex: 1, opacity: 0 },
+      { x: "-100%", y: "-5%", scale: 1.5, filter: "blur(50px)", zIndex: 1, opacity: 0 },
       { x: "0%", y: "0%", scale: 1, filter: "blur(0px)", zIndex: 10, opacity: 1 },
-      { x: "50%", y: "10%", scale: 0.8, filter: "blur(10px)", zIndex: 9, opacity: 1 },
-      { x: "90%", y: "20%", scale: 0.5, filter: "blur(30px)", zIndex: 8, opacity: 1 },
-      { x: "120%", y: "30%", scale: 0.3, filter: "blur(40px)", zIndex: 7, opacity: 0 }
+      { x: "50%", y: "10%", scale: 0.8, filter: "blur(20px)", zIndex: 9, opacity: 0.5 },
+      { x: "90%", y: "20%", scale: 0.5, filter: "blur(50px)", zIndex: 8, opacity: 0.5 },
+      { x: "120%", y: "30%", scale: 0.3, filter: "blur(60px)", zIndex: 7, opacity: 0 }
     ];
     
     const positions = isMobile ? mobilePositions : desktopPositions;

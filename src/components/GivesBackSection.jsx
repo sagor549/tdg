@@ -47,21 +47,21 @@ const GivesBackSection = () => {
 
   const initiatives = [
     {
-      icon: '/assets/sus1.gif',
+      icon: '/assets/sus.png',
       title: 'Sustainability',
       description:
         'Reducing environmental impact through sustainable practices and renewable energy initiatives',
       color: 'text-emerald-600',
     },
     {
-      icon: '/assets/com.gif',
+      icon: '/assets/com.png',
       title: 'Community',
       description:
         'Supporting local organizations, education programs, and community development',
       color: 'text-blue-600',
     },
     {
-      icon: '/assets/soli.gif',
+      icon: '/assets/web.png',
       title: 'Causes',
       description:
         'Partnering with national charities focused on health, equality, and social justice',
