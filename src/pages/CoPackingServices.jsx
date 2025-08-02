@@ -142,7 +142,7 @@ const CoPackingServices = () => {
       <section className="pt-32 pb-20 px-4  mx-auto text-center animate-section relative">
         <div className="absolute inset-0 z-0">
           <div className="bg-[url('/assets/tdg-bg.png')] bg-cover bg-center absolute inset-0 opacity-90"></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-black via-black/0 to-black backdrop-blur-xs"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black via-black/40 to-black backdrop-blur-xs"></div>
         </div>
         
         <div className="relative z-10 max-w-4xl mx-auto">
@@ -152,7 +152,7 @@ const CoPackingServices = () => {
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
             Crafted to Perfection, <br className="hidden md:block" /> Bottled for Distinction
           </h1>
-          <p className="text-gray-300 text-xl max-w-3xl mx-auto leading-relaxed">
+          <p className="text-gray-300 text-2xl max-w-3xl mx-auto leading-relaxed">
             From small craft batches to large commercial runs, we provide world-class co-packing solutions for premium spirits brands.
           </p>
           

@@ -98,7 +98,7 @@ const BrandCreationPreview = () => {
                 <div
                   key={feature.title}
                   ref={el => featureRefs.current[index] = el}
-                  className="opacity-0 p-6 bg-white/10 rounded-lg border border-white/20 backdrop-blur-sm hover:shadow-lg transition-all duration-300"
+                  className="opacity-0 p-6 bg-white/70 rounded-lg border border-white/20 backdrop-blur-sm hover:shadow-lg transition-all duration-300"
                 >
                   <div className="flex items-start">
                     <div className="mr-4 mt-1">
@@ -107,8 +107,8 @@ const BrandCreationPreview = () => {
                       </div>
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                      <p className="text-black/80">{feature.desc}</p>
+                      <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+                      <p className="text-black/80 text-lg">{feature.desc}</p>
                     </div>
                   </div>
                 </div>

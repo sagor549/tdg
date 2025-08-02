@@ -136,7 +136,7 @@ const CoPackingPreview = () => {
                   ref={el => iconRefs.current[index] = el}
                   className="flex flex-col items-center opacity-0 transform"
                 >
-                  <div className="w-32 h-32 mb-4 flex items-center justify-center p-4 bg-white bg-opacity-10 rounded-xl backdrop-blur-sm transition-all duration-300 hover:bg-opacity-20">
+                  <div className="w-32 h-32 mb-4 flex items-center justify-center p-4  rounded-xl backdrop-blur-xs transition-all duration-300 hover:bg-opacity-20">
                     <img 
                       src={service.icon} 
                       alt={service.title}

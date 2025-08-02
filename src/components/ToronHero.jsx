@@ -127,13 +127,13 @@ const SpiritsSection = () => {
       <div className="relative z-20 mx-auto max-w-6xl px-4 py-28 md:py-32 min-h-screen flex flex-col justify-center">
         {/* Centered heading */}
         <motion.h1
-          initial={{ y: 48, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ ease: "easeInOut", duration: 0.75 }}
-          className="mb-8 text-3xl font-black uppercase tracking-wide text-white text-center md:text-5xl lg:text-6xl xl:text-7xl"
-        >
-          Distilled in Toronto<br />Poured Worldwide
-        </motion.h1>
+  initial={{ y: 48, opacity: 0 }}
+  whileInView={{ y: 0, opacity: 1 }}
+  transition={{ ease: "easeInOut", duration: 0.75 }}
+  className="mb-8 text-3xl font-black uppercase tracking-wide text-white text-center md:text-5xl lg:text-6xl xl:text-7xl"
+>
+  Distilled in <span className="text-[#9E551D]">Toronto</span><br />Poured <span className="text-[#9E551D]">Worldwide</span>
+</motion.h1>
         
         {/* Bottle images - mobile view */}
         <motion.div 

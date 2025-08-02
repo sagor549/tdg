@@ -336,7 +336,7 @@ const SpiritsSection = () => {
     
     if (windowWidth >= 768) {
       gsap.to(".active-item img", {
-        right: "50%",
+        right: "70%",
         opacity: 1,
         duration: 1
       });
@@ -577,14 +577,14 @@ const SpiritsSection = () => {
         <div className="absolute top-1/4 left-0 w-full -translate-y-1/2 flex justify-between px-4 z-20">
           <button 
             onClick={handlePrev}
-            className="prev-btn w-12 h-12 md:w-16 md:h-16 rounded-full font-mono border border-gray-300 text-lg bg-black text-white hover:bg-gray-800 transition-colors flex items-center justify-center relative left-0 md:left-35 top-0 md:top-30"
+            className="prev-btn w-12 h-12 md:w-16 md:h-16 rounded-full font-mono border border-gray-300 text-lg bg-black text-white hover:bg-gray-800 transition-colors flex items-center justify-center relative left-0 md:left-15 top-0 md:top-30"
             aria-label="Previous product"
           >
             &lt;
           </button>
           <button 
             onClick={handleNext}
-            className="next-btn w-12 h-12 md:w-16 md:h-16 rounded-full font-mono border border-gray-300 text-lg bg-black text-white hover:bg-gray-800 transition-colors flex items-center justify-center relative right-0 md:right-35 top-0 md:top-30"
+            className="next-btn w-12 h-12 md:w-16 md:h-16 rounded-full font-mono border border-gray-300 text-lg bg-black text-white hover:bg-gray-800 transition-colors flex items-center justify-center relative right-0 md:right-15 top-0 md:top-30"
             aria-label="Next product"
           >
             &gt;
@@ -592,7 +592,7 @@ const SpiritsSection = () => {
         </div>
         
         {/* Back Button */}
-        <div className="absolute bottom-24 md:bottom-6 w-[90%] max-w-[1140px] flex justify-center left-1/2 -translate-x-1/2 px-4">
+        <div className="absolute bottom-24 md:bottom-38 w-[90%] max-w-[1140px] flex justify-center left-1/2 -translate-x-1/2 px-4">
           <button 
             onClick={handleBack}
             className={`back-btn z-[100] bg-white md:text-gray-900 font-[Poppins] font-bold tracking-[3px] px-4 py-2 opacity-0 border border-gray-300 hover:bg-gray-100 transition-colors text-xs md:text-sm text-gray-600 ${
